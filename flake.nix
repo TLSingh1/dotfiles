@@ -20,6 +20,14 @@
 		ghostty = {
 			url = "github:ghostty-org/ghostty";
 		};
+		ags = {
+			url = "github:aylur/ags";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		astal = {
+			url = "github:aylur/astal";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = inputs@{ nixpkgs, home-manager, ... }: {
