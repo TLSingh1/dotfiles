@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Helper script to clone work repositories
+
+if [ $# -eq 0 ]; then
+  echo "Usage: git-clone-work <repository-url> [directory]"
+  echo "Example: git-clone-work TLSingh0/work-repo"
+  exit 1
+fi
+
+REPO="$1"
+# Convert GitHub repo format to SSH format for work account
+if [[ "$REPO" =~ ^[^/]+/[^/]+$ ]]; then
+  REPO="git@github-work:$REPO.git"
+elif [[ "$REPO" =~ ^https://github\.com/([^/]+/[^/]+) ]]; then
+  REPO="git@github-work:${BASH_REMATCH[1]}.git"
+fi
+
+git clone "$REPO" "$2" 

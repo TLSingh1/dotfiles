@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Helper script to clone personal repositories
+
+if [ $# -eq 0 ]; then
+  echo "Usage: git-clone-personal <repository-url> [directory]"
+  echo "Example: git-clone-personal TLSingh1/my-repo"
+  exit 1
+fi
+
+REPO="$1"
+# Convert GitHub repo format to SSH format for personal account
+if [[ "$REPO" =~ ^[^/]+/[^/]+$ ]]; then
+  REPO="git@github-personal:$REPO.git"
+elif [[ "$REPO" =~ ^https://github\.com/([^/]+/[^/]+) ]]; then
+  REPO="git@github-personal:${BASH_REMATCH[1]}.git"
+fi
+
+git clone "$REPO" "$2" 
