@@ -20,24 +20,22 @@ export default function StatusBar() {
     return `${day}/${month}`;
   };
 
-  // Workspace widget
+  // Workspace widget - fixed 1-10 workspaces
   const Workspaces = () => {
+    const workspaceNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
+    
     return (
       <box className="workspaces" vertical>
-        {bind(hypr, "workspaces").as((wss) =>
-          wss
-            .sort((a, b) => a.id - b.id)
-            .map((ws) => (
-              <button
-                className={bind(hypr, "focusedWorkspace").as((fw) =>
-                  ws === fw ? "workspace active" : "workspace"
-                )}
-                onClicked={() => ws.focus()}
-              >
-                {ws.id}
-              </button>
-            ))
-        )}
+        {workspaceNumbers.map((id) => (
+          <button
+            className={bind(hypr, "focusedWorkspace").as((fw) =>
+              fw?.id === id ? "workspace active" : "workspace"
+            )}
+            onClicked={() => hypr.dispatch("workspace", id.toString())}
+          >
+            {id}
+          </button>
+        ))}
       </box>
     );
   };
@@ -51,26 +49,26 @@ export default function StatusBar() {
       layer={Astal.Layer.TOP}
       application={App}
     >
-      <centerbox
+      <box
         className="bar-container"
         vertical
         orientation={Gtk.Orientation.VERTICAL}
       >
         {/* Top section: Logo + Workspaces */}
         <box className="top-section" vertical>
-          <label className="logo" label="󰣇" />
+          <label className="logo" label="󱄅" />
           <Workspaces />
         </box>
 
-        {/* Center section: Empty for now */}
-        <box />
+        {/* Spacer to push clock to bottom */}
+        <box vexpand />
 
         {/* Bottom section: Clock */}
         <box className="bottom-section" vertical>
           <label className="time" label={bind(time).as(formatTime)} />
           <label className="date" label={bind(time).as(formatDate)} />
         </box>
-      </centerbox>
+      </box>
     </window>
   );
 }

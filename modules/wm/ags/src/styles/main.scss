@@ -1,30 +1,43 @@
 // Variables
-$bg-color: rgba(#1a1b26, 0.95);
+$bg-color: rgba(#0f0f14, 0.85);
+$bg-secondary: rgba(#1a1b26, 0.6);
 $fg-color: #c0caf5;
 $accent-color: #7aa2f7;
+$accent-hover: #89b4fa;
+$accent-glow: #5d7dd8;
 $border-radius: 12px;
 $padding: 16px;
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 // Global styles
 window {
     background-color: transparent;
     color: $fg-color;
+    font-family: "Inter", "Noto Sans", sans-serif;
 }
 
 // Clock widget styles
 .Clock {
     .clock-container {
-        background-color: $bg-color;
+        background: linear-gradient(135deg, $bg-color 0%, rgba(#1a1b26, 0.9) 100%);
+        backdrop-filter: blur(20px);
         border-radius: $border-radius;
         padding: $padding;
         margin: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.05);
         
         .time {
             font-size: 48px;
-            font-weight: 300;
+            font-weight: 200;
             font-family: "JetBrains Mono", monospace;
-            color: $accent-color;
+            background: linear-gradient(135deg, $accent-color, $accent-hover);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba($accent-color, 0.5);
         }
         
         .date {
@@ -33,6 +46,7 @@ window {
             color: $fg-color;
             opacity: 0.8;
             margin-top: 8px;
+            letter-spacing: 0.5px;
         }
     }
 }
@@ -40,58 +54,130 @@ window {
 // StatusBar widget styles
 .StatusBar {
     .bar-container {
-        background-color: $bg-color;
-        min-width: 60px;
+        background: linear-gradient(180deg, $bg-color 0%, rgba(#0f0f14, 0.95) 100%);
+        backdrop-filter: blur(20px);
+        min-width: 80px;
         padding: $padding 0;
+        box-shadow: 
+            0 0 20px rgba(0, 0, 0, 0.5),
+            inset -1px 0 0 rgba(255, 255, 255, 0.05);
+        border-right: 1px solid rgba(255, 255, 255, 0.02);
     }
     
     .top-section {
         padding: 0 $padding;
         
         .logo {
-            font-size: 24px;
-            color: $accent-color;
-            margin-bottom: 20px;
+            font-size: 36px;
+            background: linear-gradient(135deg, $accent-color, $accent-hover);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 32px;
+            filter: drop-shadow(0 0 20px rgba($accent-color, 0.4));
+            animation: pulse 3s ease-in-out infinite;
         }
         
         .workspaces {
             .workspace {
                 all: unset;
-                width: 28px;
-                height: 28px;
-                margin: 4px 0;
-                border-radius: 8px;
-                background-color: rgba($fg-color, 0.1);
-                font-size: 14px;
-                color: $fg-color;
+                width: 48px;
+                height: 48px;
+                margin: 6px 0;
+                border-radius: 14px;
+                background: linear-gradient(135deg, 
+                    rgba($fg-color, 0.05) 0%, 
+                    rgba($fg-color, 0.08) 100%);
+                font-size: 15px;
+                font-weight: 500;
+                color: rgba($fg-color, 0.7);
+                transition: $transition;
+                position: relative;
+                overflow: hidden;
+                border: 1px solid rgba($fg-color, 0.05);
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: radial-gradient(
+                        circle at center,
+                        rgba($accent-color, 0.2) 0%,
+                        transparent 70%
+                    );
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
                 
                 &.active {
-                    background-color: $accent-color;
+                    background: linear-gradient(135deg, $accent-color, $accent-hover);
                     color: $bg-color;
+                    font-weight: 700;
+                    box-shadow: 
+                        0 4px 12px rgba($accent-color, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                    transform: scale(1.05);
+                    border-color: transparent;
+                    
+                    &::before {
+                        opacity: 1;
+                    }
                 }
                 
                 &:hover:not(.active) {
-                    background-color: rgba($fg-color, 0.2);
+                    background: linear-gradient(135deg, 
+                        rgba($fg-color, 0.1) 0%, 
+                        rgba($fg-color, 0.15) 100%);
+                    color: $fg-color;
+                    cursor: pointer;
+                    transform: scale(1.02);
+                    border-color: rgba($accent-color, 0.3);
+                }
+                
+                &:active:not(.active) {
+                    transform: scale(0.98);
                 }
             }
         }
     }
     
     .bottom-section {
-        padding: 0 $padding;
+        padding: $padding;
+        background: $bg-secondary;
+        border-radius: 16px 16px 0 0;
+        margin: 0 8px;
+        box-shadow: 
+            0 -4px 12px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
         
         .time {
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 24px;
+            font-weight: 600;
             font-family: "JetBrains Mono", monospace;
             color: $fg-color;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba($fg-color, 0.3);
         }
         
         .date {
             font-size: 14px;
-            color: $fg-color;
-            opacity: 0.7;
+            color: rgba($fg-color, 0.6);
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
+    }
+}
+
+// Animations
+@keyframes pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba($accent-color, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba($accent-color, 0.6));
     }
 } 
