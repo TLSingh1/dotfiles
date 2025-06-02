@@ -28,6 +28,10 @@
 			url = "github:aylur/astal";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		marble = {
+			url = "github:marble-shell/shell";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = inputs@{ nixpkgs, home-manager, ... }: {
