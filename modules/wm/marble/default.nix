@@ -17,8 +17,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Add Marble package
-    home.packages = [ cfg.package ];
+    # Add Marble packages - both astal and default are required
+    home.packages = [
+      inputs.marble.packages.${pkgs.system}.astal
+      inputs.marble.packages.${pkgs.system}.default
+    ];
 
     # Create systemd service to autostart
     systemd.user.services.marble = {
