@@ -21,6 +21,33 @@
         "type": "github"
       }
     },
+    "ags_2": {
+      "inputs": {
+        "astal": "astal_3",
+        "gjsx": [
+          "marble",
+          "gjsx"
+        ],
+        "nixpkgs": [
+          "marble",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744558067,
+        "narHash": "sha256-oA4AfDZ7zqg8DhnvJEcIc+I3/k434tar4844bzDLtUc=",
+        "owner": "aylur",
+        "repo": "ags",
+        "rev": "117fbd3fe336fed4ac1eaa4227ae6d099229b365",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "ref": "v3",
+        "repo": "ags",
+        "type": "github"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -87,6 +114,28 @@
         "owner": "aylur",
         "repo": "astal",
         "rev": "7d28889727b80e0a68c20c2f0f1926ddc96a7be6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "astal",
+        "type": "github"
+      }
+    },
+    "astal_3": {
+      "inputs": {
+        "nixpkgs": [
+          "marble",
+          "ags",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744294036,
+        "narHash": "sha256-qOc5bmZhHkhWWxYEeEVruc6FpAD9UBa5fiCH+xxX9Y4=",
+        "owner": "aylur",
+        "repo": "astal",
+        "rev": "8f020e6d663d4222234826b51f2eb9e01db340a2",
         "type": "github"
       },
       "original": {
@@ -203,6 +252,27 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
+    "gjsx": {
+      "inputs": {
+        "nixpkgs": [
+          "marble",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744557420,
+        "narHash": "sha256-OVRTPDS8yDYcB83uz/rhuDpBdpPtRKmJKSeGaf7KQgI=",
+        "owner": "aylur",
+        "repo": "gjsx",
+        "rev": "af30f82e2ed686f7acde6dec2f66ff98e6d21eaf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "gjsx",
         "type": "github"
       }
     },
@@ -485,6 +555,29 @@
         "type": "github"
       }
     },
+    "marble": {
+      "inputs": {
+        "ags": "ags_2",
+        "gjsx": "gjsx",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744657807,
+        "narHash": "sha256-UPBEVoeOFuo2OuOFw94oFOVGPlHgl64Nde+X9y3MXp8=",
+        "ref": "gtk4",
+        "rev": "04ce1ca87a8e74dd3079c93cf91ad674e9af9261",
+        "revCount": 37,
+        "type": "git",
+        "url": "https://github.com/marble-shell/shell.git"
+      },
+      "original": {
+        "ref": "gtk4",
+        "type": "git",
+        "url": "https://github.com/marble-shell/shell.git"
+      }
+    },
     "nixCats": {
       "locked": {
         "lastModified": 1748230488,
@@ -576,6 +669,7 @@
         "ghostty": "ghostty",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "marble": "marble",
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs_3",
         "zen-browser": "zen-browser"
