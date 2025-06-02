@@ -29,7 +29,7 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		marble = {
-			url = "github:marble-shell/shell/gtk4";
+			url = "git+https://github.com/marble-shell/shell.git?ref=gtk4";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
