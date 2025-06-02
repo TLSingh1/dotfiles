@@ -39,9 +39,11 @@ window {
 
 // StatusBar widget styles
 .StatusBar {
+    background-color: transparent;
+    
     .bar-container {
         background-color: $bg-color;
-        width: 60px;
+        min-width: 60px;
         padding: $padding 0;
     }
 
