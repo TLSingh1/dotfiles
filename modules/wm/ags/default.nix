@@ -12,6 +12,11 @@ let
     name = "my-desktop";
     entry = "app.ts";
     
+    # Additional build dependencies
+    extraBuildInputs = with pkgs; [
+      dart-sass
+    ];
+    
     # Additional Astal libraries
     extraPackages = with inputs.astal.packages.${pkgs.system}; [
       astal3
@@ -38,6 +43,7 @@ in
       cfg.package
       inputs.ags.packages.${pkgs.system}.default
       # Additional runtime dependencies
+      dart-sass
       sassc
       gtk3
       gtk-layer-shell
