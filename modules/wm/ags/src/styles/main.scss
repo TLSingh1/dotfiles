@@ -35,4 +35,63 @@ window {
             margin-top: 8px;
         }
     }
+}
+
+// StatusBar widget styles
+.StatusBar {
+    .bar-container {
+        background-color: $bg-color;
+        min-width: 60px;
+        padding: $padding 0;
+    }
+    
+    .top-section {
+        padding: 0 $padding;
+        
+        .logo {
+            font-size: 24px;
+            color: $accent-color;
+            margin-bottom: 20px;
+        }
+        
+        .workspaces {
+            .workspace {
+                all: unset;
+                width: 28px;
+                height: 28px;
+                margin: 4px 0;
+                border-radius: 8px;
+                background-color: rgba($fg-color, 0.1);
+                font-size: 14px;
+                color: $fg-color;
+                
+                &.active {
+                    background-color: $accent-color;
+                    color: $bg-color;
+                }
+                
+                &:hover:not(.active) {
+                    background-color: rgba($fg-color, 0.2);
+                }
+            }
+        }
+    }
+    
+    .bottom-section {
+        padding: 0 $padding;
+        
+        .time {
+            font-size: 20px;
+            font-weight: 500;
+            font-family: "JetBrains Mono", monospace;
+            color: $fg-color;
+            margin-bottom: 4px;
+        }
+        
+        .date {
+            font-size: 14px;
+            color: $fg-color;
+            opacity: 0.7;
+        }
+    }
 } 

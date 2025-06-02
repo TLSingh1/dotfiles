@@ -51,6 +51,7 @@ export default function Clock() {
       className="Clock"
       anchor={Astal.WindowAnchor.TOP}
       exclusivity={Astal.Exclusivity.NORMAL}
+      layer={Astal.Layer.BACKGROUND}
       application={App}
     >
       <box className="clock-container" vertical>
