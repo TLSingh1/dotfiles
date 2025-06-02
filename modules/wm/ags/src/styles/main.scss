@@ -5,6 +5,16 @@ $accent-color: #7aa2f7;
 $border-radius: 12px;
 $padding: 16px;
 
+// Futuristic theme colors
+$neon-blue: #00d9ff;
+$neon-purple: #bd00ff;
+$neon-pink: #ff0080;
+$cyber-dark: #0a0e27;
+$cyber-darker: #050714;
+$cyber-accent: #00ff88;
+$tech-gray: #2a2e3f;
+$tech-light: #4a5568;
+
 // Global styles
 window {
     background-color: transparent;
@@ -33,6 +43,222 @@ window {
             color: $fg-color;
             opacity: 0.8;
             margin-top: 8px;
+        }
+    }
+}
+
+// StatusBar styles
+.StatusBar {
+    .statusbar-container {
+        background: linear-gradient(180deg, $cyber-darker 0%, $cyber-dark 100%);
+        padding: 8px;
+        min-width: 72px;
+        border-right: 1px solid rgba($neon-blue, 0.3);
+        box-shadow: 
+            inset 0 0 20px rgba($neon-blue, 0.1),
+            2px 0 10px rgba($neon-blue, 0.2);
+    }
+
+    // Launcher button
+    .launcher-button {
+        background: linear-gradient(135deg, $tech-gray, $cyber-dark);
+        border: 2px solid rgba($neon-blue, 0.5);
+        border-radius: 16px;
+        padding: 12px;
+        margin: 8px 8px 16px 8px;
+        font-size: 24px;
+        color: $neon-blue;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 
+            0 0 15px rgba($neon-blue, 0.3),
+            inset 0 0 10px rgba($neon-blue, 0.1);
+
+        &:hover {
+            background: linear-gradient(135deg, lighten($tech-gray, 5%), $cyber-dark);
+            border-color: $neon-blue;
+            box-shadow: 
+                0 0 25px rgba($neon-blue, 0.5),
+                inset 0 0 15px rgba($neon-blue, 0.2);
+            transform: scale(1.05);
+        }
+    }
+
+    // Workspaces
+    .workspaces {
+        padding: 8px 0;
+        
+        .workspace {
+            background: $tech-gray;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            margin: 4px 8px;
+            padding: 8px 0;
+            min-height: 32px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: $tech-light;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 3px;
+                height: 100%;
+                background: transparent;
+                transition: all 0.3s ease;
+            }
+
+            &:hover {
+                background: lighten($tech-gray, 5%);
+                color: $neon-blue;
+                border-color: rgba($neon-blue, 0.3);
+            }
+
+            &.active {
+                background: linear-gradient(90deg, rgba($neon-blue, 0.2), transparent);
+                color: $neon-blue;
+                border-color: rgba($neon-blue, 0.5);
+                box-shadow: 
+                    0 0 10px rgba($neon-blue, 0.3),
+                    inset 0 0 10px rgba($neon-blue, 0.1);
+
+                &::before {
+                    background: $neon-blue;
+                    box-shadow: 0 0 10px $neon-blue;
+                }
+            }
+        }
+    }
+
+    // Section separators
+    .section-separator {
+        min-height: 1px;
+        background: linear-gradient(90deg, transparent, rgba($neon-blue, 0.5), transparent);
+        margin: 16px 8px;
+    }
+
+    // System stats
+    .system-stats {
+        padding: 16px 8px;
+        
+        .stat-item {
+            background: rgba($tech-gray, 0.5);
+            border: 1px solid rgba($neon-purple, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            margin: 8px 0;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                border-color: rgba($neon-purple, 0.5);
+                background: rgba($tech-gray, 0.7);
+                transform: translateX(2px);
+                box-shadow: 0 0 15px rgba($neon-purple, 0.2);
+            }
+            
+            .stat-icon {
+                font-size: 20px;
+                color: $neon-purple;
+                margin-right: 8px;
+            }
+            
+            .stat-label {
+                font-size: 10px;
+                color: $tech-light;
+                font-family: "JetBrains Mono", monospace;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            
+            .stat-value {
+                font-size: 16px;
+                font-weight: 600;
+                color: $neon-purple;
+                font-family: "JetBrains Mono", monospace;
+                margin-top: 2px;
+            }
+        }
+    }
+
+    // Quick actions
+    .quick-actions {
+        padding: 8px;
+        
+        .action-button {
+            background: rgba($tech-gray, 0.3);
+            border: 1px solid rgba($cyber-accent, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            margin: 6px 0;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: rgba($tech-gray, 0.5);
+                border-color: rgba($cyber-accent, 0.5);
+                transform: scale(1.1);
+                box-shadow: 0 0 20px rgba($cyber-accent, 0.3);
+            }
+        }
+    }
+
+    // Clock section
+    .clock-section {
+        background: linear-gradient(135deg, rgba($neon-pink, 0.1), transparent);
+        border: 1px solid rgba($neon-pink, 0.3);
+        border-radius: 12px;
+        padding: 16px;
+        margin: 8px;
+        text-align: center;
+        
+        .time {
+            font-size: 20px;
+            font-weight: 600;
+            font-family: "JetBrains Mono", monospace;
+            color: $neon-pink;
+            text-shadow: 0 0 10px rgba($neon-pink, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .date {
+            font-size: 12px;
+            color: lighten($tech-light, 20%);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    }
+
+    // Power button
+    .power-button {
+        background: linear-gradient(135deg, rgba(#ff0040, 0.2), transparent);
+        border: 2px solid rgba(#ff0040, 0.5);
+        border-radius: 50%;
+        padding: 12px;
+        margin: 8px;
+        font-size: 20px;
+        color: #ff0040;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            background: linear-gradient(135deg, rgba(#ff0040, 0.4), transparent);
+            border-color: #ff0040;
+            box-shadow: 
+                0 0 20px rgba(#ff0040, 0.5),
+                inset 0 0 10px rgba(#ff0040, 0.2);
+            transform: scale(1.1);
+        }
+    }
+
+    // Animation for all buttons
+    button {
+        &:active {
+            transform: scale(0.95);
         }
     }
 } 
