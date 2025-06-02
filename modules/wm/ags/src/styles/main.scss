@@ -35,4 +35,103 @@ window {
             margin-top: 8px;
         }
     }
+}
+
+// StatusBar widget styles
+.StatusBar {
+    .statusbar-container {
+        background-color: $bg-color;
+        width: 60px;
+        padding: $padding 0;
+        
+        // System Tray
+        .system-tray {
+            padding: 0 12px;
+            
+            .tray-item {
+                width: 36px;
+                height: 36px;
+                margin: 4px 0;
+                border-radius: 8px;
+                background-color: transparent;
+                border: none;
+                
+                &:hover {
+                    background-color: rgba($accent-color, 0.1);
+                }
+                
+                icon {
+                    font-size: 18px;
+                }
+            }
+        }
+        
+        // Workspace Switcher
+        .workspace-switcher {
+            padding: 0 12px;
+            
+            .workspace-btn {
+                width: 36px;
+                height: 36px;
+                margin: 4px 0;
+                border-radius: 8px;
+                background-color: transparent;
+                border: 2px solid transparent;
+                font-size: 14px;
+                color: $fg-color;
+                opacity: 0.6;
+                
+                &:hover {
+                    opacity: 0.8;
+                    background-color: rgba($accent-color, 0.1);
+                }
+                
+                &.active {
+                    opacity: 1;
+                    border-color: $accent-color;
+                    background-color: rgba($accent-color, 0.2);
+                }
+            }
+        }
+        
+        // System Metrics
+        .system-metrics {
+            padding: 12px;
+            
+            .metric {
+                margin: 8px 0;
+                
+                .metric-label {
+                    font-size: 10px;
+                    color: $fg-color;
+                    opacity: 0.6;
+                }
+                
+                .metric-value {
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: $accent-color;
+                }
+            }
+        }
+        
+        // DateTime
+        .datetime {
+            padding: 12px;
+            border-top: 1px solid rgba($fg-color, 0.1);
+            
+            .time {
+                font-size: 16px;
+                font-weight: 600;
+                color: $accent-color;
+            }
+            
+            .date {
+                font-size: 12px;
+                color: $fg-color;
+                opacity: 0.8;
+                margin-top: 4px;
+            }
+        }
+    }
 } 

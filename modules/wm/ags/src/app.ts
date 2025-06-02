@@ -8,6 +8,6 @@ App.start({
   main() {
     // Initialize widgets
     Clock();
-    // StatusBar();
+    StatusBar();
   },
 }); 

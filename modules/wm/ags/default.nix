@@ -18,6 +18,7 @@ let
       io
       battery
       hyprland
+      tray
     ];
   };
 in
