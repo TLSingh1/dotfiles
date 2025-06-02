@@ -2,8 +2,28 @@ import { Variable, bind } from "astal";
 import { App, Astal, Gtk } from "astal/gtk3";
 
 export default function StatusBar() {
-  // Placeholder workspaces for now
-  const workspaces = [1, 2, 3, 4, 5];
+  // Placeholder workspace data - will be replaced with Hyprland IPC later
+  const workspaceData = [
+    { id: 1, hasWindows: true, active: true },
+    { id: 2, hasWindows: true, active: false },
+    { id: 3, hasWindows: false, active: false },
+    { id: 4, hasWindows: true, active: false },
+    { id: 5, hasWindows: false, active: false },
+  ];
+  
+  const getWorkspaceClass = (ws: typeof workspaceData[0]) => {
+    let classes = ['workspace', `ws-${ws.id}`];
+    
+    if (ws.active) {
+      classes.push('active');
+    } else if (ws.hasWindows) {
+      classes.push('occupied');
+    } else {
+      classes.push('empty');
+    }
+    
+    return classes.join(' ');
+  };
   
   return (
     <window
@@ -17,12 +37,12 @@ export default function StatusBar() {
       <box className="bar-container" vertical>
         {/* Workspaces */}
         <box className="workspaces" vertical>
-          {workspaces.map(ws => (
+          {workspaceData.map(ws => (
             <button 
-              className={`workspace ws-${ws}`}
-              onClick={() => console.log(`Workspace ${ws} clicked`)}
+              className={getWorkspaceClass(ws)}
+              onClick={() => console.log(`Workspace ${ws.id} clicked`)}
             >
-              <label label={ws.toString()} />
+              <box className="indicator" />
             </button>
           ))}
         </box>
