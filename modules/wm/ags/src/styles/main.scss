@@ -48,6 +48,13 @@ window {
         .system-tray {
             padding: 0 12px;
             
+            .tray-placeholder {
+                font-size: 24px;
+                color: $fg-color;
+                opacity: 0.6;
+                padding: 8px;
+            }
+            
             .tray-item {
                 width: 36px;
                 height: 36px;

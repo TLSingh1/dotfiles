@@ -1,41 +1,21 @@
 import { Variable, bind } from "astal";
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
-import { Tray } from "astal/tray";
-import { Hyprland } from "astal/hyprland";
-
-const tray = Tray.get_default();
-const hyprland = Hyprland.get_default();
-
-function SystemTray() {
-  return (
-    <box className="system-tray" orientation={1} valign={Gtk.Align.START}>
-      {bind(tray, "items").as((items) =>
-        items.map((item) => (
-          <button
-            className="tray-item"
-            onPrimaryClick={(_, event) => item.activate(event.x, event.y)}
-            onSecondaryClick={(_, event) => item.openMenu(event.x, event.y)}
-            tooltip_markup={bind(item, "tooltip_markup")}
-          >
-            <icon gIcon={bind(item, "gicon")} />
-          </button>
-        ))
-      )}
-    </box>
-  );
-}
 
 function WorkspaceSwitcher() {
-  const activeWs = bind(hyprland, "focusedWorkspace");
+  // For now, just show numbered workspace buttons without Hyprland integration
+  const activeWorkspace = Variable(1);
   
   return (
     <box className="workspace-switcher" orientation={1} valign={Gtk.Align.CENTER}>
       {Array.from({ length: 10 }, (_, i) => i + 1).map((ws) => (
         <button
-          className={activeWs.as((active) => 
-            `workspace-btn ${active?.id === ws ? "active" : ""}`
+          className={bind(activeWorkspace).as((active) => 
+            `workspace-btn ${active === ws ? "active" : ""}`
           )}
-          onClicked={() => hyprland.dispatch("workspace", ws.toString())}
+          onClicked={() => {
+            activeWorkspace.set(ws);
+            // TODO: Add Hyprland integration
+          }}
         >
           <label label={ws.toString()} />
         </button>
@@ -45,19 +25,19 @@ function WorkspaceSwitcher() {
 }
 
 function SystemMetrics() {
-  // Simple CPU and RAM usage - in a real implementation, you'd want to use system monitoring
-  const cpu = Variable(0).poll(2000, ["bash", "-c", "top -bn1 | grep 'Cpu(s)' | awk '{print $2}' | cut -d'%' -f1"]);
-  const ram = Variable(0).poll(2000, ["bash", "-c", "free | grep Mem | awk '{print ($3/$2) * 100.0}'"]);
+  // Simple CPU and RAM usage
+  const cpu = Variable(0).poll(2000, ["bash", "-c", "top -bn1 | grep 'Cpu(s)' | awk '{print $2}' | cut -d'%' -f1 || echo 0"]);
+  const ram = Variable(0).poll(2000, ["bash", "-c", "free | grep Mem | awk '{print ($3/$2) * 100.0}' || echo 0"]);
   
   return (
     <box className="system-metrics" orientation={1} valign={Gtk.Align.END}>
-      <box className="metric">
+      <box className="metric" orientation={1}>
         <label className="metric-label" label="CPU" />
-        <label className="metric-value" label={bind(cpu).as(v => `${Math.round(v)}%`)} />
+        <label className="metric-value" label={bind(cpu).as(v => `${Math.round(Number(v) || 0)}%`)} />
       </box>
-      <box className="metric">
+      <box className="metric" orientation={1}>
         <label className="metric-label" label="RAM" />
-        <label className="metric-value" label={bind(ram).as(v => `${Math.round(v)}%`)} />
+        <label className="metric-value" label={bind(ram).as(v => `${Math.round(Number(v) || 0)}%`)} />
       </box>
     </box>
   );
@@ -93,7 +73,11 @@ export default function StatusBar() {
       application={App}
     >
       <box className="statusbar-container" orientation={1} vexpand>
-        <SystemTray />
+        {/* System tray placeholder for now */}
+        <box className="system-tray" orientation={1} valign={Gtk.Align.START}>
+          <label label="☰" className="tray-placeholder" />
+        </box>
+        
         <box vexpand />
         <WorkspaceSwitcher />
         <box vexpand />
