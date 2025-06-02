@@ -85,12 +85,6 @@ in
       xwayland = {
         force_zero_scaling = true;
       };
-
-      # Startup applications
-      exec-once = [
-        # "marble" # AGS desktop shell
-        "swww init" # wallpaper daemon
-      ];
     };
   };
 } 

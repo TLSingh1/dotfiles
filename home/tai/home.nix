@@ -20,6 +20,7 @@ in
   ] ++ lib.optionals (hostname == "my-nixos") [
     # Personal laptop modules
     ../../modules/wm/hyprland/home.nix
+    ../../modules/wm/ags
     ../../modules/tui/nvim
     ../../modules/tui/kitty
     ../../modules/gui/apps
@@ -84,8 +85,8 @@ in
     KUBECONFIG = "$HOME/.kube/config";
   };
 
-  # Marble shell (AGS desktop)
-  home.packages = [ inputs.marble.packages.${pkgs.system}.default ];
+  # Enable AGS desktop
+  programs.ags-desktop.enable = true;
 
   home.stateVersion = "25.05";
 } 
