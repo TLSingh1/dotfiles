@@ -88,7 +88,7 @@ in
 
       # Startup applications
       exec-once = [
-        "marble" # AGS desktop shell
+        # "marble" # AGS desktop shell
         "swww init" # wallpaper daemon
       ];
     };
