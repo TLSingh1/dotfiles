@@ -21,11 +21,6 @@
         name = "my-desktop";
         entry = "app.ts";
         
-        # Additional build dependencies
-        extraBuildInputs = with pkgs; [
-          dart-sass
-        ];
-        
         # Additional Astal libraries
         extraPackages = with astal.packages.${system}; [
           astal3
@@ -33,7 +28,9 @@
           battery
           hyprland
           # Add more as needed
-        ];
+        ] ++ (with pkgs; [
+          dart-sass
+        ]);
       };
     };
 
