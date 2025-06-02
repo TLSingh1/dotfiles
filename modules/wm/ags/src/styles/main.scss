@@ -1,129 +1,30 @@
 // Variables
-$bg-color: rgba(#0f0f14, 0.85);
-$bg-secondary: rgba(#1a1b26, 0.6);
+$bg-color: rgba(#1a1b26, 0.95);
 $fg-color: #c0caf5;
 $accent-color: #7aa2f7;
-$accent-hover: #89b4fa;
-$accent-glow: #5d7dd8;
 $border-radius: 12px;
 $padding: 16px;
-$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 // Global styles
 window {
     background-color: transparent;
     color: $fg-color;
-    font-family: "Inter", "Noto Sans", sans-serif;
 }
 
-// StatusBar specific window
-window.StatusBar {
-    background-color: transparent;
-    
-    .bar-container {
-        background: linear-gradient(180deg, $bg-color 0%, rgba(#0f0f14, 0.95) 100%);
-        min-width: 80px;
-        padding: $padding 0;
-        box-shadow: 
-            0 0 20px rgba(0, 0, 0, 0.5),
-            inset -1px 0 0 rgba(255, 255, 255, 0.05);
-        border-right: 1px solid rgba(255, 255, 255, 0.02);
-    }
-    
-    .top-section {
-        padding: 0 $padding;
-        
-        .logo {
-            font-size: 36px;
-            color: $accent-color;
-            margin-bottom: 32px;
-            text-shadow: 0 0 20px rgba($accent-color, 0.4);
-        }
-        
-        .workspaces {
-            button.workspace {
-                width: 48px;
-                height: 48px;
-                margin: 6px 0;
-                border-radius: 14px;
-                background: rgba($fg-color, 0.05);
-                font-size: 15px;
-                font-weight: 500;
-                color: rgba($fg-color, 0.7);
-                transition: $transition;
-                border: 1px solid rgba($fg-color, 0.05);
-                
-                &.active {
-                    background: $accent-color;
-                    color: $bg-color;
-                    font-weight: 700;
-                    box-shadow: 0 4px 12px rgba($accent-color, 0.4);
-                    transform: scale(1.05);
-                    border-color: transparent;
-                }
-                
-                &:hover:not(.active) {
-                    background: rgba($fg-color, 0.1);
-                    color: $fg-color;
-                    transform: scale(1.02);
-                    border-color: rgba($accent-color, 0.3);
-                }
-                
-                &:active:not(.active) {
-                    transform: scale(0.98);
-                }
-            }
-        }
-    }
-    
-    .bottom-section {
-        padding: $padding;
-        background: $bg-secondary;
-        border-radius: 16px 16px 0 0;
-        margin: 0 8px;
-        box-shadow: 
-            0 -4px 12px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        
-        .time {
-            font-size: 24px;
-            font-weight: 600;
-            font-family: "JetBrains Mono", monospace;
-            color: $fg-color;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
-        }
-        
-        .date {
-            font-size: 14px;
-            color: rgba($fg-color, 0.6);
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-    }
-}
-
-// Clock widget styles (keeping it separate)
-window.Clock {
+// Clock widget styles
+.Clock {
     .clock-container {
-        background: linear-gradient(135deg, $bg-color 0%, rgba(#1a1b26, 0.9) 100%);
-        backdrop-filter: blur(20px);
+        background-color: $bg-color;
         border-radius: $border-radius;
         padding: $padding;
         margin: 20px;
-        box-shadow: 
-            0 8px 32px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         
         .time {
             font-size: 48px;
-            font-weight: 200;
+            font-weight: 300;
             font-family: "JetBrains Mono", monospace;
-            background: linear-gradient(135deg, $accent-color, $accent-hover);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: $accent-color;
         }
         
         .date {
@@ -132,17 +33,6 @@ window.Clock {
             color: $fg-color;
             opacity: 0.8;
             margin-top: 8px;
-            letter-spacing: 0.5px;
         }
-    }
-}
-
-// Animations
-@keyframes pulse {
-    0%, 100% {
-        filter: drop-shadow(0 0 20px rgba($accent-color, 0.4));
-    }
-    50% {
-        filter: drop-shadow(0 0 30px rgba($accent-color, 0.6));
     }
 } 
