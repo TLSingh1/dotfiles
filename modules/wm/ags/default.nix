@@ -4,6 +4,22 @@ with lib;
 
 let
   cfg = config.programs.ags-desktop;
+  
+  # Build the AGS bundle locally
+  agsBundle = inputs.ags.lib.bundle {
+    inherit pkgs;
+    src = ./src;
+    name = "my-desktop";
+    entry = "app.ts";
+    
+    # Additional Astal libraries
+    extraPackages = with inputs.astal.packages.${pkgs.system}; [
+      astal3
+      io
+      battery
+      hyprland
+    ];
+  };
 in
 {
   options.programs.ags-desktop = {
@@ -11,7 +27,7 @@ in
     
     package = mkOption {
       type = types.package;
-      default = inputs.self.packages.${pkgs.system}.my-desktop;
+      default = agsBundle;
       description = "The AGS desktop package to use";
     };
   };

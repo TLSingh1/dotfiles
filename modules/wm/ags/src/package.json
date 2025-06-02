@@ -1,10 +1,6 @@
 {
-  "name": "my-desktop",
-  "version": "0.1.0",
-  "description": "My AGS Desktop Environment",
-  "main": "app.ts",
-  "type": "module",
-  "dependencies": {
-    "astal": "file:../node_modules/astal"
-  }
-} 
+    "name": "astal-shell",
+    "dependencies": {
+        "astal": "/nix/store/lyibsxcfsgajh6bkvz13z2s4ll1d1iqm-astal-gjs/share/astal/gjs"
+    }
+}
