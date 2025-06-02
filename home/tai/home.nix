@@ -16,12 +16,10 @@ in
     ../../modules/tui/scripts
     ../../modules/tui/starship
     ../../modules/tui/fish
-    ../../modules/tui/nushell
     
   ] ++ lib.optionals (hostname == "my-nixos") [
     # Personal laptop modules
     ../../modules/wm/hyprland/home.nix
-    ../../modules/wm/marble
     ../../modules/tui/nvim
     ../../modules/tui/kitty
     ../../modules/gui/apps
@@ -86,8 +84,8 @@ in
     KUBECONFIG = "$HOME/.kube/config";
   };
 
-  # Enable Marble shell
-  programs.marble.enable = true;
+  # Marble shell (AGS desktop)
+  home.packages = [ inputs.marble.packages.${pkgs.system}.default ];
 
   home.stateVersion = "25.05";
 } 

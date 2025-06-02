@@ -29,7 +29,7 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		marble = {
-			url = "git+ssh://git@github.com/marble-shell/shell.git";
+			url = "github:marble-shell/shell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
