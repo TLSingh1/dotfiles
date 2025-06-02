@@ -18,7 +18,6 @@ let
       io
       battery
       hyprland
-      tray
     ];
   };
 in
@@ -40,7 +39,6 @@ in
       inputs.ags.packages.${pkgs.system}.default
       # Additional runtime dependencies
       sassc
-      dart-sass
       gtk3
       gtk-layer-shell
     ];
