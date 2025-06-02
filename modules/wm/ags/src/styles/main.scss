@@ -35,4 +35,50 @@ window {
             margin-top: 8px;
         }
     }
+}
+
+// StatusBar widget styles
+.StatusBar {
+    .bar-container {
+        background-color: $bg-color;
+        padding: $padding;
+        min-width: 60px;
+        
+        .workspaces {
+            .workspace {
+                background-color: transparent;
+                border: none;
+                border-radius: $border-radius / 2;
+                margin: 4px 0;
+                padding: 8px;
+                min-height: 40px;
+                min-width: 40px;
+                color: $fg-color;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                
+                &:hover {
+                    background-color: rgba($accent-color, 0.2);
+                }
+                
+                &:active,
+                &.active {
+                    background-color: $accent-color;
+                    color: $bg-color;
+                }
+            }
+        }
+        
+        .system-tray {
+            .tray-icon {
+                font-size: 20px;
+                padding: 8px;
+                opacity: 0.8;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
 } 
