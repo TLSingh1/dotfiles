@@ -16,46 +16,12 @@ window {
     font-family: "Inter", "Noto Sans", sans-serif;
 }
 
-// Clock widget styles
-.Clock {
-    .clock-container {
-        background: linear-gradient(135deg, $bg-color 0%, rgba(#1a1b26, 0.9) 100%);
-        backdrop-filter: blur(20px);
-        border-radius: $border-radius;
-        padding: $padding;
-        margin: 20px;
-        box-shadow: 
-            0 8px 32px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        
-        .time {
-            font-size: 48px;
-            font-weight: 200;
-            font-family: "JetBrains Mono", monospace;
-            background: linear-gradient(135deg, $accent-color, $accent-hover);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba($accent-color, 0.5);
-        }
-        
-        .date {
-            font-size: 16px;
-            font-weight: 400;
-            color: $fg-color;
-            opacity: 0.8;
-            margin-top: 8px;
-            letter-spacing: 0.5px;
-        }
-    }
-}
-
-// StatusBar widget styles
-.StatusBar {
+// StatusBar specific window
+window.StatusBar {
+    background-color: transparent;
+    
     .bar-container {
         background: linear-gradient(180deg, $bg-color 0%, rgba(#0f0f14, 0.95) 100%);
-        backdrop-filter: blur(20px);
         min-width: 80px;
         padding: $padding 0;
         box-shadow: 
@@ -69,70 +35,36 @@ window {
         
         .logo {
             font-size: 36px;
-            background: linear-gradient(135deg, $accent-color, $accent-hover);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: $accent-color;
             margin-bottom: 32px;
-            filter: drop-shadow(0 0 20px rgba($accent-color, 0.4));
-            animation: pulse 3s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba($accent-color, 0.4);
         }
         
         .workspaces {
-            .workspace {
-                all: unset;
+            button.workspace {
                 width: 48px;
                 height: 48px;
                 margin: 6px 0;
                 border-radius: 14px;
-                background: linear-gradient(135deg, 
-                    rgba($fg-color, 0.05) 0%, 
-                    rgba($fg-color, 0.08) 100%);
+                background: rgba($fg-color, 0.05);
                 font-size: 15px;
                 font-weight: 500;
                 color: rgba($fg-color, 0.7);
                 transition: $transition;
-                position: relative;
-                overflow: hidden;
                 border: 1px solid rgba($fg-color, 0.05);
                 
-                &::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: radial-gradient(
-                        circle at center,
-                        rgba($accent-color, 0.2) 0%,
-                        transparent 70%
-                    );
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                }
-                
                 &.active {
-                    background: linear-gradient(135deg, $accent-color, $accent-hover);
+                    background: $accent-color;
                     color: $bg-color;
                     font-weight: 700;
-                    box-shadow: 
-                        0 4px 12px rgba($accent-color, 0.4),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                    box-shadow: 0 4px 12px rgba($accent-color, 0.4);
                     transform: scale(1.05);
                     border-color: transparent;
-                    
-                    &::before {
-                        opacity: 1;
-                    }
                 }
                 
                 &:hover:not(.active) {
-                    background: linear-gradient(135deg, 
-                        rgba($fg-color, 0.1) 0%, 
-                        rgba($fg-color, 0.15) 100%);
+                    background: rgba($fg-color, 0.1);
                     color: $fg-color;
-                    cursor: pointer;
                     transform: scale(1.02);
                     border-color: rgba($accent-color, 0.3);
                 }
@@ -160,13 +92,46 @@ window {
             color: $fg-color;
             margin-bottom: 6px;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba($fg-color, 0.3);
         }
         
         .date {
             font-size: 14px;
             color: rgba($fg-color, 0.6);
             font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+    }
+}
+
+// Clock widget styles (keeping it separate)
+window.Clock {
+    .clock-container {
+        background: linear-gradient(135deg, $bg-color 0%, rgba(#1a1b26, 0.9) 100%);
+        backdrop-filter: blur(20px);
+        border-radius: $border-radius;
+        padding: $padding;
+        margin: 20px;
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        
+        .time {
+            font-size: 48px;
+            font-weight: 200;
+            font-family: "JetBrains Mono", monospace;
+            background: linear-gradient(135deg, $accent-color, $accent-hover);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .date {
+            font-size: 16px;
+            font-weight: 400;
+            color: $fg-color;
+            opacity: 0.8;
+            margin-top: 8px;
             letter-spacing: 0.5px;
         }
     }
