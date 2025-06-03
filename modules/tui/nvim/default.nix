@@ -47,7 +47,6 @@
         ui = with pkgs.vimPlugins; [
           # Terminal and UI enhancements
           toggleterm-nvim
-          term-edit-nvim
           telescope-nvim
           nvim-tree-lua
           nvim-web-devicons
