@@ -1,0 +1,132 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+window.Bar {
+    background: transparent;
+    color: $on-surface;
+
+    > box.vertical-bar {
+        background-color: $surface;
+        width: $bar-width;
+        padding: $bar-padding;
+        margin: $bar-padding;
+        border-radius: $border-radius;
+        box-shadow: $shadow-lg;
+
+        > box {
+            spacing: $widget-spacing;
+        }
+    }
+
+    // Workspace indicators
+    .workspaces {
+        > button {
+            min-width: 40px;
+            min-height: 40px;
+            margin: 4px 0;
+            padding: 0;
+            border-radius: $border-radius-small;
+            background-color: $surface-variant;
+            color: $on-surface-variant;
+            transition: all $transition-speed ease;
+
+            &:hover {
+                background-color: color.mix($primary-container, $surface-variant, 30%);
+                transform: scale($hover-scale);
+            }
+
+            &.active {
+                background-color: $primary;
+                color: $on-primary;
+                box-shadow: $shadow-md;
+            }
+
+            &.occupied {
+                background-color: $primary-container;
+                color: $on-primary-container;
+            }
+        }
+    }
+
+    // App launcher button
+    .launcher {
+        min-width: 40px;
+        min-height: 40px;
+        border-radius: $border-radius-small;
+        background-color: $primary-container;
+        color: $on-primary-container;
+        transition: all $transition-speed ease;
+        margin-bottom: $widget-spacing;
+
+        &:hover {
+            background-color: $primary;
+            color: $on-primary;
+            transform: scale($hover-scale);
+            box-shadow: $shadow-md;
+        }
+    }
+
+    // System tray and indicators
+    .system-indicators {
+        > box {
+            spacing: 4px;
+        }
+
+        button {
+            min-width: 40px;
+            min-height: 32px;
+            padding: 4px;
+            border-radius: $border-radius-small;
+            background-color: transparent;
+            color: $on-surface;
+            transition: all $transition-speed ease;
+
+            &:hover {
+                background-color: $surface-variant;
+                transform: scale($hover-scale);
+            }
+        }
+    }
+
+    // Clock
+    .clock {
+        padding: 8px 4px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        color: $on-surface;
+
+        .time {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .date {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+    }
+
+    // Power button
+    .power-button {
+        min-width: 40px;
+        min-height: 40px;
+        border-radius: 50%;
+        background-color: $error;
+        color: $on-error;
+        transition: all $transition-speed ease;
+        margin-top: $widget-spacing;
+
+        &:hover {
+            transform: scale($hover-scale);
+            box-shadow: $shadow-lg;
+        }
+    }
+
+    // Separator
+    separator {
+        background-color: $surface-variant;
+        min-height: 1px;
+        margin: $widget-spacing 8px;
+    }
+}

@@ -1,0 +1,15 @@
+// Import modular styles
+@use 'style/variables' as *;
+@use 'style/common';
+@use 'style/bar';
+
+// Global styles
+* {
+    all: unset;
+    font-family: "Inter", "SF Pro Display", system-ui, sans-serif;
+}
+
+// Root window styling
+window {
+    background-color: transparent;
+}

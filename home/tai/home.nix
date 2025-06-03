@@ -20,6 +20,7 @@ in
   ] ++ lib.optionals (hostname == "my-nixos") [
     # Personal laptop modules
     ../../modules/wm/hyprland/home.nix
+    ../../modules/wm/ags
     ../../modules/tui/nvim
     ../../modules/tui/kitty
     ../../modules/gui/apps
