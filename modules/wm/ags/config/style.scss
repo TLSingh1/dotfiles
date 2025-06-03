@@ -1,8 +1,3 @@
-// Import modular styles
-@use 'style/variables' as *;
-@use 'style/common';
-@use 'style/bar';
-
 // Global styles
 * {
     all: unset;
@@ -12,4 +7,45 @@
 // Root window styling
 window {
     background-color: transparent;
+}
+
+// Bar styles
+.Bar {
+    background-color: transparent;
+}
+
+.vertical-bar {
+    background-color: #6750A4;
+    min-width: 56px;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 16px;
+}
+
+.launcher {
+    background-color: #EADDFF;
+    color: #21005D;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.launcher:hover {
+    background-color: #D0BCFF;
+}
+
+.power-button {
+    background-color: #BA1A1A;
+    color: white;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 20px;
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+.power-button:hover {
+    background-color: #DC2626;
 }

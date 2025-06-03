@@ -7,15 +7,11 @@ window.Bar {
 
     > box.vertical-bar {
         background-color: $surface;
-        width: $bar-width;
+        min-width: $bar-width;
         padding: $bar-padding;
         margin: $bar-padding;
         border-radius: $border-radius;
         box-shadow: $shadow-lg;
-
-        > box {
-            spacing: $widget-spacing;
-        }
     }
 
     // Workspace indicators
@@ -68,10 +64,6 @@ window.Bar {
 
     // System tray and indicators
     .system-indicators {
-        > box {
-            spacing: 4px;
-        }
-
         button {
             min-width: 40px;
             min-height: 32px;
@@ -93,7 +85,6 @@ window.Bar {
         padding: 8px 4px;
         font-size: 14px;
         font-weight: 600;
-        text-align: center;
         color: $on-surface;
 
         .time {
