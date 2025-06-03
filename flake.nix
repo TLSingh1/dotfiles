@@ -7,6 +7,7 @@
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		flake-utils.url = "github:numtide/flake-utils";
 		zen-browser = {
 			url = "github:youwen5/zen-browser-flake";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +28,11 @@
 		astal = {
 			url = "github:aylur/astal";
 			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		claude-desktop = {
+      		url = "github:k3d3/claude-desktop-linux-flake";
+      		nixpkgs.follows = "nixpkgs";
+      		flake-utils.follows = "flake-utils";
 		};
 	};
 

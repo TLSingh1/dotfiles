@@ -26,6 +26,8 @@
     # Development tools
     rustc
     cargo
+    claude-code
+    gh
 
     # Networking tools
     mtr

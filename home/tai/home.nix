@@ -20,12 +20,12 @@ in
   ] ++ lib.optionals (hostname == "my-nixos") [
     # Personal laptop modules
     ../../modules/wm/hyprland/home.nix
-    ../../modules/wm/ags
     ../../modules/tui/nvim
     ../../modules/tui/kitty
     ../../modules/gui/apps
     ../../modules/gui/browsers
     ../../modules/gui/1password
+    ../../modules/gui/claude-desktop
     ../../modules/tui/ghostty
     
   ] ++ lib.optionals (hostname == "nixos-desktop") [
@@ -36,6 +36,7 @@ in
     ../../modules/gui/apps
     ../../modules/gui/browsers
     ../../modules/gui/1password
+    ../../modules/gui/claude-desktop
     ../../modules/tui/ghostty
     # Could add desktop-specific modules here:
     # ../../modules/gui/steam
@@ -48,6 +49,7 @@ in
     ../../modules/tui/kitty
     ../../modules/gui/apps
     ../../modules/gui/browsers
+    ../../modules/gui/claude-desktop
     ../../modules/tui/ghostty
     # Work-specific modules:
     # ../../modules/gui/slack
@@ -84,9 +86,6 @@ in
     DOCKER_HOST = "tcp://localhost:2375";
     KUBECONFIG = "$HOME/.kube/config";
   };
-
-  # Enable AGS desktop
-  programs.ags-desktop.enable = true;
 
   home.stateVersion = "25.05";
 } 
