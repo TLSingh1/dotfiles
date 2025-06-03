@@ -28,8 +28,6 @@
         ai = with pkgs.vimPlugins; [
           # AI-powered code completion
           supermaven-nvim
-          # Claude AI assistant integration
-          claude-code-nvim
         ];
         coding = with pkgs.vimPlugins; [
           # LSP and language support
