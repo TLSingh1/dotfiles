@@ -42,6 +42,9 @@
 				system = "x86_64-linux";
 				specialArgs = { inherit inputs; };
 				modules = [
+					({ pkgs, ... }: {
+						nixpkgs.overlays = [ (import ./overlays) ];
+					})
 					./hosts/my-nixos/configuration.nix
 					home-manager.nixosModules.home-manager {
 						home-manager.useGlobalPkgs = true;
