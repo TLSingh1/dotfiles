@@ -2,11 +2,11 @@
 
 {
   home.packages = [
-    # Claude Desktop - AI assistant application
-    # Use claude-desktop-with-fhs if you need MCP server support with npx, uvx, or docker
-    inputs.claude-desktop.packages.${pkgs.system}.claude-desktop
+    # Claude Desktop with FHS environment for MCP server support
+    # This allows running MCP servers with npx, uvx, or docker
+    inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
     
-    # Alternative with FHS environment for MCP servers:
-    # inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
+    # Basic version without MCP support:
+    # inputs.claude-desktop.packages.${pkgs.system}.claude-desktop
   ];
 } 
