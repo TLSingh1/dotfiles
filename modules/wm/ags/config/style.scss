@@ -12,16 +12,15 @@ window {
 /* Bar styles */
 .Bar {
     background-color: transparent;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.vertical-bar {
+.bar-container {
     background: linear-gradient(
         180deg,
         rgba(10, 10, 20, 0.95),
         rgba(15, 15, 30, 0.85)
     );
-    min-width: 48px;
-    padding: 12px 8px;
     margin: 12px;
     border-radius: 24px;
     border: 1px solid rgba(100, 200, 255, 0.1);
@@ -29,6 +28,19 @@ window {
         0 8px 32px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
         0 0 40px rgba(100, 200, 255, 0.05);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bar-container-expanding {
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 60px rgba(100, 200, 255, 0.1);
+}
+
+.vertical-bar {
+    min-width: 48px;
+    padding: 12px 8px;
 }
 
 /* Launcher button - holographic effect */
@@ -184,10 +196,10 @@ window {
 
 /* Active workspace orb (bright holographic blue) */
 .workspace-button.active .orb {
-    min-width: 10px;
-    min-height: 10px;
+    min-width: 8px;
+    min-height: 8px;
     border-radius: 0;
-    margin: 11px 13px;
+    margin: 12px 14px;
     transform: rotate(45deg);
     background: linear-gradient(
         135deg,
@@ -200,12 +212,12 @@ window {
         0 0 18px rgba(140, 210, 255, 0.95),
         0 0 36px rgba(100, 190, 255, 0.75),
         0 0 54px rgba(100, 190, 255, 0.55);
-    animation: orb-pulse-diamond 2s ease-in-out infinite, orb-rotate 10s linear infinite;
+    animation: orb-pulse 2s ease-in-out infinite;
 }
 
 @keyframes orb-pulse {
     0%, 100% {
-        transform: scale(1);
+        transform: rotate(45deg) scale(1);
         box-shadow: 
             0 0 18px rgba(140, 210, 255, 0.95),
             0 0 36px rgba(100, 190, 255, 0.75),
@@ -213,7 +225,7 @@ window {
             inset 0 0 13px rgba(255, 255, 255, 0.45);
     }
     50% {
-        transform: scale(1.1);
+        transform: rotate(45deg) scale(1.2);
         box-shadow: 
             0 0 25px rgba(140, 210, 255, 1),
             0 0 45px rgba(100, 190, 255, 0.9),
@@ -251,29 +263,25 @@ window {
     }
 }
 
-@keyframes orb-rotate {
-    0% {
-        transform: rotate(45deg);
-    }
-    100% {
-        transform: rotate(405deg);
-    }
-}
-
-@keyframes orb-pulse-diamond {
+@keyframes orb-blink {
     0%, 100% {
-        transform: rotate(45deg) scale(1);
+        opacity: 1;
+        transform: rotate(45deg) scale(1.2);
+        filter: brightness(1.5);
         box-shadow: 
-            0 0 18px rgba(140, 210, 255, 0.95),
-            0 0 36px rgba(100, 190, 255, 0.75),
-            0 0 54px rgba(100, 190, 255, 0.55);
+            0 0 30px rgba(140, 210, 255, 1),
+            0 0 50px rgba(100, 190, 255, 0.9),
+            0 0 80px rgba(100, 190, 255, 0.7),
+            inset 0 0 20px rgba(255, 255, 255, 0.8);
     }
-    50% {
-        transform: rotate(45deg) scale(1.15);
+    40%, 60% {
+        opacity: 0.2;
+        transform: rotate(45deg) scale(0.7);
+        filter: brightness(0.4);
         box-shadow: 
-            0 0 25px rgba(140, 210, 255, 1),
-            0 0 45px rgba(100, 190, 255, 0.9),
-            0 0 70px rgba(100, 190, 255, 0.7);
+            0 0 5px rgba(140, 210, 255, 0.3),
+            0 0 10px rgba(100, 190, 255, 0.2),
+            0 0 15px rgba(100, 190, 255, 0.1);
     }
 }
 
@@ -300,6 +308,137 @@ window {
 .system-indicator:hover {
     background-color: rgba(100, 200, 255, 0.1);
     border-color: rgba(100, 200, 255, 0.2);
+}
+
+/* System tray toggle button */
+.system-tray-toggle {
+    background: linear-gradient(
+        135deg,
+        rgba(100, 200, 255, 0.1),
+        rgba(150, 100, 255, 0.1)
+    );
+    color: rgba(100, 200, 255, 0.8);
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 24px;
+    margin: 12px 0 8px 0;
+    font-size: 18px;
+    border: 1px solid rgba(100, 200, 255, 0.2);
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.system-tray-toggle:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(100, 200, 255, 0.2),
+        rgba(150, 100, 255, 0.2)
+    );
+    border-color: rgba(100, 200, 255, 0.4);
+    box-shadow: 
+        0 2px 12px rgba(100, 200, 255, 0.2),
+        0 0 16px rgba(100, 200, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.system-tray-toggle:active {
+    transform: scale(0.98);
+}
+
+/* Expanded content area */
+.expanded-content {
+    padding: 20px;
+    min-width: 250px;
+}
+
+.expanded-title {
+    color: rgba(100, 200, 255, 0.9);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+}
+
+/* Quick Actions */
+.quick-actions {
+    padding: 12px;
+    background: rgba(100, 200, 255, 0.02);
+    border-radius: 16px;
+    border: 1px solid rgba(100, 200, 255, 0.1);
+}
+
+.quick-action-btn {
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(
+        135deg,
+        rgba(100, 200, 255, 0.1),
+        rgba(150, 100, 255, 0.1)
+    );
+    border: 1px solid rgba(100, 200, 255, 0.2);
+    font-size: 20px;
+    transition: all 200ms ease;
+}
+
+.quick-action-btn:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(100, 200, 255, 0.2),
+        rgba(150, 100, 255, 0.2)
+    );
+    border-color: rgba(100, 200, 255, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(100, 200, 255, 0.2);
+}
+
+/* System Stats */
+.system-stats {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(100, 200, 255, 0.1);
+}
+
+.stat-label {
+    color: rgba(100, 200, 255, 0.6);
+    font-size: 12px;
+    min-width: 40px;
+}
+
+.stat-value {
+    color: rgba(100, 200, 255, 0.9);
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* App Shortcuts */
+.app-shortcuts {
+    padding: 12px;
+}
+
+.section-title {
+    color: rgba(100, 200, 255, 0.7);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.app-btn {
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 10px;
+    background: rgba(100, 200, 255, 0.05);
+    border: 1px solid rgba(100, 200, 255, 0.15);
+    font-size: 18px;
+    transition: all 200ms ease;
+}
+
+.app-btn:hover {
+    background: rgba(100, 200, 255, 0.15);
+    border-color: rgba(100, 200, 255, 0.3);
+    transform: scale(1.1);
 }
 
 /* Clock styles */
