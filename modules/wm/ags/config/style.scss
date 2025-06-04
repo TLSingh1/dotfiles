@@ -1,7 +1,14 @@
-/* Futuristic Tech Theme */
+/* AGS Bar - Optimized Futuristic Tech Theme */
 * {
     all: unset;
     font-family: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+}
+
+/* Smooth transitions globally */
+button {
+    transition-property: all;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Root window styling */
@@ -12,7 +19,6 @@ window {
 /* Bar styles */
 .Bar {
     background-color: transparent;
-    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bar-container {
@@ -28,14 +34,6 @@ window {
         0 8px 32px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
         0 0 40px rgba(100, 200, 255, 0.05);
-    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.bar-container-expanding {
-    box-shadow: 
-        0 12px 48px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 60px rgba(100, 200, 255, 0.1);
 }
 
 .vertical-bar {
@@ -43,7 +41,7 @@ window {
     padding: 12px 8px;
 }
 
-/* Launcher button - holographic effect */
+/* Launcher button */
 .launcher {
     background: linear-gradient(
         135deg,
@@ -54,13 +52,12 @@ window {
     min-width: 36px;
     min-height: 36px;
     border-radius: 24px;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
     font-size: 18px;
     border: 1px solid rgba(100, 200, 255, 0.3);
     box-shadow: 
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
         0 2px 8px rgba(100, 200, 255, 0.2);
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .launcher:hover {
@@ -74,17 +71,19 @@ window {
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         0 4px 16px rgba(100, 200, 255, 0.3),
         0 0 20px rgba(100, 200, 255, 0.2);
-    transform: scale(1.05);
+    margin: -1px;
+    padding: 1px;
+}
+
+.launcher:hover label {
+    transition: all 200ms ease;
 }
 
 .launcher:active {
-    // transform: translateY(0);
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 1px 4px rgba(100, 200, 255, 0.2);
+    transition: all 50ms ease;
 }
 
-/* Power button - glowing red accent */
+/* Power button */
 .power-button {
     background: linear-gradient(
         135deg,
@@ -101,7 +100,6 @@ window {
     box-shadow: 
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
         0 2px 8px rgba(255, 50, 100, 0.2);
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .power-button:hover {
@@ -115,348 +113,123 @@ window {
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
         0 4px 16px rgba(255, 50, 100, 0.3),
         0 0 20px rgba(255, 50, 100, 0.2);
-    transform: scale(1.05);
+    margin: -1px;
+    padding: 1px;
 }
 
 .power-button:active {
-    transform: scale(0.98);
+    transition: all 50ms ease;
 }
 
-/* Workspaces widget */
+/* Workspaces */
 .workspaces {
-    margin: 8px 0;
-    // background: red;
-}
-
-.workspace-button {
-    background: rgba(0, 0, 0, 0);
-    min-height: 32px;
-    min-width: 36px;
-    // margin: 2px 0;
-    border-radius: 8px;
-    transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+    margin: 12px 0;
     padding: 0 4px;
-    border: 1px solid rgba(0, 0, 0, 0);
 }
 
-.workspace-button:hover {
-    background-color: rgba(100, 200, 255, 0.1);
-    border-color: rgba(100, 200, 255, 0.2);
-    box-shadow: 0 0 10px rgba(100, 200, 255, 0.1);
-}
-
-.workspace-button:active {
-    background-color: rgba(100, 200, 255, 0.15);
-}
-
-.workspace-button.active .energy-container {
-    opacity: 1;
-}
-
-.energy-container {
-    opacity: 0.6;
-    transition: opacity 200ms ease;
-    min-width: 36px;
-    min-height: 32px;
-}
-
-/* Non-empty workspace orb (dim blue) */
-.orb {
-    min-width: 3px;
-    min-height: 3px;
-    border-radius: 1.5px;
-    background: radial-gradient(
-        circle at center,
-        rgba(100, 200, 255, 0.4),
-        rgba(150, 100, 255, 0.3),
-        rgba(100, 200, 255, 0.2)
-    );
-    border: 1px solid rgba(200, 230, 255, 0.3);
-    box-shadow: 
-        0 0 8px rgba(100, 200, 255, 0.3),
-        0 0 16px rgba(100, 200, 255, 0.2),
-        inset 0 0 6px rgba(255, 255, 255, 0.2);
-    margin: 14.5px 16.5px;
+/* Workspace container - invisible by default */
+.workspace-container {
+    padding: 6px;
+    margin: 2px 0;
+    border-radius: 50%;
+    background: transparent;
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover state for orb */
-.workspace-button:hover .orb {
+/* Container hover effect */
+.workspace-container:hover {
     background: radial-gradient(
         circle at center,
-        rgba(100, 200, 255, 0.6),
-        rgba(150, 100, 255, 0.5),
-        rgba(100, 200, 255, 0.3)
+        rgba(100, 200, 255, 0.1),
+        transparent
     );
-    box-shadow: 
-        0 0 12px rgba(100, 200, 255, 0.5),
-        0 0 20px rgba(100, 200, 255, 0.3),
-        inset 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
-/* Active workspace orb (bright holographic blue) */
-.workspace-button.active .orb {
-    min-width: 8px;
-    min-height: 8px;
-    border-radius: 0;
-    margin: 12px 14px;
-    transform: rotate(45deg);
-    background: linear-gradient(
-        135deg,
-        rgba(140, 210, 255, 0.95),
-        rgba(100, 190, 255, 0.85),
-        rgba(140, 100, 255, 0.65)
+/* Active container has subtle glow */
+.workspace-container.active {
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 200, 255, 0.15),
+        transparent
     );
-    border: 2px solid rgba(210, 230, 255, 0.7);
-    box-shadow: 
-        0 0 18px rgba(140, 210, 255, 0.95),
-        0 0 36px rgba(100, 190, 255, 0.75),
-        0 0 54px rgba(100, 190, 255, 0.55);
-    animation: orb-pulse 2s ease-in-out infinite;
 }
 
-@keyframes orb-pulse {
-    0%, 100% {
-        transform: rotate(45deg) scale(1);
-        box-shadow: 
-            0 0 18px rgba(140, 210, 255, 0.95),
-            0 0 36px rgba(100, 190, 255, 0.75),
-            0 0 54px rgba(100, 190, 255, 0.55),
-            inset 0 0 13px rgba(255, 255, 255, 0.45);
-    }
-    50% {
-        transform: rotate(45deg) scale(1.2);
-        box-shadow: 
-            0 0 25px rgba(140, 210, 255, 1),
-            0 0 45px rgba(100, 190, 255, 0.9),
-            0 0 70px rgba(100, 190, 255, 0.7),
-            inset 0 0 18px rgba(255, 255, 255, 0.55);
-    }
-}
-
-.energy-beam {
-    min-width: 4px;
-    min-height: 32px;
-    background: linear-gradient(
-        180deg,
-        transparent,
+/* Workspace orbs - tiny by default */
+.workspace-orb {
+    min-width: 6px;
+    min-height: 6px;
+    border-radius: 50%;
+    padding: 0;
+    background: radial-gradient(
+        circle at center,
         rgba(100, 200, 255, 0.3),
-        rgba(150, 100, 255, 0.4),
+        rgba(100, 200, 255, 0.2),
+        transparent
+    );
+    border: 1px solid rgba(100, 200, 255, 0.2);
+    box-shadow: 
+        0 0 4px rgba(100, 200, 255, 0.2),
+        inset 0 0 2px rgba(255, 255, 255, 0.1);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover state - orb gets brighter when container is hovered */
+.workspace-container:hover .workspace-orb {
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 200, 255, 0.5),
         rgba(100, 200, 255, 0.3),
         transparent
     );
-    opacity: 0;
-    transition: opacity 300ms ease;
-}
-
-.workspace-button.active .energy-beam {
-    opacity: 1;
-    animation: beam-flow 3s linear infinite;
-}
-
-@keyframes beam-flow {
-    0% {
-        background-position: 0 -100%;
-    }
-    100% {
-        background-position: 0 100%;
-    }
-}
-
-@keyframes orb-blink {
-    0%, 100% {
-        opacity: 1;
-        transform: rotate(45deg) scale(1.2);
-        filter: brightness(1.5);
-        box-shadow: 
-            0 0 30px rgba(140, 210, 255, 1),
-            0 0 50px rgba(100, 190, 255, 0.9),
-            0 0 80px rgba(100, 190, 255, 0.7),
-            inset 0 0 20px rgba(255, 255, 255, 0.8);
-    }
-    40%, 60% {
-        opacity: 0.2;
-        transform: rotate(45deg) scale(0.7);
-        filter: brightness(0.4);
-        box-shadow: 
-            0 0 5px rgba(140, 210, 255, 0.3),
-            0 0 10px rgba(100, 190, 255, 0.2),
-            0 0 15px rgba(100, 190, 255, 0.1);
-    }
-}
-
-.workspace-label {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 10px;
-    font-weight: 600;
-    text-shadow: 0 0 5px rgba(100, 200, 255, 0.8);
-}
-
-/* System indicators */
-.system-indicator {
-    color: rgba(100, 200, 255, 0.8);
-    font-size: 12px;
-    font-weight: 500;
-    padding: 6px;
-    margin: 2px;
-    border-radius: 8px;
-    background-color: rgba(100, 200, 255, 0.05);
-    border: 1px solid transparent;
-    transition: all 200ms ease;
-}
-
-.system-indicator:hover {
-    background-color: rgba(100, 200, 255, 0.1);
-    border-color: rgba(100, 200, 255, 0.2);
-}
-
-/* System tray toggle button */
-.system-tray-toggle {
-    background: linear-gradient(
-        135deg,
-        rgba(100, 200, 255, 0.1),
-        rgba(150, 100, 255, 0.1)
-    );
-    color: rgba(100, 200, 255, 0.8);
-    min-width: 36px;
-    min-height: 36px;
-    border-radius: 24px;
-    margin: 12px 0 8px 0;
-    font-size: 18px;
-    border: 1px solid rgba(100, 200, 255, 0.2);
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.system-tray-toggle:hover {
-    background: linear-gradient(
-        135deg,
-        rgba(100, 200, 255, 0.2),
-        rgba(150, 100, 255, 0.2)
-    );
     border-color: rgba(100, 200, 255, 0.4);
     box-shadow: 
-        0 2px 12px rgba(100, 200, 255, 0.2),
-        0 0 16px rgba(100, 200, 255, 0.1);
-    transform: scale(1.05);
+        0 0 8px rgba(100, 200, 255, 0.4),
+        inset 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
-.system-tray-toggle:active {
-    transform: scale(0.98);
-}
-
-/* Expanded content area */
-.expanded-content {
-    padding: 20px;
-    min-width: 250px;
-}
-
-.expanded-title {
-    color: rgba(100, 200, 255, 0.9);
-    font-size: 16px;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
-}
-
-.collapse-btn {
-    min-width: 32px;
-    min-height: 32px;
-    border-radius: 16px;
-    background: rgba(255, 50, 100, 0.1);
-    border: 1px solid rgba(255, 50, 100, 0.2);
-    color: rgba(255, 100, 150, 0.8);
-    font-size: 18px;
-    font-weight: bold;
-    transition: all 200ms ease;
-}
-
-.collapse-btn:hover {
-    background: rgba(255, 50, 100, 0.2);
-    border-color: rgba(255, 50, 100, 0.4);
-    box-shadow: 0 2px 12px rgba(255, 50, 100, 0.2);
-    transform: scale(1.1);
-}
-
-/* Quick Actions */
-.quick-actions {
-    padding: 12px;
-    background: rgba(100, 200, 255, 0.02);
-    border-radius: 16px;
-    border: 1px solid rgba(100, 200, 255, 0.1);
-}
-
-.quick-action-btn {
-    min-width: 48px;
-    min-height: 48px;
-    border-radius: 12px;
-    background: linear-gradient(
-        135deg,
-        rgba(100, 200, 255, 0.1),
-        rgba(150, 100, 255, 0.1)
+/* Active workspace - larger glowing orb */
+.workspace-container.active .workspace-orb {
+    min-width: 12px;
+    min-height: 12px;
+    background: radial-gradient(
+        circle at center,
+        rgba(140, 210, 255, 0.9),
+        rgba(100, 190, 255, 0.7),
+        rgba(100, 190, 255, 0.3)
     );
-    border: 1px solid rgba(100, 200, 255, 0.2);
-    font-size: 20px;
-    transition: all 200ms ease;
+    border: 1px solid rgba(210, 230, 255, 0.8);
+    box-shadow: 
+        0 0 12px rgba(140, 210, 255, 0.9),
+        0 0 24px rgba(100, 190, 255, 0.6),
+        0 0 36px rgba(100, 190, 255, 0.3),
+        inset 0 0 6px rgba(255, 255, 255, 0.4);
+    animation: orb-glow 2s ease-in-out infinite;
 }
 
-.quick-action-btn:hover {
-    background: linear-gradient(
-        135deg,
-        rgba(100, 200, 255, 0.2),
-        rgba(150, 100, 255, 0.2)
-    );
-    border-color: rgba(100, 200, 255, 0.4);
-    transform: scale(1.1);
-    box-shadow: 0 4px 16px rgba(100, 200, 255, 0.2);
+/* Active hover - increase glow intensity */
+.workspace-container.active:hover .workspace-orb {
+    box-shadow: 
+        0 0 16px rgba(140, 210, 255, 1),
+        0 0 32px rgba(100, 190, 255, 0.8),
+        0 0 48px rgba(100, 190, 255, 0.4),
+        inset 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
-/* System Stats */
-.system-stats {
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    border: 1px solid rgba(100, 200, 255, 0.1);
-}
-
-.stat-label {
-    color: rgba(100, 200, 255, 0.6);
-    font-size: 12px;
-    min-width: 40px;
-}
-
-.stat-value {
-    color: rgba(100, 200, 255, 0.9);
-    font-size: 12px;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-}
-
-/* App Shortcuts */
-.app-shortcuts {
-    padding: 12px;
-}
-
-.section-title {
-    color: rgba(100, 200, 255, 0.7);
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.app-btn {
-    min-width: 40px;
-    min-height: 40px;
-    border-radius: 10px;
-    background: rgba(100, 200, 255, 0.05);
-    border: 1px solid rgba(100, 200, 255, 0.15);
-    font-size: 18px;
-    transition: all 200ms ease;
-}
-
-.app-btn:hover {
-    background: rgba(100, 200, 255, 0.15);
-    border-color: rgba(100, 200, 255, 0.3);
-    transform: scale(1.1);
+@keyframes orb-glow {
+    0%, 100% {
+        box-shadow: 
+            0 0 12px rgba(140, 210, 255, 0.9),
+            0 0 24px rgba(100, 190, 255, 0.6),
+            0 0 36px rgba(100, 190, 255, 0.3),
+            inset 0 0 6px rgba(255, 255, 255, 0.4);
+    }
+    50% {
+        box-shadow: 
+            0 0 16px rgba(140, 210, 255, 1),
+            0 0 32px rgba(100, 190, 255, 0.8),
+            0 0 48px rgba(100, 190, 255, 0.5),
+            inset 0 0 10px rgba(255, 255, 255, 0.6);
+    }
 }
 
 /* Clock styles */
@@ -481,4 +254,3 @@ window {
     font-weight: 400;
     margin-bottom: 2px;
 }
-

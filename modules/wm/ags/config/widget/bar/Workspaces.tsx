@@ -1,70 +1,90 @@
 import { Variable, bind, GLib } from "astal"
 import { Gtk } from "astal/gtk4"
-import { exec, execAsync } from "astal/process"
+import { execAsync, exec } from "astal/process"
+
+interface Workspace {
+    id: number
+    windows: number
+}
 
 export default function Workspaces() {
-    // Track active workspace and visible workspaces
     const activeWorkspace = Variable(1)
-    const visibleWorkspaces = Variable(new Set<number>([1]))
+    const workspaces = Variable<Map<number, Workspace>>(new Map())
     
-    // Update workspace info
-    const updateWorkspaces = () => {
+    let updateTimer: number | null = null
+    
+    const updateAll = async () => {
         try {
-            // Get active workspace
-            const activeOutput = exec("hyprctl -j activeworkspace")
+            const [activeOutput, workspacesOutput] = await Promise.all([
+                execAsync("hyprctl -j activeworkspace"),
+                execAsync("hyprctl -j workspaces")
+            ])
+            
+            // Update active workspace
             const activeData = JSON.parse(activeOutput)
+            console.log("Active workspace changed to:", activeData.id)
             activeWorkspace.set(activeData.id)
             
-            // Get all workspaces
-            const workspacesOutput = exec("hyprctl -j workspaces")
+            // Update workspace list
             const workspacesData = JSON.parse(workspacesOutput)
+            const newWorkspaces = new Map<number, Workspace>()
             
-            // Build set of workspace IDs that should be shown
-            const visible = new Set<number>()
-            
-            // Add all workspaces that exist (have windows)
             workspacesData.forEach((ws: any) => {
-                if (ws.id > 0) {  // Only positive workspace IDs
-                    visible.add(ws.id)
+                if (ws.id > 0) {
+                    newWorkspaces.set(ws.id, { id: ws.id, windows: ws.windows })
                 }
             })
             
-            // Always include workspace 1 and active workspace
-            visible.add(1)
-            if (activeData.id > 0) {
-                visible.add(activeData.id)
+            // Always include workspace 1
+            if (!newWorkspaces.has(1)) {
+                newWorkspaces.set(1, { id: 1, windows: 0 })
             }
             
-            visibleWorkspaces.set(visible)
+            // Include current active workspace
+            if (activeData.id > 0 && !newWorkspaces.has(activeData.id)) {
+                newWorkspaces.set(activeData.id, { id: activeData.id, windows: 0 })
+            }
+            
+            workspaces.set(newWorkspaces)
         } catch (e) {
             console.error("Failed to update workspaces:", e)
         }
     }
     
     // Initial update
-    updateWorkspaces()
+    updateAll()
     
-    // Poll for updates every 100ms
-    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        updateWorkspaces()
-        return true
+    // Use GLib timer for better integration with the main loop
+    updateTimer = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => {
+        updateAll()
+        return true // Continue the timer
     })
     
-    // Pre-create buttons for workspaces 1-10 (static buttons, dynamic visibility)
     const maxWorkspaces = 10
-    const workspaceButtons = Array.from({ length: maxWorkspaces }, (_, i) => i + 1).map(id => (
-        <button
+    const workspaceButtons = Array.from({ length: maxWorkspaces }, (_, i) => {
+        const id = i + 1
+        return <box
+            key={id}
             cssClasses={bind(activeWorkspace).as(active => 
-                active === id ? ["workspace-button", "active"] : ["workspace-button"]
+                active === id ? ["workspace-container", "active"] : ["workspace-container"]
             )}
-            visible={bind(visibleWorkspaces).as(visible => visible.has(id))}
-            onClicked={() => execAsync(`hyprctl dispatch workspace ${id}`)}>
-            
-            <box cssClasses={["energy-container"]}>
-                <box cssClasses={["orb"]} />
-            </box>
-        </button>
-    ))
+            visible={bind(workspaces).as(wsMap => 
+                wsMap.has(id) || id === 1 || id === activeWorkspace.get()
+            )}>
+            <button
+                cssClasses={["workspace-orb"]}
+                onClicked={() => {
+                    // Optimistically update the UI
+                    activeWorkspace.set(id)
+                    execAsync(`hyprctl dispatch workspace ${id}`)
+                        .catch(e => {
+                            console.error("Failed to switch workspace:", e)
+                            // Revert on error
+                            updateAll()
+                        })
+                }} />
+        </box>
+    })
     
     return <box 
         cssClasses={["workspaces"]}
