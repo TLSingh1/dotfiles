@@ -278,38 +278,3 @@ window {
     font-weight: 400;
     margin-top: 2px;
 }
-
-/* Workspace Preview Container */
-.workspaces-container {
-    background: transparent;
-}
-
-/* Workspace Preview */
-.workspace-preview-revealer {
-    .workspace-preview {
-        margin-left: 8px;
-        background: rgba(20, 25, 40, 0.95);
-        border: 1px solid rgba(100, 255, 218, 0.3);
-        border-radius: 8px;
-        padding: 4px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
-                    0 0 30px rgba(100, 255, 218, 0.1);
-        
-        .preview-image {
-            min-width: 192px;
-            min-height: 108px;
-            border-radius: 4px;
-        }
-        
-        .preview-loading {
-            min-width: 192px;
-            min-height: 108px;
-            padding: 20px;
-            
-            label {
-                color: rgba(100, 255, 218, 0.6);
-                font-size: 12px;
-            }
-        }
-    }
-}
