@@ -123,13 +123,19 @@ window {
 
 /* Workspaces */
 .workspaces {
-    margin: 12px 0;
+    margin: 6px 0;
     padding: 0 4px;
 }
 
 /* Workspace container - invisible by default */
 .workspace-container {
-    padding: 6px;
+    // padding: 6px;
+    // padding: 12px;
+    // padding: 6px 20px;
+    // padding: 0px;
+    padding-left: 18px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     margin: 2px 0;
     border-radius: 50%;
     background: transparent;
@@ -147,6 +153,7 @@ window {
 
 /* Active container has subtle glow */
 .workspace-container.active {
+    padding-left: 15px;
     background: radial-gradient(
         circle at center,
         rgba(100, 200, 255, 0.15),
