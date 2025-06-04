@@ -1,18 +1,18 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4"
-import Workspaces from "./Workspaces"
-import Launcher from "./Launcher"
-import SystemIndicators from "./SystemIndicators"
-import Clock from "./Clock"
-import PowerButton from "./PowerButton"
+// import Workspaces from "./Workspaces"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
     const { TOP, BOTTOM, LEFT } = Astal.WindowAnchor
+    
+    console.log("Creating bar for monitor:", gdkmonitor.get_model())
 
     return <window
+        visible={true}
         cssClasses={["Bar"]}
         gdkmonitor={gdkmonitor}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         anchor={TOP | BOTTOM | LEFT}
+        layer={Astal.Layer.TOP}
         application={App}>
         <box
             cssClasses={["vertical-bar"]}
@@ -21,8 +21,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             
             {/* Top section */}
             <box vertical valign={Gtk.Align.START}>
-                <Launcher />
-                <Workspaces />
+                <button cssClasses={["launcher"]}>
+                    <label label="◈" />
+                </button>
+                {/* <Workspaces /> */}
             </box>
 
             {/* Center spacer */}
@@ -30,10 +32,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
             {/* Bottom section */}
             <box vertical valign={Gtk.Align.END}>
-                <SystemIndicators />
-                <separator />
-                <Clock />
-                <PowerButton />
+                <button cssClasses={["power-button"]}>
+                    <label label="◉" />
+                </button>
             </box>
         </box>
     </window>
