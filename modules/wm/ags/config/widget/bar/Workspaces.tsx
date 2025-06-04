@@ -1,5 +1,5 @@
 import { Variable, bind } from "astal"
-import { Gtk } from "astal/gtk4"
+import { Gtk, Gdk } from "astal/gtk4"
 
 // Temporary mock implementation until Hyprland library is available
 export default function Workspaces() {
@@ -23,14 +23,6 @@ export default function Workspaces() {
                 console.log(`Switching to workspace ${id}`)
                 activeWorkspace.set(id)
                 // Once Hyprland is available, use: hypr.dispatch("workspace", `${id}`)
-            }}
-            onScrollUp={() => {
-                const current = activeWorkspace.get()
-                if (current < 10) activeWorkspace.set(current + 1)
-            }}
-            onScrollDown={() => {
-                const current = activeWorkspace.get()
-                if (current > 1) activeWorkspace.set(current - 1)
             }}>
             
             {/* Energy beam container */}
@@ -47,9 +39,30 @@ export default function Workspaces() {
         </button>
     })
     
-    return <box cssClasses={["workspaces"]} vertical>
-        {workspaceButtons}
-    </box>
+    return <eventbox
+        onScroll={(self, event) => {
+            // Handle scroll events
+            const direction = event.get_scroll_direction()
+            const current = activeWorkspace.get()
+            
+            if (direction === Gdk.ScrollDirection.UP && current > 1) {
+                activeWorkspace.set(current - 1)
+            } else if (direction === Gdk.ScrollDirection.DOWN && current < 10) {
+                activeWorkspace.set(current + 1)
+            } else if (direction === Gdk.ScrollDirection.SMOOTH) {
+                // Handle smooth scrolling (trackpad)
+                const [, dy] = event.get_scroll_deltas()
+                if (dy < 0 && current > 1) {
+                    activeWorkspace.set(current - 1)
+                } else if (dy > 0 && current < 10) {
+                    activeWorkspace.set(current + 1)
+                }
+            }
+        }}>
+        <box cssClasses={["workspaces"]} vertical>
+            {workspaceButtons}
+        </box>
+    </eventbox>
 }
 
 // Full Hyprland implementation (for when the library is available):
@@ -94,9 +107,7 @@ export default function Workspaces() {
                     self.toggleClassName("occupied", exists.get())
                 })
             }}
-            onClicked={() => hypr.dispatch("workspace", `${id}`)}
-            onScrollUp={() => hypr.dispatch("workspace", "+1")}
-            onScrollDown={() => hypr.dispatch("workspace", "-1")}>
+            onClicked={() => hypr.dispatch("workspace", `${id}`)}>
             
             <box cssClasses={["energy-container"]}>
                 <box cssClasses={["orb"]} />
@@ -106,8 +117,26 @@ export default function Workspaces() {
         </button>
     })
     
-    return <box cssClasses={["workspaces"]} vertical>
-        {workspaceButtons}
-    </box>
+    return <eventbox
+        onScroll={(self, event) => {
+            const direction = event.get_scroll_direction()
+            
+            if (direction === Gdk.ScrollDirection.UP) {
+                hypr.dispatch("workspace", "-1")
+            } else if (direction === Gdk.ScrollDirection.DOWN) {
+                hypr.dispatch("workspace", "+1")
+            } else if (direction === Gdk.ScrollDirection.SMOOTH) {
+                const [, dy] = event.get_scroll_deltas()
+                if (dy < 0) {
+                    hypr.dispatch("workspace", "-1")
+                } else if (dy > 0) {
+                    hypr.dispatch("workspace", "+1")
+                }
+            }
+        }}>
+        <box cssClasses={["workspaces"]} vertical>
+            {workspaceButtons}
+        </box>
+    </eventbox>
 }
 */
