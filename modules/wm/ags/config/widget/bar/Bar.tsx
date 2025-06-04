@@ -33,7 +33,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             {/* Top section */}
             <box vertical valign={Gtk.Align.START}>
                 <button cssClasses={["launcher"]}>
-                    <label label="◈" />
+                    <icon 
+                        icon="/home/tai/.dotfiles/modules/wm/ags/config/assets/nixos-flake.png"
+                        pixelSize={20}
+                    />
                 </button>
                 <Workspaces />
             </box>
