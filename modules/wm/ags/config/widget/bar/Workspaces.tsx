@@ -50,7 +50,10 @@ export default function Workspaces() {
     
     // Function to switch to a workspace
     const switchToWorkspace = (id: number) => {
-        execAsync(`hyprctl dispatch workspace ${id}`).catch(console.error)
+        console.log(`Switching to workspace ${id}`)
+        execAsync(`hyprctl dispatch workspace ${id}`)
+            .then(() => console.log(`Switched to workspace ${id}`))
+            .catch((err) => console.error(`Failed to switch to workspace ${id}:`, err))
     }
     
     // Function to create workspace button
@@ -61,10 +64,15 @@ export default function Workspaces() {
             cssClasses={bind(isActive).as(active => 
                 active ? ["workspace-button", "active"] : ["workspace-button"]
             )}
-            onClicked={() => switchToWorkspace(id)}>
+            onClicked={() => {
+                console.log(`Button clicked for workspace ${id}`)
+                switchToWorkspace(id)
+            }}
+            canFocus={true}
+            sensitive={true}>
             
             {/* Energy beam container */}
-            <box cssClasses={["energy-container"]}>
+            <box cssClasses={["energy-container"]} sensitive={false}>
                 {/* Orb indicator */}
                 <box cssClasses={["orb"]} />
                 
