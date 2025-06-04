@@ -1,11 +1,13 @@
 import { Variable, bind, GLib } from "astal"
 import { Gtk } from "astal/gtk4"
 import { exec, execAsync } from "astal/process"
+import WorkspacePreview from "./WorkspacePreview"
 
 export default function Workspaces() {
     // Track active workspace and which workspaces should be visible
     const activeWorkspace = Variable(1)
     const visibleWorkspaces = Variable(new Set([1]))
+    const hoveredWorkspace = Variable<number | null>(null)
     
     // Poll Hyprland for workspace info
     const updateWorkspaces = () => {
@@ -61,7 +63,9 @@ export default function Workspaces() {
             cssClasses={bind(isActive).as(active => 
                 active ? ["workspace-button", "active"] : ["workspace-button"]
             )}
-            onClicked={() => switchToWorkspace(id)}>
+            onClicked={() => switchToWorkspace(id)}
+            onHoverStart={() => hoveredWorkspace.set(id)}
+            onHoverEnd={() => hoveredWorkspace.set(null)}>
             
             {/* Energy beam container */}
             <box cssClasses={["energy-container"]}>
@@ -83,28 +87,40 @@ export default function Workspaces() {
         return sortedIds.map(id => createWorkspaceButton(id))
     })
     
-    return <box 
-        cssClasses={["workspaces"]}
-        vertical
-        setup={(self) => {
-            // Add scroll event controller
-            const scrollController = new Gtk.EventControllerScroll()
-            scrollController.set_flags(Gtk.EventControllerScrollFlags.VERTICAL)
-            
-            scrollController.connect("scroll", (_, dx, dy) => {
-                if (dy < 0) {
-                    // Scroll down - next workspace
-                    execAsync("hyprctl dispatch workspace +1").catch(console.error)
-                } else if (dy > 0) {
-                    // Scroll up - previous workspace
-                    execAsync("hyprctl dispatch workspace -1").catch(console.error)
-                }
-                return true
-            })
-            
-            self.add_controller(scrollController)
-        }}>
-        {workspaceButtons}
+    return <box cssClasses={["workspaces-container"]} homogeneous={false}>
+        <box 
+            cssClasses={["workspaces"]}
+            vertical
+            setup={(self) => {
+                // Add scroll event controller
+                const scrollController = new Gtk.EventControllerScroll()
+                scrollController.set_flags(Gtk.EventControllerScrollFlags.VERTICAL)
+                
+                scrollController.connect("scroll", (_, dx, dy) => {
+                    if (dy < 0) {
+                        // Scroll down - next workspace
+                        execAsync("hyprctl dispatch workspace +1").catch(console.error)
+                    } else if (dy > 0) {
+                        // Scroll up - previous workspace
+                        execAsync("hyprctl dispatch workspace -1").catch(console.error)
+                    }
+                    return true
+                })
+                
+                self.add_controller(scrollController)
+            }}>
+            {workspaceButtons}
+        </box>
+        
+        {/* Preview widget for all workspaces */}
+        {bind(visibleWorkspaces).as(visible => 
+            Array.from(visible).map(id => (
+                <WorkspacePreview
+                    workspaceId={id}
+                    visible={bind(hoveredWorkspace).as(hovered => hovered === id)}
+                />
+            ))
+        )}
     </box>
 }
 
