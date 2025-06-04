@@ -6,6 +6,8 @@ let
   cfg = config.modules.wm.ags;
 in
 {
+  imports = [ inputs.ags.homeManagerModules.default ];
+
   options.modules.wm.ags = {
     enable = mkEnableOption "AGS - Aylur's GTK Shell" // {
       default = true;
@@ -13,8 +15,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Import AGS home-manager module
-    imports = [ inputs.ags.homeManagerModules.default ];
 
     # Required packages for AGS and our widgets
     home.packages = with pkgs; [
@@ -60,12 +60,16 @@ in
         gtksourceview
         webkitgtk
         accountsservice
+        inputs.ags.packages.${pkgs.system}.astal4
+        inputs.ags.packages.${pkgs.system}.io
+        inputs.ags.packages.${pkgs.system}.hyprland
+        inputs.ags.packages.${pkgs.system}.mpris
+        inputs.ags.packages.${pkgs.system}.battery
+        inputs.ags.packages.${pkgs.system}.wireplumber
+        inputs.ags.packages.${pkgs.system}.network
+        inputs.ags.packages.${pkgs.system}.tray
       ];
     };
-
-    # Ensure config directory is linked
-    xdg.configFile."ags".source = config.lib.file.mkOutOfStoreSymlink 
-      "${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config";
 
     # Environment variables for AGS
     home.sessionVariables = {

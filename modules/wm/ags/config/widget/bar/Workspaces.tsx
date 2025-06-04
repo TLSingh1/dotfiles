@@ -1,29 +1,67 @@
-import { Variable, bind } from "astal"
-import { Gtk, Gdk } from "astal/gtk4"
+import { Variable, bind, GLib } from "astal"
+import { Gtk } from "astal/gtk4"
+import { exec, execAsync } from "astal/process"
 
-// Temporary mock implementation until Hyprland library is available
 export default function Workspaces() {
-    // For now, create a simple workspace indicator with 10 workspaces
+    // Track active workspace and which workspaces should be visible
     const activeWorkspace = Variable(1)
+    const visibleWorkspaces = Variable(new Set([1]))
     
-    // Create workspace buttons for workspaces 1-10
-    const workspaceButtons = Array.from({ length: 10 }, (_, i) => i + 1).map(id => {
+    // Poll Hyprland for workspace info
+    const updateWorkspaces = () => {
+        try {
+            // Get active workspace
+            const activeOutput = exec("hyprctl -j activeworkspace")
+            const activeData = JSON.parse(activeOutput)
+            activeWorkspace.set(activeData.id)
+            
+            // Get all workspaces
+            const workspacesOutput = exec("hyprctl -j workspaces")
+            const workspacesData = JSON.parse(workspacesOutput)
+            
+            // Build set of workspaces that exist (have windows or are active)
+            const visible = new Set<number>()
+            workspacesData.forEach((ws: any) => {
+                if (ws.id > 0) {
+                    visible.add(ws.id)
+                }
+            })
+            
+            // Always include workspace 1 and active workspace
+            visible.add(1)
+            if (activeData.id > 0) {
+                visible.add(activeData.id)
+            }
+            
+            visibleWorkspaces.set(visible)
+        } catch (e) {
+            console.error("Failed to update workspaces:", e)
+        }
+    }
+    
+    // Initial update
+    updateWorkspaces()
+    
+    // Poll for updates
+    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+        updateWorkspaces()
+        return true
+    })
+    
+    // Function to switch to a workspace
+    const switchToWorkspace = (id: number) => {
+        execAsync(`hyprctl dispatch workspace ${id}`).catch(console.error)
+    }
+    
+    // Function to create workspace button
+    const createWorkspaceButton = (id: number) => {
+        const isActive = bind(activeWorkspace).as(active => active === id)
+        
         return <button
-            cssClasses={["workspace-button"]}
-            setup={self => {
-                // Bind active state
-                self.hook(activeWorkspace, () => {
-                    self.toggleClassName("active", activeWorkspace.get() === id)
-                })
-                
-                // Mock occupied state - workspaces 1-3 are occupied by default
-                self.toggleClassName("occupied", id <= 3)
-            }}
-            onClicked={() => {
-                console.log(`Switching to workspace ${id}`)
-                activeWorkspace.set(id)
-                // Once Hyprland is available, use: hypr.dispatch("workspace", `${id}`)
-            }}>
+            cssClasses={bind(isActive).as(active => 
+                active ? ["workspace-button", "active"] : ["workspace-button"]
+            )}
+            onClicked={() => switchToWorkspace(id)}>
             
             {/* Energy beam container */}
             <box cssClasses={["energy-container"]}>
@@ -31,38 +69,43 @@ export default function Workspaces() {
                 <box cssClasses={["orb"]} />
                 
                 {/* Flowing energy beam */}
-                <box cssClasses={["energy-beam"]} />
+                {/* <box cssClasses={["energy-beam"]} /> */}
                 
                 {/* Workspace number */}
-                <label cssClasses={["workspace-label"]} label={`${id}`} />
+                {/* <label cssClasses={["workspace-label"]} label={`${id}`} /> */}
             </box>
         </button>
+    }
+    
+    // Create workspace buttons dynamically based on visible workspaces
+    const workspaceButtons = bind(visibleWorkspaces).as(visible => {
+        const sortedIds = Array.from(visible).sort((a, b) => a - b)
+        return sortedIds.map(id => createWorkspaceButton(id))
     })
     
-    return <eventbox
-        onScroll={(self, event) => {
-            // Handle scroll events
-            const direction = event.get_scroll_direction()
-            const current = activeWorkspace.get()
+    return <box 
+        cssClasses={["workspaces"]}
+        vertical
+        setup={(self) => {
+            // Add scroll event controller
+            const scrollController = new Gtk.EventControllerScroll()
+            scrollController.set_flags(Gtk.EventControllerScrollFlags.VERTICAL)
             
-            if (direction === Gdk.ScrollDirection.UP && current > 1) {
-                activeWorkspace.set(current - 1)
-            } else if (direction === Gdk.ScrollDirection.DOWN && current < 10) {
-                activeWorkspace.set(current + 1)
-            } else if (direction === Gdk.ScrollDirection.SMOOTH) {
-                // Handle smooth scrolling (trackpad)
-                const [, dy] = event.get_scroll_deltas()
-                if (dy < 0 && current > 1) {
-                    activeWorkspace.set(current - 1)
-                } else if (dy > 0 && current < 10) {
-                    activeWorkspace.set(current + 1)
+            scrollController.connect("scroll", (_, dx, dy) => {
+                if (dy < 0) {
+                    // Scroll down - next workspace
+                    execAsync("hyprctl dispatch workspace +1").catch(console.error)
+                } else if (dy > 0) {
+                    // Scroll up - previous workspace
+                    execAsync("hyprctl dispatch workspace -1").catch(console.error)
                 }
-            }
+                return true
+            })
+            
+            self.add_controller(scrollController)
         }}>
-        <box cssClasses={["workspaces"]} vertical>
-            {workspaceButtons}
-        </box>
-    </eventbox>
+        {workspaceButtons}
+    </box>
 }
 
 // Full Hyprland implementation (for when the library is available):
@@ -72,39 +115,51 @@ import Hyprland from "gi://AstalHyprland"
 export default function Workspaces() {
     const hypr = Hyprland.get_default()
     
-    // Track active workspace
+    // Track active workspace and occupied workspaces
     const activeId = Variable(hypr.get_focused_workspace().get_id())
+    const occupiedWorkspaces = Variable(new Set<number>())
+    
+    // Initialize occupied workspaces
+    const updateOccupied = () => {
+        const occupied = new Set<number>()
+        hypr.get_workspaces().forEach(ws => {
+            occupied.add(ws.get_id())
+        })
+        occupiedWorkspaces.set(occupied)
+    }
     
     // Update active workspace on change
     hypr.connect("notify::focused-workspace", () => {
         activeId.set(hypr.get_focused_workspace().get_id())
     })
     
-    // Create workspace buttons for workspaces 1-10
-    const workspaceButtons = Array.from({ length: 10 }, (_, i) => i + 1).map(id => {
-        const ws = hypr.get_workspace(id)
-        const exists = Variable(ws !== null)
-        
-        // Update workspace existence
-        const updateExists = () => {
-            const workspace = hypr.get_workspace(id)
-            exists.set(workspace !== null)
-        }
-        
-        hypr.connect("workspace-added", updateExists)
-        hypr.connect("workspace-removed", updateExists)
+    // Update occupied workspaces
+    hypr.connect("workspace-added", updateOccupied)
+    hypr.connect("workspace-removed", updateOccupied)
+    hypr.connect("client-added", updateOccupied)
+    hypr.connect("client-removed", updateOccupied)
+    
+    updateOccupied() // Initial update
+    
+    // Combine active and occupied to determine visible workspaces
+    const visibleWorkspaces = bind(activeId, occupiedWorkspaces).as((active, occupied) => {
+        const visible = new Set(occupied)
+        visible.add(active) // Always show active workspace
+        visible.add(1) // Always show workspace 1
+        return visible
+    })
+    
+    const maxWorkspaces = 10
+    const workspaceButtons = Array.from({ length: maxWorkspaces }, (_, i) => i + 1).map(id => {
+        const isActive = bind(activeId).as(active => active === id)
+        const isVisible = bind(visibleWorkspaces).as(visible => visible.has(id))
         
         return <button
             cssClasses={["workspace-button"]}
-            setup={self => {
-                // Bind active state
-                self.hook(activeId, () => {
-                    self.toggleClassName("active", activeId.get() === id)
-                })
-                
-                // Bind occupied state
-                self.hook(exists, () => {
-                    self.toggleClassName("occupied", exists.get())
+            visible={isVisible}
+            setup={(self) => {
+                isActive.subscribe((active) => {
+                    self.toggleClassName("active", active)
                 })
             }}
             onClicked={() => hypr.dispatch("workspace", `${id}`)}>
@@ -117,26 +172,25 @@ export default function Workspaces() {
         </button>
     })
     
-    return <eventbox
-        onScroll={(self, event) => {
-            const direction = event.get_scroll_direction()
+    return <box 
+        cssClasses={["workspaces"]}
+        vertical
+        setup={(self) => {
+            const scrollController = new Gtk.EventControllerScroll()
+            scrollController.set_flags(Gtk.EventControllerScrollFlags.VERTICAL)
             
-            if (direction === Gdk.ScrollDirection.UP) {
-                hypr.dispatch("workspace", "-1")
-            } else if (direction === Gdk.ScrollDirection.DOWN) {
-                hypr.dispatch("workspace", "+1")
-            } else if (direction === Gdk.ScrollDirection.SMOOTH) {
-                const [, dy] = event.get_scroll_deltas()
+            scrollController.connect("scroll", (_, dx, dy) => {
                 if (dy < 0) {
-                    hypr.dispatch("workspace", "-1")
-                } else if (dy > 0) {
                     hypr.dispatch("workspace", "+1")
+                } else if (dy > 0) {
+                    hypr.dispatch("workspace", "-1")
                 }
-            }
+                return true
+            })
+            
+            self.add_controller(scrollController)
         }}>
-        <box cssClasses={["workspaces"]} vertical>
-            {workspaceButtons}
-        </box>
-    </eventbox>
+        {workspaceButtons}
+    </box>
 }
 */
