@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # Use the same Hyprland as your system - we'll pass this in
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = { self, nixpkgs, hyprland }:
@@ -24,7 +25,7 @@
           
           nativeBuildInputs = with pkgs; [
             pkg-config
-            gcc13
+            clang_18
             hyprlandPkg
           ];
           
@@ -33,13 +34,76 @@
             pixman
             libdrm
             mesa
+            libGL
+            wayland
+            wayland-protocols
+            libinput
+            libxkbcommon
+            cairo
+            pango
+            jsoncpp
+            libpng
+            hyprland.inputs.hyprgraphics.packages.${system}.default
+            hyprland.inputs.hyprutils.packages.${system}.default
+            hyprland.inputs.hyprlang.packages.${system}.default
+            hyprland.inputs.aquamarine.packages.${system}.default
           ];
           
           buildPhase = ''
-            g++ -std=c++23 -shared -fPIC \
-              $(pkg-config --cflags pixman-1 libdrm hyprland) \
+            clang++ -std=c++23 -shared -fPIC \
+              $(pkg-config --cflags pixman-1 libdrm hyprland wayland-server jsoncpp) \
+              $(pkg-config --libs jsoncpp) \
               -o workspace-preview.so \
               src/main.cpp
+          '';
+          
+          installPhase = ''
+            mkdir -p $out/lib
+            cp workspace-preview.so $out/lib/
+          '';
+        };
+        
+        workspace-preview-v3 = pkgs.stdenv.mkDerivation {
+          pname = "hyprland-workspace-preview-v3";
+          version = "0.3.0";
+          
+          src = ./.;
+          
+          nativeBuildInputs = with pkgs; [
+            pkg-config
+            clang_18
+            hyprlandPkg
+          ];
+          
+          buildInputs = with pkgs; [
+            hyprlandHeaders
+            pixman
+            libdrm
+            mesa
+            libGL
+            wayland
+            wayland-protocols
+            libinput
+            libxkbcommon
+            cairo
+            pango
+            jsoncpp
+            libpng
+            hyprland.inputs.hyprgraphics.packages.${system}.default
+            hyprland.inputs.hyprutils.packages.${system}.default
+            hyprland.inputs.hyprlang.packages.${system}.default
+            hyprland.inputs.aquamarine.packages.${system}.default
+          ];
+          
+          buildPhase = ''
+            ls -la
+            ls -la src/
+            clang++ -std=c++23 -shared -fPIC \
+              $(pkg-config --cflags pixman-1 libdrm hyprland wayland-server jsoncpp libpng) \
+              $(pkg-config --libs jsoncpp libpng) \
+              -lGL \
+              -o workspace-preview.so \
+              src/main-v3.cpp
           '';
           
           installPhase = ''
@@ -54,7 +118,8 @@
         
         packages = with pkgs; [
           # Development tools
-          clang-tools
+          clang_18
+          clang-tools_18
           gdb
           valgrind
           
