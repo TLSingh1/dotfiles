@@ -22,7 +22,7 @@ export default function Workspaces() {
             
             // Update active workspace
             const activeData = JSON.parse(activeOutput)
-            console.log("Active workspace changed to:", activeData.id)
+            // console.log("Active workspace changed to:", activeData.id)
             activeWorkspace.set(activeData.id)
             
             // Update workspace list
