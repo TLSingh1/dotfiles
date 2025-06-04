@@ -74,7 +74,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     
     console.log("Creating bar for monitor:", gdkmonitor.get_model())
 
-    return <window
+    const barWindow = <window
         visible={true}
         cssClasses={["Bar"]}
         gdkmonitor={gdkmonitor}
@@ -82,7 +82,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         anchor={TOP | BOTTOM | LEFT}
         layer={Astal.Layer.TOP}
         application={App}
-        widthRequest={bind(barWidth)}>
+        widthRequest={48}>
         <box
             cssClasses={bind(barState).as(state => 
                 state.includes("expand") ? ["bar-container", "bar-container-expanding"] : ["bar-container"]
@@ -113,11 +113,12 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
                 {/* Bottom section */}
                 <box vertical valign={Gtk.Align.END}>
-                    {/* System tray toggle button */}
+                    {/* System tray expand button - only visible when collapsed */}
                     <button 
                         cssClasses={["system-tray-toggle"]}
-                        onClicked={toggleBarExpansion}>
-                        <label label={bind(barState).as(state => state === "collapsed" ? "⋮" : "×")} />
+                        visible={bind(barState).as(state => state === "collapsed")}
+                        onClicked={() => toggleBarExpansion()}>
+                        <label label="⋮" />
                     </button>
                     
                     <box vertical cssClasses={["clock"]}>
@@ -143,7 +144,15 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                 hexpand
                 valign={Gtk.Align.FILL}>
                 <box vertical spacing={12}>
-                    <label cssClasses={["expanded-title"]} label="System Controls" />
+                    <box spacing={8}>
+                        <label cssClasses={["expanded-title"]} label="System Controls" />
+                        <box hexpand />
+                        <button 
+                            cssClasses={["collapse-btn"]}
+                            onClicked={() => toggleBarExpansion()}>
+                            <label label="×" />
+                        </button>
+                    </box>
                     
                     {/* Quick Actions Grid */}
                     <box cssClasses={["quick-actions"]} spacing={8}>
@@ -206,4 +215,13 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             </box>
         </box>
     </window>
+    
+    // Update window width when barWidth changes
+    barWidth.subscribe((width) => {
+        if (barWindow) {
+            barWindow.widthRequest = width
+        }
+    })
+    
+    return barWindow
 }
