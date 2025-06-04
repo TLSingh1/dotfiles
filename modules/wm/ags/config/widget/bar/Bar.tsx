@@ -23,7 +23,15 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     
     // Handle bar expansion/collapse
     const toggleBarExpansion = () => {
-        if (barState.get() === "collapsed") {
+        const currentState = barState.get()
+        console.log("Toggle clicked, current state:", currentState)
+        
+        // Prevent multiple animations
+        if (currentState === "expanding" || currentState === "collapsing") {
+            return
+        }
+        
+        if (currentState === "collapsed") {
             barState.set("expanding")
             // Animate width expansion
             const steps = 20
@@ -32,14 +40,16 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             
             const expand = setInterval(() => {
                 currentStep++
-                barWidth.set(48 + (increment * currentStep))
+                const newWidth = 48 + (increment * currentStep)
+                barWidth.set(newWidth)
                 
                 if (currentStep >= steps) {
                     clearInterval(expand)
                     barState.set("expanded")
+                    console.log("Expansion complete, width:", barWidth.get())
                 }
             }, 15)
-        } else if (barState.get() === "expanded") {
+        } else if (currentState === "expanded") {
             barState.set("collapsing")
             // Animate width collapse
             const steps = 20
@@ -48,11 +58,15 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             
             const collapse = setInterval(() => {
                 currentStep++
-                barWidth.set(expandedWidth - (decrement * currentStep))
+                const newWidth = expandedWidth - (decrement * currentStep)
+                barWidth.set(newWidth)
+                console.log("Collapsing, step:", currentStep, "width:", newWidth)
                 
                 if (currentStep >= steps) {
                     clearInterval(collapse)
                     barState.set("collapsed")
+                    barWidth.set(48) // Ensure final width is exact
+                    console.log("Collapse complete, final width:", barWidth.get())
                 }
             }, 15)
         }
@@ -68,7 +82,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         anchor={TOP | BOTTOM | LEFT}
         layer={Astal.Layer.TOP}
         application={App}
-        widthRequest={barWidth()}>
+        widthRequest={bind(barWidth)}>
         <box
             cssClasses={bind(barState).as(state => 
                 state.includes("expand") ? ["bar-container", "bar-container-expanding"] : ["bar-container"]
@@ -125,7 +139,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             {/* Expanded content area */}
             <box
                 cssClasses={["expanded-content"]}
-                visible={bind(barState).as(state => state !== "collapsed")}
+                visible={bind(barState).as(state => state === "expanded" || state === "expanding")}
                 hexpand
                 valign={Gtk.Align.FILL}>
                 <box vertical spacing={12}>
