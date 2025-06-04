@@ -1,5 +1,5 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4"
-// import Workspaces from "./Workspaces"
+import Workspaces from "./Workspaces"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
     const { TOP, BOTTOM, LEFT } = Astal.WindowAnchor
@@ -24,7 +24,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                 <button cssClasses={["launcher"]}>
                     <label label="◈" />
                 </button>
-                {/* <Workspaces /> */}
+                <Workspaces />
             </box>
 
             {/* Center spacer */}
