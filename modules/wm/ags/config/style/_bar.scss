@@ -106,8 +106,8 @@ window.Bar {
 
                 .orb {
                     opacity: 0.3;
-                    width: 4px;
-                    height: 4px;
+                    width: 2px;
+                    height: 2px;
                 }
             }
 
@@ -124,11 +124,19 @@ window.Bar {
                     opacity: 1;
                     width: 10px;
                     height: 10px;
+                    border-radius: 0;
+                    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+                    background: linear-gradient(135deg, 
+                        $primary,
+                        lighten($primary, 10%),
+                        $primary
+                    );
                     box-shadow: 
-                        0 0 10px $primary,
-                        0 0 20px transparentize($primary, 0.5),
-                        0 0 30px transparentize($primary, 0.7);
-                    animation: pulse 2s ease-in-out infinite;
+                        0 0 15px $primary,
+                        0 0 25px transparentize($primary, 0.3),
+                        0 0 35px transparentize($primary, 0.5),
+                        inset 0 0 10px transparentize(lighten($primary, 20%), 0.5);
+                    animation: pulse 2s ease-in-out infinite, rotate 10s linear infinite;
                 }
 
                 .energy-beam {
@@ -158,6 +166,15 @@ window.Bar {
         }
         100% {
             background-position: 200% 0;
+        }
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
         }
     }
 
