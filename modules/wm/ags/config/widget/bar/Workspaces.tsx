@@ -1,6 +1,7 @@
 import { Variable, bind, GLib } from "astal"
 import { Gtk } from "astal/gtk4"
 import { exec, execAsync } from "astal/process"
+import { hoveredWorkspace, hoveredButtonY } from "./WorkspacePreview"
 
 export default function Workspaces() {
     // Track active workspace and visible workspaces
@@ -58,7 +59,25 @@ export default function Workspaces() {
                 active === id ? ["workspace-button", "active"] : ["workspace-button"]
             )}
             visible={bind(visibleWorkspaces).as(visible => visible.has(id))}
-            onClicked={() => execAsync(`hyprctl dispatch workspace ${id}`)}>
+            onClicked={() => execAsync(`hyprctl dispatch workspace ${id}`)}
+            setup={(self) => {
+                // Add hover tracking
+                const motionController = new Gtk.EventControllerMotion()
+                
+                motionController.connect("enter", () => {
+                    hoveredWorkspace.set(id)
+                    // Get button position
+                    const allocation = self.get_allocation()
+                    const [_, y] = self.translate_coordinates(self.get_root(), 0, allocation.height / 2)
+                    hoveredButtonY.set(y || 0)
+                })
+                
+                motionController.connect("leave", () => {
+                    hoveredWorkspace.set(null)
+                })
+                
+                self.add_controller(motionController)
+            }}>
             
             <box cssClasses={["energy-container"]}>
                 <box cssClasses={["orb"]} />

@@ -298,3 +298,58 @@ window {
     font-weight: 400;
     margin-top: 2px;
 }
+
+/* Workspace Preview Window */
+.WorkspacePreview {
+    background: transparent;
+}
+
+.workspace-preview-window {
+    background: rgba(20, 25, 40, 0.95);
+    border: 1px solid rgba(100, 200, 255, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 300px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(100, 200, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    .preview-title {
+        color: #64c8ff;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+    
+    .preview-content {
+        padding: 8px 0;
+    }
+    
+    .client-item {
+        padding: 8px;
+        margin: 4px 0;
+        background: rgba(100, 200, 255, 0.05);
+        border-radius: 6px;
+        border: 1px solid rgba(100, 200, 255, 0.1);
+        
+        .client-class {
+            color: rgba(100, 200, 255, 0.8);
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .client-title {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+    }
+    
+    .empty-workspace {
+        color: rgba(100, 200, 255, 0.5);
+        font-size: 14px;
+        font-style: italic;
+        padding: 20px;
+    }
+}
