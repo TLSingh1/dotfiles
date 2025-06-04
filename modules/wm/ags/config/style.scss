@@ -117,20 +117,24 @@ window {
 }
 
 .workspace-button {
-    background: transparent;
+    background: rgba(0, 0, 0, 0);
     min-height: 32px;
     min-width: 36px;
     margin: 2px 0;
     border-radius: 8px;
-    transition: all 200ms ease;
+    transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
     padding: 0 4px;
-    border: 1px solid transparent;
+    border: 1px solid rgba(0, 0, 0, 0);
 }
 
 .workspace-button:hover {
-    background: rgba(100, 200, 255, 0.1);
-    border: 1px solid rgba(100, 200, 255, 0.2);
+    background-color: rgba(100, 200, 255, 0.1);
+    border-color: rgba(100, 200, 255, 0.2);
     box-shadow: 0 0 10px rgba(100, 200, 255, 0.1);
+}
+
+.workspace-button:active {
+    background-color: rgba(100, 200, 255, 0.15);
 }
 
 .workspace-button.active .energy-container {
