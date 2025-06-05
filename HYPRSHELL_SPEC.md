@@ -501,7 +501,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Complete system monitoring and management
 
-### Phase 6: Crypto Integration (Week 7)
+### Phase 7: Crypto Integration (Week 9)
 **Goal**: Cryptocurrency portfolio tracking
 
 **Tasks**:
@@ -527,7 +527,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Full crypto portfolio tracking
 
-### Phase 7: AI Assistant (Week 8-9)
+### Phase 8: AI Assistant (Week 10-11)
 **Goal**: Integrated AI chat with multi-model support
 
 **Tasks**:
@@ -557,7 +557,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Fully functional AI assistant with both Claude and Gemini
 
-### Phase 8: Command Palette (Week 10)
+### Phase 9: Command Palette (Week 12)
 **Goal**: Universal command interface
 
 **Tasks**:
@@ -583,7 +583,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Fully functional command palette
 
-### Phase 9: Shader Integration (Week 11)
+### Phase 10: Shader Integration (Week 13)
 **Goal**: Beautiful visual effects via Hyprshade
 
 **Tasks**:
@@ -608,7 +608,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Integrated shader system with multiple effects
 
-### Phase 10: Polish & Optimization (Week 12-13)
+### Phase 11: Polish & Optimization (Week 14-15)
 **Goal**: Production-ready system
 
 **Tasks**:

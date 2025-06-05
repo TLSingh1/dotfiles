@@ -49,16 +49,36 @@ in
 
       # Basic appearance
       general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        gaps_in = 8;
+        gaps_out = 18;
+        border_size = 3;
+        # "col.active_border" = [
+        #   "rgba(329cffee)"
+        #   "rgba(9232ffee)"
+        #   # "45deg"
+        # ];
+        "col.inactive_border" = "0x00FFFFFF";
         layout = "dwindle";
+        resize_on_border = true;
       };
 
       decoration = {
-        rounding = 10;
+        rounding = 15;
+        blur = {
+          enabled = true;
+          xray = true;
+          size = 8;
+          passes = 3;
+          new_optimizations = "on";
+          noise = 0.01;
+          contrast = 0.9;
+          brightness = 0.8;
+          popups = true;
+        };
+        drop_shadow = true;
+        shadow_range = 4;
+        shadow_render_power = 3;
+        "col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = animations;

@@ -1,44 +1,6 @@
 # Custom vim plugins not in nixpkgs
-final: prev: 
-let
-  # Pre-fetch the binary for Linux x86_64
-  avante-lib-linux = prev.fetchurl {
-    url = "https://github.com/yetone/avante.nvim/releases/download/latest/avante_lib-linux.tar.gz";
-    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Will be replaced with correct hash
-  };
-in {
+final: prev: {
   vimPlugins = prev.vimPlugins // {
-    # Avante.nvim with pre-built binaries
-    avante-nvim = prev.vimUtils.buildVimPlugin {
-      pname = "avante-nvim";
-      version = "2024-12-04";
-      src = prev.fetchFromGitHub {
-        owner = "yetone";
-        repo = "avante.nvim";
-        rev = "main";
-        sha256 = "sha256-uyBuqgZh7Z+aP5ifaZK8qC8RsMi6r7JKeYBtt46RtZU=";
-      };
-      
-      # Build dependencies
-      nativeBuildInputs = with prev; [ 
-        gnutar
-        gzip
-      ];
-      
-      # Post-install phase to extract pre-built binaries
-      postInstall = ''
-        # Extract the pre-downloaded binary
-        mkdir -p $out/build
-        tar xzf ${avante-lib-linux} -C $out/build/
-      '';
-      
-      meta = with prev.lib; {
-        description = "AI-powered code assistant for Neovim";
-        homepage = "https://github.com/yetone/avante.nvim";
-        license = licenses.asl20;
-      };
-    };
-    
     # claude-code-nvim = prev.vimUtils.buildVimPlugin {
     #   pname = "claude-code-nvim";
     #   version = "0.4.2";
