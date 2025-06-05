@@ -3,8 +3,9 @@
   # File operations
   ll = "eza -la";
   la = "eza -la";
-  ls = "eza";
+  ls = "eza -l";
   lt = "eza --tree";
+  tree = "eza -T";
   
   # Directory navigation
   ".." = "cd ..";

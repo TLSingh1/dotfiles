@@ -13,60 +13,37 @@ return {
   
   after = function()
     require("render-markdown").setup({
-      -- Main options
-      enabled = true,
-      render_modes = { "n", "c", "t" }, -- Only render in normal, command, and terminal modes
-      
-      -- Performance
-      debounce = 100,
-      max_file_size = 10.0, -- MB
-      
-      -- Headings
       heading = {
-        enabled = true,
-        sign = true,
-        icons = { "◉ ", "○ ", "✸ ", "✿ ", "▶ ", "⤷ " },
+        border = true,
+        icons = { "", "", "", "", "", "" },
+        -- width = "block",
+        -- left_pad = 0,
+        -- right_pad = 4,
       },
-      
-      -- Code blocks
       code = {
         enabled = true,
-        sign = true,
         style = "full",
-        border = "thin",
-        width = "full",
-        left_pad = 1,
-        right_pad = 1,
+        position = "right",
+        language_pad = 0,
+        width = "block",
+        left_pad = 0,
+        right_pad = 4,
+        min_width = 0,
+        border = "thick",
       },
-      
-      -- Bullets
       bullet = {
         enabled = true,
-        icons = { "●", "○", "◆", "◇" },
-      },
-      
-      -- Checkboxes
-      checkbox = {
-        enabled = true,
-        unchecked = {
-          icon = "󰄱 ",
-        },
-        checked = {
-          icon = "󰱒 ",
-        },
-      },
-      
-      -- Tables
-      pipe_table = {
-        enabled = true,
-        preset = "round",
-        style = "full",
-      },
-      
-      -- Quote blocks
-      quote = {
-        enabled = true,
-        icon = "▌",
+        -- Replaces '-'|'+'|'*' of 'list_item'
+        -- How deeply nested the list is determines the 'level'
+        -- The 'level' is used to index into the array using a cycle
+        -- If the item is a 'checkbox' a conceal is used to hide the bullet instead
+        icons = { "•", "○", "◆", "◇" },
+        -- Padding to add to the left of bullet point
+        left_pad = 0,
+        -- Padding to add to the right of bullet point
+        right_pad = 0,
+        -- Highlight for the bullet icon
+        highlight = "RenderMarkdownBullet",
       },
     })
   end,

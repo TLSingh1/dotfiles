@@ -51,6 +51,8 @@
           catppuccin-nvim
           # Markdown rendering
           render-markdown-nvim
+          # Indentation guides
+          indent-blankline-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools
