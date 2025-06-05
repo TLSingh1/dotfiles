@@ -71,6 +71,9 @@
         ];
         git = with pkgs.vimPlugins; [
           # Git integration tools
+          neogit
+          diffview-nvim
+          gitsigns-nvim
         ];
       };
 
