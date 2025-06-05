@@ -53,6 +53,8 @@
           render-markdown-nvim
           # Indentation guides
           indent-blankline-nvim
+          # Color highlighter
+          nvim-colorizer-lua
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools
