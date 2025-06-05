@@ -11,12 +11,15 @@
   ".." = "cd ..";
   "..." = "cd ../..";
   "...." = "cd ../../..";
+
+  # Screenshots
+  ss = "grim -g $(slurp)";
   
   # Git shortcuts
   g = "git";
   gs = "git status";
   ga = "git add";
-  gc = "git commit";
+  gc = "git commit -m";
   gp = "git push";
   gl = "git log --oneline";
   gd = "git diff";

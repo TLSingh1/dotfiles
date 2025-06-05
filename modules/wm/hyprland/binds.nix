@@ -8,6 +8,9 @@ let
     checkCommand = "hyprctl clients | grep '${appName}'";
   in "${checkCommand} && hyprctl dispatch togglespecialworkspace ${workspaceName} || ${appName}";
   
+  # Helper function to create bindings
+  mkBind = mod: key: action: "${mod}, ${key}, ${action}";
+  
   # Common bindings shared across all hosts
   commonBinds = {
     # Terminal
