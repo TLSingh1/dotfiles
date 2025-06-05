@@ -2,6 +2,12 @@
 { hostname ? "default" }:
 
 let
+  # Import the special app script
+  special_app = ../../../scripts/special_app.sh;
+  
+  # Helper function to create bindings
+  mkBind = mod: key: action: "${mod}, ${key}, ${action}";
+  
   # Common bindings shared across all hosts
   commonBinds = {
     # Terminal
@@ -9,6 +15,10 @@ let
     
     # Browser
     "SUPER, L" = "exec, zen";  # Launch Zen browser
+    
+    # Special workspace toggles
+    "ALT, Q" = "exec, ${special_app} kitty";
+    "ALT, W" = "exec, ${special_app} zen";
     
     # Window management
     "ALT, 22" = "killactive,";  # 22 = Backspace
