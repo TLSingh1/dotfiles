@@ -49,6 +49,8 @@
           nvim-tree-lua
           nvim-web-devicons
           catppuccin-nvim
+          # Markdown rendering
+          render-markdown-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools

@@ -22,6 +22,7 @@
     eza
     fzf
     bat  # for fish aliases and functions
+    zoxide
 
     # Development tools
     rustc
