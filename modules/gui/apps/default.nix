@@ -8,6 +8,7 @@
     # whatsapp-for-mac # WhatsApp desktop client
     
     # Media
+    pavucontrol
     # mpv # Video player
     # vlc # VLC media player
     
@@ -32,6 +33,7 @@
     # thunar # Lightweight file manager
     
     # Internet
+    google-chrome
     # thunderbird # Email client
     # qbittorrent # Torrent client
   ];
