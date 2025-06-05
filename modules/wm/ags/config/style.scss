@@ -224,7 +224,7 @@ window {
         0 0 24px rgba(100, 190, 255, 0.6),
         0 0 36px rgba(100, 190, 255, 0.3),
         inset 0 0 6px rgba(255, 255, 255, 0.4);
-    animation: orb-glow 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite; /* ease-in-out-quad */
+    animation: orb-glow 2s var(--ease-in-out-quad) infinite;
 }
 
 /* Active hover - increase glow intensity */
@@ -250,6 +250,120 @@ window {
             0 0 32px rgba(100, 190, 255, 0.8),
             0 0 48px rgba(100, 190, 255, 0.5),
             inset 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* Performance Monitor */
+.performance-monitor {
+    background: linear-gradient(
+        135deg,
+        rgba(80, 180, 255, 0.05),
+        rgba(120, 80, 255, 0.05)
+    );
+    border-radius: 16px;
+    border: 1px solid rgba(100, 200, 255, 0.2);
+    padding: 8px;
+    margin: 12px 4px;
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 8px rgba(100, 200, 255, 0.1);
+    transition: all 200ms var(--ease-out-cubic);
+}
+
+.performance-monitor:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(80, 180, 255, 0.08),
+        rgba(120, 80, 255, 0.08)
+    );
+    border-color: rgba(100, 200, 255, 0.3);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 4px 16px rgba(100, 200, 255, 0.2);
+}
+
+/* Grid layout for stats */
+.stat-row {
+    margin: 2px;
+}
+
+.stat-item {
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 200, 255, 0.1),
+        rgba(100, 200, 255, 0.05)
+    );
+    border: 1px solid rgba(100, 200, 255, 0.2);
+    margin: 2px;
+    transition: all 200ms var(--ease-out-cubic);
+}
+
+.stat-item:hover {
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 200, 255, 0.15),
+        rgba(100, 200, 255, 0.08)
+    );
+    border-color: rgba(100, 200, 255, 0.3);
+    box-shadow: 0 0 12px rgba(100, 200, 255, 0.3);
+}
+
+/* Battery Dial */
+.battery-dial {
+    min-width: 32px;
+    min-height: 32px;
+    margin: 2px;
+    border-radius: 16px;
+    transition: all 200ms var(--ease-out-cubic);
+}
+
+.battery-dial:hover {
+    background: rgba(100, 200, 255, 0.05);
+}
+
+.dial-canvas {
+    background: transparent;
+}
+
+.battery-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(100, 200, 255, 0.9);
+}
+
+/* Battery state animations */
+.battery-dial.charging {
+    animation: pulse-green 2s var(--ease-in-out-cubic) infinite;
+}
+
+.battery-dial.low {
+    animation: pulse-red 1s var(--ease-in-out-cubic) infinite;
+}
+
+.battery-dial.full {
+    box-shadow: 0 0 16px rgba(32, 150, 255, 0.4);
+}
+
+@keyframes pulse-green {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(32, 255, 100, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(32, 255, 100, 0.6),
+                    0 0 30px rgba(32, 255, 100, 0.3);
+    }
+}
+
+@keyframes pulse-red {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(255, 32, 32, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 32, 32, 0.8),
+                    0 0 30px rgba(255, 32, 32, 0.4);
     }
 }
 
