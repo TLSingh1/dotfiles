@@ -15,39 +15,6 @@ return {
     local Snacks = require("snacks")
     
     Snacks.setup({
-      -- Dashboard configuration
-      dashboard = {
-        enabled = true,
-        width = 60,
-        preset = {
-          -- Custom header
-          header = [[
-███╗   ██╗██╗██╗  ██╗ ██████╗ █████╗ ████████╗███████╗
-████╗  ██║██║╚██╗██╔╝██╔════╝██╔══██╗╚══██╔══╝██╔════╝
-██╔██╗ ██║██║ ╚███╔╝ ██║     ███████║   ██║   ███████╗
-██║╚██╗██║██║ ██╔██╗ ██║     ██╔══██║   ██║   ╚════██║
-██║ ╚████║██║██╔╝ ██╗╚██████╗██║  ██║   ██║   ███████║
-╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝]],
-          
-          -- Keymaps configuration
-          keys = {
-            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-          },
-        },
-        sections = {
-          { section = "header" },
-          { section = "keys", gap = 1, padding = 1 },
-          { section = "startup" },
-        },
-      },
-      
       -- Status column configuration
       statuscolumn = {
         enabled = true,
@@ -76,7 +43,7 @@ return {
         scope = {
           enabled = true,
           char = "▏",
-          underline = false,
+          underline = true,
           highlight = {
             "SnacksIndentScope1",
             "SnacksIndentScope2",
@@ -88,10 +55,7 @@ return {
           },
         },
         chunk = {
-          enabled = false,
-        },
-        blank = {
-          enabled = false,
+          enabled = true,
         },
         only_scope = false,
         only_current = false,
@@ -105,34 +69,25 @@ return {
           "SnacksIndent7",
         },
       },
-      
-      -- Scroll configuration (smooth scrolling)
-      scroll = {
-        enabled = true,
-        animate = {
-          duration = { step = 15, total = 250 },
-          easing = "linear",
-        },
-      },
     })
     
-    -- Set up rainbow colors for indent
-    vim.api.nvim_set_hl(0, "SnacksIndent1", { fg = "#453134" })
-    vim.api.nvim_set_hl(0, "SnacksIndent2", { fg = "#454231" })
-    vim.api.nvim_set_hl(0, "SnacksIndent3", { fg = "#313645" })
-    vim.api.nvim_set_hl(0, "SnacksIndent4", { fg = "#453931" })
-    vim.api.nvim_set_hl(0, "SnacksIndent5", { fg = "#31453b" })
-    vim.api.nvim_set_hl(0, "SnacksIndent6", { fg = "#413145" })
-    vim.api.nvim_set_hl(0, "SnacksIndent7", { fg = "#314545" })
+    -- Set up rainbow colors for indent (Catppuccin Mocha palette - 30% brightness)
+    vim.api.nvim_set_hl(0, "SnacksIndent1", { fg = "#6f3545" }) -- Red (dimmed)
+    vim.api.nvim_set_hl(0, "SnacksIndent2", { fg = "#6e4a37" }) -- Peach (dimmed)
+    vim.api.nvim_set_hl(0, "SnacksIndent3", { fg = "#6c6147" }) -- Yellow (dimmed)
+    vim.api.nvim_set_hl(0, "SnacksIndent4", { fg = "#496144" }) -- Green (dimmed)
+    vim.api.nvim_set_hl(0, "SnacksIndent5", { fg = "#41615b" }) -- Teal (dimmed)
+    vim.api.nvim_set_hl(0, "SnacksIndent6", { fg = "#3d4e6e" }) -- Blue (dimmed)
+    vim.api.nvim_set_hl(0, "SnacksIndent7", { fg = "#4e526d" }) -- Lavender (dimmed)
     
-    -- Set up rainbow colors for scope
-    vim.api.nvim_set_hl(0, "SnacksIndentScope1", { fg = "#653538" })
-    vim.api.nvim_set_hl(0, "SnacksIndentScope2", { fg = "#656335" })
-    vim.api.nvim_set_hl(0, "SnacksIndentScope3", { fg = "#4a5168" })
-    vim.api.nvim_set_hl(0, "SnacksIndentScope4", { fg = "#65564a" })
-    vim.api.nvim_set_hl(0, "SnacksIndentScope5", { fg = "#4a6558" })
-    vim.api.nvim_set_hl(0, "SnacksIndentScope6", { fg = "#5f4a68" })
-    vim.api.nvim_set_hl(0, "SnacksIndentScope7", { fg = "#4a6868" })
+    -- Set up rainbow colors for scope (Catppuccin Mocha palette - full brightness)
+    vim.api.nvim_set_hl(0, "SnacksIndentScope1", { fg = "#f38ba8" }) -- Red
+    vim.api.nvim_set_hl(0, "SnacksIndentScope2", { fg = "#fab387" }) -- Peach
+    vim.api.nvim_set_hl(0, "SnacksIndentScope3", { fg = "#f9e2af" }) -- Yellow
+    vim.api.nvim_set_hl(0, "SnacksIndentScope4", { fg = "#a6e3a1" }) -- Green
+    vim.api.nvim_set_hl(0, "SnacksIndentScope5", { fg = "#94e2d5" }) -- Teal
+    vim.api.nvim_set_hl(0, "SnacksIndentScope6", { fg = "#89b4fa" }) -- Blue
+    vim.api.nvim_set_hl(0, "SnacksIndentScope7", { fg = "#b4befe" }) -- Lavender
     
     -- Create dashboard command
     vim.api.nvim_create_user_command("Dashboard", function()

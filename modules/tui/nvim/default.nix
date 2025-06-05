@@ -57,6 +57,8 @@
           nvim-colorizer-lua
           # Snacks - collection of small QoL plugins
           snacks-nvim
+          # Image viewing support
+          image-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools
@@ -95,6 +97,8 @@
           # UI and search utilities
           ripgrep
           fd
+          # Image viewing dependencies
+          imagemagick
         ];
         project = with pkgs; [
           # Project management tools
