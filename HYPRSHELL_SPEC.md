@@ -356,15 +356,15 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Expandable sidebar that shows placeholder content for each tab
 
-### Phase 2: System & Audio Tabs (Week 2)
-**Goal**: Fully functional system controls and audio management
+### Phase 2: System & Audio Tabs with Notification Center (Week 2-3)
+**Goal**: Fully functional system controls, audio management, and notification center
 
 **Tasks**:
 1. Implement quick toggles grid
-   - Create toggle button component
+   - Create toggle button component with 4x3 layout
    - Wire up WiFi toggle via AstalNetwork
    - Wire up Bluetooth toggle via AstalBluetooth
-   - Implement other system toggles
+   - Implement other system toggles including Dynamic Colors
 2. Create slider components
    - Volume slider with AstalWirePlumber integration
    - Brightness control via backlight
@@ -373,13 +373,21 @@ These libraries provide reactive bindings and eliminate the need for many shell 
    - Enumerate audio devices using AstalWirePlumber
    - Per-application volume controls
    - Device switching logic
-4. Add command palette trigger
+4. Implement Notification Center
+   - AstalNotifd integration for system notifications
+   - Notification storage service with persistence
+   - Active operations tracking system
+   - Notification grouping and filtering
+   - Search functionality
+   - Quick actions and callbacks
+   - Notification history UI with collapsible sections
+5. Add command palette trigger
    - Button in system tab
    - Keyboard shortcut registration
 
-**Deliverable**: Working system controls and audio management
+**Deliverable**: Working system controls, audio management, and full notification center
 
-### Phase 3: Network Tab (Week 3)
+### Phase 3: Network Tab (Week 4)
 **Goal**: Complete WiFi and Bluetooth management
 
 **Tasks**:
@@ -404,7 +412,42 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Full network management capabilities
 
-### Phase 4: Calendar Integration (Week 4-5)
+### Phase 4: Appearance & Dynamic Theming (Week 5)
+**Goal**: Dynamic wallpaper-based color system and appearance customization
+
+**Tasks**:
+1. Wallpaper Color Service
+   - swww wallpaper monitoring integration
+   - Color extraction algorithms:
+     - K-means clustering for dominant colors
+     - Complementary color calculation
+     - Vibrant/muted palette generation
+   - Holographic color enhancement:
+     - Iridescent gradient generation
+     - Chromatic aberration accents
+     - Glassmorphic opacity levels
+2. Theme Engine
+   - CSS variable injection system
+   - Real-time theme updates without flicker
+   - Theme transition animations
+   - Performance optimization for color changes
+3. Appearance Tab UI
+   - Live preview system with split view
+   - Color override controls
+   - Theme profile management
+   - Import/export functionality
+4. Shader Integration
+   - Dynamic color-aware shader generation
+   - Pass extracted colors to GLSL shaders
+   - Hyprshade parameter updates
+5. System Integration
+   - Store theme preferences in gsettings
+   - Sync with system dark mode
+   - Per-workspace theme support via Hyprland IPC
+
+**Deliverable**: Fully dynamic theming system with wallpaper-based colors
+
+### Phase 5: Calendar Integration (Week 6-7)
 **Goal**: Fully integrated Google Calendar
 
 **Tasks**:
@@ -431,7 +474,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 
 **Deliverable**: Full calendar functionality with Google Calendar sync
 
-### Phase 5: Performance & Process Management (Week 6)
+### Phase 6: Performance & Process Management (Week 8)
 **Goal**: System monitoring and process control
 
 **Tasks**:

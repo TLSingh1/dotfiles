@@ -28,6 +28,8 @@
         ai = with pkgs.vimPlugins; [
           # AI-powered code completion
           supermaven-nvim
+          # AI-powered code assistant
+          avante-nvim
         ];
         coding = with pkgs.vimPlugins; [
           # LSP and language support
@@ -61,6 +63,10 @@
           image-nvim
           # Diagram rendering
           diagram-nvim
+          # UI framework
+          nui-nvim
+          # Image clipboard support
+          img-clip-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools

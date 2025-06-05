@@ -83,6 +83,8 @@ in
   # Host-specific environment variables
   home.sessionVariables = {
     EDITOR = "nvim";
+    # API key for Claude (used by avante.nvim)
+    ANTHROPIC_API_KEY = "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";
   } // lib.optionalAttrs (hostname == "work-laptop") {
     DOCKER_HOST = "tcp://localhost:2375";
     KUBECONFIG = "$HOME/.kube/config";
