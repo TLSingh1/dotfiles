@@ -36,11 +36,6 @@ let
     "ALT, j" = "movefocus, d";
     "ALT, k" = "movefocus, u";
     
-    # Window resizing
-    "ALT SHIFT, H" = "resizeactive, -40 0";
-    "ALT SHIFT, L" = "resizeactive, 40 0";
-    "ALT SHIFT, J" = "resizeactive, 0 40";
-    "ALT SHIFT, K" = "resizeactive, 0 -40";
     
     # Special workspaces
     "ALT, m" = "movetoworkspacesilent, special";
@@ -89,6 +84,18 @@ let
     "ALT CTRL, l" = "exec, hyprctl --batch 'dispatch movewindow r; dispatch moveactive 10 0'";
     "ALT CTRL, k" = "exec, hyprctl --batch 'dispatch movewindow u; dispatch moveactive 0 -10'";
     "ALT CTRL, j" = "exec, hyprctl --batch 'dispatch movewindow d; dispatch moveactive 0 10'";
+    
+    # Window resizing (repeats when held)
+    "ALT SHIFT, H" = "resizeactive, -40 0";
+    "ALT SHIFT, L" = "resizeactive, 40 0";
+    "ALT SHIFT, J" = "resizeactive, 0 40";
+    "ALT SHIFT, K" = "resizeactive, 0 -40";
+    
+    # Volume controls (keys 67, 68, 69)
+    ", 67" = "exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";  # Mute toggle
+    ", 68" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";   # Volume down (repeats when held)
+    ", 69" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";   # Volume up (repeats when held)
+    ", 74" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";   # Volume up (repeats when held)
   };
   
   # Host-specific bindings

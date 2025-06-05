@@ -23,6 +23,7 @@
     fzf
     bat  # for fish aliases and functions
     zoxide
+    wev
 
     # Development tools
     rustc
@@ -41,6 +42,7 @@
     ipcalc
 
     # Misc
+    cmatrix
     cowsay
     file
     which
