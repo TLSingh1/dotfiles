@@ -29,25 +29,32 @@ return {
       },
       sections = {
         untracked = {
+          folded = false,
           hidden = false,
         },
         unstaged = {
+          folded = false,
           hidden = false,
         },
         staged = {
+          folded = false,
           hidden = false,
         },
         stashes = {
-          hidden = true,
+          folded = true,
+          hidden = false,
         },
-        unpulled = {
-          hidden = true,
+        unpulled_upstream = {
+          folded = true,
+          hidden = false,
         },
-        unmerged = {
+        unmerged_upstream = {
+          folded = false,
           hidden = false,
         },
         recent = {
-          hidden = true,
+          folded = true,
+          hidden = false,
         },
       },
     })
