@@ -8,12 +8,19 @@ return {
     return nixCats.cats.ai
   end,
   
-  event = "VeryLazy",
+  event = { "BufReadPost", "BufNewFile" },
+  
+  -- Load after nui.nvim
+  on_plugin = { "nui.nvim" },
   
   before = function()
-    -- Configure vim.ui to use snacks.nvim instead of dressing.nvim
-    vim.ui.select = require("snacks").select
-    vim.ui.input = require("snacks").input
+    -- Configure vim.ui.input to use snacks.nvim
+    local Snacks = require("snacks")
+    vim.ui.input = function(opts, on_confirm)
+      Snacks.input(opts, on_confirm)
+    end
+    -- Note: vim.ui.select will use the default implementation
+    -- as snacks doesn't provide a select replacement
   end,
   
   after = function()

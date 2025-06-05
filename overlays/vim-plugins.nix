@@ -1,6 +1,40 @@
 # Custom vim plugins not in nixpkgs
 final: prev: {
   vimPlugins = prev.vimPlugins // {
+    # Avante.nvim with build support
+    avante-nvim = prev.vimUtils.buildVimPlugin {
+      pname = "avante-nvim";
+      version = "2024-12-04";
+      src = prev.fetchFromGitHub {
+        owner = "yetone";
+        repo = "avante.nvim";
+        rev = "main";  # Using main branch for now
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";  # Will error and show correct hash
+      };
+      
+      # Build dependencies
+      nativeBuildInputs = with prev; [ 
+        gnumake
+        cargo
+        rustc
+        curl
+        pkg-config
+        openssl
+      ];
+      
+      # Build phase
+      buildPhase = ''
+        # Run the make command which builds the Rust components
+        make
+      '';
+      
+      meta = with prev.lib; {
+        description = "AI-powered code assistant for Neovim";
+        homepage = "https://github.com/yetone/avante.nvim";
+        license = licenses.asl20;
+      };
+    };
+    
     # claude-code-nvim = prev.vimUtils.buildVimPlugin {
     #   pname = "claude-code-nvim";
     #   version = "0.4.2";
