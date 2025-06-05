@@ -4,9 +4,9 @@
 let
   # Import the special app script
   special_app = ../../../scripts/special_app.sh;
-  
-  # Helper function to create bindings
-  mkBind = mod: key: action: "${mod}, ${key}, ${action}";
+  special_workspace = appName: workspaceName: let
+    checkCommand = "hyprctl clients | grep '${appName}'";
+  in "${checkCommand} && hyprctl dispatch togglespecialworkspace ${workspaceName} || ${appName}";
   
   # Common bindings shared across all hosts
   commonBinds = {
@@ -19,6 +19,8 @@ let
     # Special workspace toggles
     "ALT, Q" = "exec, ${special_app} kitty";
     "ALT, W" = "exec, ${special_app} zen";
+    "ALT, E" = "exec, ${special_app} vesktop";
+    "ALT, R" = "exec, ${special_workspace "slack" "slack"}";
     
     # Window management
     "ALT, 22" = "killactive,";  # 22 = Backspace

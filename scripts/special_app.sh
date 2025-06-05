@@ -5,9 +5,11 @@ WORKSPACE="special:$APP"
 
 get_window_size() {
   case "$APP" in
-    "kitty") echo "600 400" ;;
-    "discord") echo "600 400" ;;
-    "zen") echo "800 500" ;;
+    "kitty") echo "800 500" ;;
+    "discord") echo "1200 700" ;;
+    "zen") echo "1500 900" ;;
+    "slack") echo "1200 700" ;;
+    "vesktop") echo "1500 900" ;;
     "telegram-desktop") echo "800 500" ;;
     "Minecraft* 1.20.1") echo "854 480" ;;
     *) echo "600 400" ;;

@@ -139,7 +139,7 @@ in
 
         # Discord
         "float,class:(discord)"
-        "size 600 400,class:(discord)"
+        "size 1200 700,class:(discord)"
         "move 26.5% 25%,class:(discord)"
         "workspace special:discord, class:(discord)"
 
@@ -152,6 +152,19 @@ in
 
         # Zen browser
         "opacity 0.85 0.85,class:(zen)"
+
+        # Vesktop
+        "float,class:(vesktop)"
+        "size 1500 900,class:(vesktop)"
+        "center,class:(vesktop)"
+        "workspace special:vesktop, class:(vesktop)"
+
+        # Slack
+        "float,class:(Slack)"
+        "size 1500 900,class:(Slack)"
+        "center,class:(Slack)"
+        "workspace special:slack, class:(Slack)"
+
 
       ];
       

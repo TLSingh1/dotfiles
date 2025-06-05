@@ -416,12 +416,14 @@ const renderControlCenter = () => (
 )
 ```
 
-### 3. Notification System
+### 3. Notification System & Center
 
-All async operations must show status notifications.
+All async operations must show status notifications. The notification center integrates with system notifications via AstalNotifd.
 
 ```typescript
-// NotificationService.ts
+// NotificationService.ts - Enhanced with system notification integration
+import Notifd from "gi://AstalNotifd"
+
 interface Notification {
   id: string
   type: 'info' | 'success' | 'error' | 'progress'
@@ -430,17 +432,61 @@ interface Notification {
   progress?: number
   timeout?: number
   actions?: Array<{ label: string; callback: () => void }>
+  appName?: string
+  appIcon?: string
+  timestamp: Date
+  urgency?: 'low' | 'normal' | 'critical'
 }
 
 class NotificationService {
   private notifications = Variable<Notification[]>([])
+  private systemNotifications = Variable<Notification[]>([])
   private nextId = 1
+  private notifd = Notifd.get_default()
   
-  show(notification: Omit<Notification, 'id'>): string {
+  constructor() {
+    // Capture system notifications
+    this.notifd.connect("notified", (_, notif) => {
+      const sysNotif: Notification = {
+        id: `sys-${notif.id}`,
+        type: this.urgencyToType(notif.urgency),
+        title: notif.summary,
+        body: notif.body,
+        appName: notif.appName,
+        appIcon: notif.appIcon,
+        timestamp: new Date(notif.time * 1000),
+        urgency: notif.urgency,
+        actions: notif.actions.map(action => ({
+          label: action.label,
+          callback: () => notif.invoke(action.id)
+        }))
+      }
+      
+      this.systemNotifications.set([sysNotif, ...this.systemNotifications.get()])
+      this.saveToHistory(sysNotif)
+    })
+  }
+  
+  private urgencyToType(urgency: number): Notification['type'] {
+    switch (urgency) {
+      case 0: return 'info'
+      case 1: return 'info'
+      case 2: return 'error'
+      default: return 'info'
+    }
+  }
+  
+  show(notification: Omit<Notification, 'id' | 'timestamp'>): string {
     const id = `notif-${this.nextId++}`
-    const notif = { ...notification, id }
+    const notif = { 
+      ...notification, 
+      id,
+      timestamp: new Date(),
+      appName: 'HyprShell',
+      appIcon: 'shell-symbolic'
+    }
     
-    this.notifications.set([...this.notifications.get(), notif])
+    this.notifications.set([notif, ...this.notifications.get()])
     
     // Auto-dismiss success notifications
     if (notif.type === 'success' && !notif.timeout) {
@@ -463,6 +509,17 @@ class NotificationService {
     this.notifications.set(
       this.notifications.get().filter(n => n.id !== id)
     )
+  }
+  
+  getAllNotifications(): Notification[] {
+    return [...this.notifications.get(), ...this.systemNotifications.get()]
+      .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+  }
+  
+  private saveToHistory(notif: Notification) {
+    // Save to file for persistence
+    const historyPath = GLib.get_user_cache_dir() + '/hyprshell/notifications.json'
+    // Implementation details...
   }
 }
 
@@ -534,23 +591,14 @@ const SystemTab = () => {
     { id: 'location', label: 'Location', icon: '📍', active: Variable(false) },
     { id: 'vpn', label: 'VPN', icon: '🔐', active: Variable(false) },
     { id: 'caffeine', label: 'Caffeine', icon: '☕', active: Variable(false) },
-    { id: 'screenshot', label: 'Screenshot', icon: '📸', active: Variable(false) }
+    { id: 'screenshot', label: 'Screenshot', icon: '📸', active: Variable(false) },
+    { id: 'dynamic-colors', label: 'Dynamic Colors', icon: '🎨', active: Variable(false) },
+    { id: 'dark-mode', label: 'Dark Mode', icon: '🌓', active: Variable(false) },
+    { id: 'gaming-mode', label: 'Gaming Mode', icon: '🎮', active: Variable(false) }
   ]
   
   return (
     <box vertical cssClasses={["system-tab"]} spacing={12}>
-      {/* Active operations status */}
-      <box cssClasses={["operations-status"]}>
-        {notificationService.notifications.bind().as(notifs => 
-          notifs.filter(n => n.type === 'progress').map(notif => (
-            <box key={notif.id} cssClasses={["operation-item"]}>
-              <spinner active />
-              <label label={notif.body || notif.title} />
-            </box>
-          ))
-        )}
-      </box>
-      
       {/* Quick toggles grid */}
       <grid cssClasses={["quick-toggles"]} columnSpacing={8} rowSpacing={8}>
         {toggles.map((toggle, i) => (
@@ -666,6 +714,203 @@ const BrightnessSlider = () => {
         }}
       />
       <label label={brightness.bind().as(v => `${Math.round(v * 100)}%`)} />
+    </box>
+  )
+}
+
+// NotificationCenter.tsx - UI Component for System Tab
+const NotificationCenter = () => {
+  const notificationService = new NotificationService()
+  const searchQuery = Variable("")
+  const groupByApp = Variable(true)
+  const expandedGroups = Variable<Set<string>>(new Set())
+  const isExpanded = Variable(false)
+  
+  const filteredNotifications = Variable.derive([
+    bind(notificationService, "getAllNotifications"),
+    searchQuery
+  ], (notifs, query) => {
+    if (!query) return notifs
+    const lowerQuery = query.toLowerCase()
+    return notifs.filter(n => 
+      n.title.toLowerCase().includes(lowerQuery) ||
+      n.body?.toLowerCase().includes(lowerQuery) ||
+      n.appName?.toLowerCase().includes(lowerQuery)
+    )
+  })
+  
+  const groupedNotifications = Variable.derive([
+    filteredNotifications,
+    groupByApp
+  ], (notifs, group) => {
+    if (!group) return { ungrouped: notifs }
+    
+    const groups: Record<string, Notification[]> = {}
+    notifs.forEach(notif => {
+      const key = notif.appName || 'System'
+      if (!groups[key]) groups[key] = []
+      groups[key].push(notif)
+    })
+    return groups
+  })
+  
+  return (
+    <box vertical cssClasses={["notification-center-container"]}>
+      {/* Collapsed Header */}
+      <button
+        cssClasses={["notification-header", bind(isExpanded).as(e => e ? "expanded" : "")]}
+        onClick={() => isExpanded.set(!isExpanded.get())}>
+        <icon icon={bind(isExpanded).as(e => e ? "pan-down-symbolic" : "pan-end-symbolic")} />
+        <label label="Notifications" />
+        <box hexpand />
+        {/* Show active operations count */}
+        {bind(notificationService.notifications).as(notifs => {
+          const active = notifs.filter(n => n.type === 'progress').length
+          return active > 0 ? (
+            <box cssClasses={["active-count"]}>
+              <spinner active />
+              <label label={`${active}`} />
+            </box>
+          ) : null
+        })}
+        {/* Total notification count */}
+        <label 
+          label={bind(notificationService, "getAllNotifications").as(n => `${n.length}`)} 
+          cssClasses={["notification-badge"]}
+        />
+      </button>
+      
+      <revealer
+        revealChild={isExpanded.bind()}
+        transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}>
+        <box vertical cssClasses={["notification-center"]} spacing={12}>
+          {/* Active Operations */}
+          <box vertical cssClasses={["active-operations"]}>
+            <label label="Active Operations" cssClasses={["section-title"]} />
+            {bind(notificationService.notifications).as(notifs => 
+              notifs.filter(n => n.type === 'progress').map(notif => (
+                <box key={notif.id} cssClasses={["operation-item"]}>
+                  <spinner active />
+                  <box vertical hexpand>
+                    <label label={notif.title} />
+                    {notif.body && <label label={notif.body} cssClasses={["operation-details"]} />}
+                    {notif.progress !== undefined && (
+                      <progressbar value={notif.progress} cssClasses={["operation-progress"]} />
+                    )}
+                  </box>
+                  <button onClick={() => notificationService.dismiss(notif.id)}>
+                    <icon icon="window-close" />
+                  </button>
+                </box>
+              ))
+            )}
+          </box>
+          
+          {/* Notification History */}
+          <box vertical cssClasses={["notification-history"]} vexpand>
+            <box cssClasses={["history-header"]}>
+              <label label="History" cssClasses={["section-title"]} />
+              <box hexpand />
+              <togglebutton
+                active={groupByApp.bind()}
+                onToggled={(active) => groupByApp.set(active)}>
+                <icon icon="view-list-symbolic" />
+              </togglebutton>
+              <button onClick={() => notificationService.clearAll()}>
+                <label label="Clear" />
+              </button>
+            </box>
+            
+            {/* Search */}
+            <entry
+              placeholder="Search notifications..."
+              cssClasses={["notification-search"]}
+              onChange={(text) => searchQuery.set(text)}
+            />
+            
+            {/* Grouped Notifications */}
+            <scrollable vexpand cssClasses={["notification-scroll"]}>
+              <box vertical>
+                {bind(groupedNotifications).as(groups => 
+                  Object.entries(groups).map(([appName, notifs]) => (
+                    <box vertical key={appName} cssClasses={["notification-group"]}>
+                      {groupByApp.get() && (
+                        <button
+                          cssClasses={["group-header"]}
+                          onClick={() => {
+                            const expanded = expandedGroups.get()
+                            if (expanded.has(appName)) {
+                              expanded.delete(appName)
+                            } else {
+                              expanded.add(appName)
+                            }
+                            expandedGroups.set(new Set(expanded))
+                          }}>
+                          <icon icon={bind(expandedGroups).as(exp => 
+                            exp.has(appName) ? "pan-down-symbolic" : "pan-end-symbolic"
+                          )} />
+                          <label label={appName} />
+                          <box hexpand />
+                          <label label={`${notifs.length}`} cssClasses={["notification-count"]} />
+                        </button>
+                      )}
+                      
+                      <revealer
+                        revealChild={!groupByApp.get() || bind(expandedGroups).as(exp => exp.has(appName))}>
+                        <box vertical cssClasses={["group-notifications"]}>
+                          {notifs.slice(0, 50).map(notif => (
+                            <NotificationItem key={notif.id} notification={notif} />
+                          ))}
+                        </box>
+                      </revealer>
+                    </box>
+                  ))
+                )}
+              </box>
+            </scrollable>
+          </box>
+        </box>
+      </revealer>
+    </box>
+  )
+}
+
+const NotificationItem = ({ notification }: { notification: Notification }) => {
+  const formatTime = (date: Date) => {
+    const now = new Date()
+    const diff = now.getTime() - date.getTime()
+    const minutes = Math.floor(diff / 60000)
+    const hours = Math.floor(diff / 3600000)
+    const days = Math.floor(diff / 86400000)
+    
+    if (minutes < 1) return 'Just now'
+    if (minutes < 60) return `${minutes}m ago`
+    if (hours < 24) return `${hours}h ago`
+    return `${days}d ago`
+  }
+  
+  return (
+    <box cssClasses={["notification-item", `type-${notification.type}`]}>
+      {notification.appIcon && <icon icon={notification.appIcon} />}
+      <box vertical hexpand>
+        <box>
+          <label label={notification.title} cssClasses={["notification-title"]} />
+          <box hexpand />
+          <label label={formatTime(notification.timestamp)} cssClasses={["notification-time"]} />
+        </box>
+        {notification.body && (
+          <label label={notification.body} cssClasses={["notification-body"]} wrap />
+        )}
+        {notification.actions && notification.actions.length > 0 && (
+          <box cssClasses={["notification-actions"]} spacing={4}>
+            {notification.actions.map((action, i) => (
+              <button key={i} onClick={action.callback} cssClasses={["notification-action"]}>
+                <label label={action.label} />
+              </button>
+            ))}
+          </box>
+        )}
+      </box>
     </box>
   )
 }
@@ -1254,6 +1499,441 @@ $holo-gradient-2: linear-gradient(90deg, rgba(0, 255, 200, 0.7), rgba(150, 255, 
   background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(150, 100, 255, 0.3));
   border-color: rgba(100, 200, 255, 0.5);
   box-shadow: 0 0 20px rgba(100, 200, 255, 0.3);
+}
+```
+
+## Dynamic Color System
+
+### Wallpaper Color Service Implementation
+```typescript
+// WallpaperColorService.ts
+import { execAsync } from "astal/process"
+import { monitorFile } from "astal/file"
+import GdkPixbuf from "gi://GdkPixbuf"
+
+interface ColorPalette {
+  primary: string
+  secondary: string
+  accent: string
+  background: string
+  surface: string
+  text: string
+  muted: string
+  vibrant: string[]
+  holographic: string[]
+}
+
+class WallpaperColorService {
+  private currentPalette = Variable<ColorPalette>(this.getDefaultPalette())
+  private wallpaperPath = Variable<string>("")
+  private enabled = Variable(true)
+  
+  constructor() {
+    this.initWallpaperMonitoring()
+  }
+  
+  private getDefaultPalette(): ColorPalette {
+    return {
+      primary: "rgba(100, 200, 255, 1)",
+      secondary: "rgba(150, 100, 255, 1)",
+      accent: "rgba(255, 100, 200, 1)",
+      background: "rgba(20, 20, 30, 0.95)",
+      surface: "rgba(30, 30, 45, 0.9)",
+      text: "rgba(255, 255, 255, 0.95)",
+      muted: "rgba(255, 255, 255, 0.5)",
+      vibrant: [
+        "rgba(255, 0, 128, 0.8)",
+        "rgba(0, 255, 128, 0.8)",
+        "rgba(128, 0, 255, 0.8)"
+      ],
+      holographic: [
+        "linear-gradient(135deg, rgba(100, 200, 255, 0.2), rgba(150, 100, 255, 0.2))",
+        "linear-gradient(90deg, rgba(0, 255, 200, 0.7), rgba(150, 255, 0, 0.7), rgba(255, 200, 0, 0.7))"
+      ]
+    }
+  }
+  
+  private async initWallpaperMonitoring() {
+    // Get current wallpaper from swww
+    try {
+      const output = await execAsync("swww query")
+      // Parse output to get wallpaper path
+      const match = output.match(/image: (.+)/)
+      if (match) {
+        this.wallpaperPath.set(match[1])
+        await this.extractColors(match[1])
+      }
+    } catch (error) {
+      console.error("Failed to query swww:", error)
+    }
+    
+    // Monitor wallpaper changes
+    // swww doesn't provide direct monitoring, so poll periodically
+    setInterval(async () => {
+      if (!this.enabled.get()) return
+      
+      try {
+        const output = await execAsync("swww query")
+        const match = output.match(/image: (.+)/)
+        if (match && match[1] !== this.wallpaperPath.get()) {
+          this.wallpaperPath.set(match[1])
+          await this.extractColors(match[1])
+        }
+      } catch (error) {
+        // Ignore errors
+      }
+    }, 2000) // Check every 2 seconds
+  }
+  
+  private async extractColors(imagePath: string) {
+    try {
+      // Load image
+      const pixbuf = GdkPixbuf.Pixbuf.new_from_file(imagePath)
+      const width = pixbuf.get_width()
+      const height = pixbuf.get_height()
+      const pixels = pixbuf.get_pixels()
+      const hasAlpha = pixbuf.get_has_alpha()
+      const channels = hasAlpha ? 4 : 3
+      
+      // Sample pixels for color extraction
+      const samples: Array<[number, number, number]> = []
+      const sampleSize = 100 // Sample 100x100 grid
+      const stepX = Math.floor(width / sampleSize)
+      const stepY = Math.floor(height / sampleSize)
+      
+      for (let y = 0; y < height; y += stepY) {
+        for (let x = 0; x < width; x += stepX) {
+          const idx = (y * width + x) * channels
+          samples.push([
+            pixels[idx],
+            pixels[idx + 1],
+            pixels[idx + 2]
+          ])
+        }
+      }
+      
+      // K-means clustering to find dominant colors
+      const clusters = this.kMeansClustering(samples, 8)
+      
+      // Generate palette
+      const palette = this.generatePalette(clusters)
+      
+      // Apply palette
+      this.currentPalette.set(palette)
+      this.applyPalette(palette)
+      
+      // Notify shader system
+      this.updateShaderColors(palette)
+      
+    } catch (error) {
+      console.error("Failed to extract colors:", error)
+    }
+  }
+  
+  private kMeansClustering(samples: Array<[number, number, number]>, k: number) {
+    // Simple k-means implementation
+    let centers = samples.slice(0, k)
+    const maxIterations = 20
+    
+    for (let iter = 0; iter < maxIterations; iter++) {
+      // Assign samples to clusters
+      const clusters: Array<Array<[number, number, number]>> = Array(k).fill(null).map(() => [])
+      
+      samples.forEach(sample => {
+        let minDist = Infinity
+        let closestCluster = 0
+        
+        centers.forEach((center, i) => {
+          const dist = Math.sqrt(
+            Math.pow(sample[0] - center[0], 2) +
+            Math.pow(sample[1] - center[1], 2) +
+            Math.pow(sample[2] - center[2], 2)
+          )
+          if (dist < minDist) {
+            minDist = dist
+            closestCluster = i
+          }
+        })
+        
+        clusters[closestCluster].push(sample)
+      })
+      
+      // Update centers
+      centers = clusters.map(cluster => {
+        if (cluster.length === 0) return centers[0]
+        
+        const sum = cluster.reduce((acc, sample) => [
+          acc[0] + sample[0],
+          acc[1] + sample[1],
+          acc[2] + sample[2]
+        ], [0, 0, 0])
+        
+        return [
+          Math.round(sum[0] / cluster.length),
+          Math.round(sum[1] / cluster.length),
+          Math.round(sum[2] / cluster.length)
+        ] as [number, number, number]
+      })
+    }
+    
+    // Sort by brightness
+    return centers.sort((a, b) => {
+      const brightnessA = a[0] * 0.299 + a[1] * 0.587 + a[2] * 0.114
+      const brightnessB = b[0] * 0.299 + b[1] * 0.587 + b[2] * 0.114
+      return brightnessB - brightnessA
+    })
+  }
+  
+  private generatePalette(colors: Array<[number, number, number]>): ColorPalette {
+    // Find most vibrant colors
+    const vibrant = colors.sort((a, b) => {
+      const satA = this.getSaturation(a)
+      const satB = this.getSaturation(b)
+      return satB - satA
+    }).slice(0, 3)
+    
+    // Generate holographic gradients
+    const holographic = [
+      `linear-gradient(135deg, rgba(${vibrant[0].join(',')}, 0.3), rgba(${vibrant[1].join(',')}, 0.3))`,
+      `linear-gradient(90deg, ${vibrant.map(c => 
+        `rgba(${c.join(',')}, 0.7)`
+      ).join(', ')})`
+    ]
+    
+    // Generate main colors
+    const primary = `rgba(${vibrant[0].join(',')}, 1)`
+    const secondary = `rgba(${vibrant[1].join(',')}, 1)`
+    const accent = `rgba(${vibrant[2].join(',')}, 1)`
+    
+    // Generate background colors (darker versions)
+    const bgColor = colors[colors.length - 1] // Darkest color
+    const background = `rgba(${bgColor[0] * 0.2}, ${bgColor[1] * 0.2}, ${bgColor[2] * 0.2}, 0.95)`
+    const surface = `rgba(${bgColor[0] * 0.3}, ${bgColor[1] * 0.3}, ${bgColor[2] * 0.3}, 0.9)`
+    
+    return {
+      primary,
+      secondary,
+      accent,
+      background,
+      surface,
+      text: "rgba(255, 255, 255, 0.95)",
+      muted: "rgba(255, 255, 255, 0.5)",
+      vibrant: vibrant.map(c => `rgba(${c.join(',')}, 0.8)`),
+      holographic
+    }
+  }
+  
+  private getSaturation(color: [number, number, number]): number {
+    const [r, g, b] = color.map(c => c / 255)
+    const max = Math.max(r, g, b)
+    const min = Math.min(r, g, b)
+    const delta = max - min
+    return max === 0 ? 0 : delta / max
+  }
+  
+  private applyPalette(palette: ColorPalette) {
+    // Update CSS variables
+    const style = `
+      .window {
+        --color-primary: ${palette.primary};
+        --color-secondary: ${palette.secondary};
+        --color-accent: ${palette.accent};
+        --color-background: ${palette.background};
+        --color-surface: ${palette.surface};
+        --color-text: ${palette.text};
+        --color-muted: ${palette.muted};
+        --gradient-holo-1: ${palette.holographic[0]};
+        --gradient-holo-2: ${palette.holographic[1]};
+      }
+    `
+    
+    // Inject styles
+    const styleElement = Widget.Label({
+      css: style,
+      visible: false
+    })
+    
+    // Apply to all windows
+    App.get_windows().forEach(window => {
+      window.add(styleElement)
+    })
+  }
+  
+  private async updateShaderColors(palette: ColorPalette) {
+    // Generate shader with dynamic colors
+    const shaderContent = `
+precision highp float;
+varying vec2 v_texcoord;
+uniform sampler2D tex;
+uniform float time;
+
+// Dynamic colors from wallpaper
+vec3 primaryColor = vec3(${this.hexToGLSL(palette.primary)});
+vec3 secondaryColor = vec3(${this.hexToGLSL(palette.secondary)});
+vec3 accentColor = vec3(${this.hexToGLSL(palette.accent)});
+
+void main() {
+    vec2 uv = v_texcoord;
+    vec3 color = texture2D(tex, uv).rgb;
+    
+    // Holographic effect with dynamic colors
+    float wave = sin(uv.y * 50.0 + time * 2.0) * 0.001;
+    vec3 shift;
+    shift.r = texture2D(tex, uv + vec2(wave, 0.0)).r;
+    shift.g = texture2D(tex, uv).g;
+    shift.b = texture2D(tex, uv - vec2(wave, 0.0)).b;
+    
+    // Iridescence based on wallpaper colors
+    float angle = atan(uv.y - 0.5, uv.x - 0.5);
+    float iridescence = sin(angle * 3.0 + time) * 0.5 + 0.5;
+    vec3 iriColor = mix(primaryColor, secondaryColor, iridescence);
+    
+    color = mix(shift, shift * iriColor, 0.1);
+    
+    gl_FragColor = vec4(color, 1.0);
+}
+    `
+    
+    // Save to temp file and apply
+    const shaderPath = "/tmp/hyprshell-dynamic.glsl"
+    await execAsync(`echo '${shaderContent}' > ${shaderPath}`)
+    
+    // Only apply if dynamic colors are enabled
+    if (this.enabled.get()) {
+      await execAsync(`hyprctl keyword decoration:screen_shader ${shaderPath}`)
+    }
+  }
+  
+  private hexToGLSL(rgba: string): string {
+    // Convert rgba(r,g,b,a) to GLSL vec3
+    const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/)
+    if (!match) return "1.0, 1.0, 1.0"
+    
+    return `${parseInt(match[1]) / 255}, ${parseInt(match[2]) / 255}, ${parseInt(match[3]) / 255}`
+  }
+  
+  // Public API
+  toggleEnabled() {
+    this.enabled.set(!this.enabled.get())
+    if (!this.enabled.get()) {
+      // Reset to default colors
+      this.applyPalette(this.getDefaultPalette())
+      execAsync("hyprctl keyword decoration:screen_shader ''")
+    } else {
+      // Re-apply current palette
+      this.applyPalette(this.currentPalette.get())
+    }
+  }
+  
+  getCurrentPalette() {
+    return this.currentPalette.get()
+  }
+  
+  overrideColor(key: keyof ColorPalette, value: string) {
+    const palette = this.currentPalette.get()
+    palette[key] = value
+    this.currentPalette.set(palette)
+    this.applyPalette(palette)
+  }
+}
+
+// AppearanceTab.tsx
+const AppearanceTab = () => {
+  const colorService = new WallpaperColorService()
+  const currentPalette = bind(colorService, "currentPalette")
+  const previewMode = Variable<'split' | 'full'>('split')
+  
+  return (
+    <box vertical cssClasses={["appearance-tab"]} spacing={12}>
+      {/* Dynamic Colors Section */}
+      <box vertical cssClasses={["dynamic-colors-section"]}>
+        <box cssClasses={["section-header"]}>
+          <label label="Dynamic Colors" cssClasses={["section-title"]} />
+          <box hexpand />
+          <switch 
+            active={bind(colorService, "enabled")}
+            onToggled={() => colorService.toggleEnabled()}
+          />
+        </box>
+        
+        {/* Current Wallpaper */}
+        <box cssClasses={["wallpaper-info"]}>
+          <label label="Current Wallpaper:" />
+          <label label={bind(colorService, "wallpaperPath")} cssClasses={["wallpaper-path"]} />
+        </box>
+        
+        {/* Color Palette Preview */}
+        <box cssClasses={["palette-preview"]}>
+          {bind(currentPalette).as(palette => 
+            Object.entries(palette).filter(([key]) => 
+              !['vibrant', 'holographic'].includes(key)
+            ).map(([key, color]) => (
+              <box vertical key={key} cssClasses={["color-item"]}>
+                <box 
+                  cssClasses={["color-swatch"]}
+                  css={`background: ${color}; min-height: 48px; min-width: 48px;`}
+                />
+                <label label={key} cssClasses={["color-label"]} />
+              </box>
+            ))
+          )}
+        </box>
+        
+        {/* Holographic Gradients */}
+        <box vertical cssClasses={["gradient-preview"]}>
+          <label label="Holographic Gradients" cssClasses={["subsection-title"]} />
+          {bind(currentPalette).as(palette => 
+            palette.holographic.map((gradient, i) => (
+              <box 
+                key={i}
+                cssClasses={["gradient-swatch"]}
+                css={`background: ${gradient}; min-height: 32px;`}
+              />
+            ))
+          )}
+        </box>
+      </box>
+      
+      {/* Color Overrides */}
+      <box vertical cssClasses={["color-overrides-section"]}>
+        <label label="Color Overrides" cssClasses={["section-title"]} />
+        {bind(currentPalette).as(palette => 
+          Object.entries(palette).filter(([key]) => 
+            !['vibrant', 'holographic'].includes(key)
+          ).map(([key, color]) => (
+            <box key={key} cssClasses={["override-item"]} spacing={8}>
+              <label label={key} cssClasses={["override-label"]} />
+              <box hexpand />
+              <entry 
+                text={color}
+                cssClasses={["color-input"]}
+                onChange={(text) => colorService.overrideColor(key, text)}
+              />
+              <colorbutton
+                rgba={parseColor(color)}
+                onColorSet={(rgba) => {
+                  const color = `rgba(${Math.round(rgba.red * 255)}, ${Math.round(rgba.green * 255)}, ${Math.round(rgba.blue * 255)}, ${rgba.alpha})`
+                  colorService.overrideColor(key, color)
+                }}
+              />
+            </box>
+          ))
+        )}
+      </box>
+      
+      {/* Theme Profiles */}
+      <box vertical cssClasses={["theme-profiles-section"]}>
+        <label label="Theme Profiles" cssClasses={["section-title"]} />
+        <box cssClasses={["profile-grid"]}>
+          {['Holographic', 'Cyberpunk', 'Minimal', 'Nature', 'High Contrast'].map(theme => (
+            <button key={theme} cssClasses={["theme-button"]}>
+              <label label={theme} />
+            </button>
+          ))}
+        </box>
+      </box>
+    </box>
+  )
 }
 ```
 

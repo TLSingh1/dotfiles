@@ -5,7 +5,7 @@
     # Communication
     vesktop # Enhanced Discord client with better screen sharing and Wayland support
     slack # Slack desktop client
-    whatsapp-for-mac # WhatsApp desktop client
+    # whatsapp-for-mac # WhatsApp desktop client
     
     # Media
     # mpv # Video player
