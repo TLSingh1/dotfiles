@@ -168,11 +168,7 @@ window {
 /* Active container has subtle glow */
 .workspace-container.active {
     padding-left: 15px;
-    background: radial-gradient(
-        circle at center,
-        rgba(100, 200, 255, 0.15),
-        transparent
-    );
+    background: radial-gradient(circle at center, rgba(100, 200, 255, 0.15), transparent);
 }
 
 /* Workspace orbs - tiny by default */
@@ -291,24 +287,63 @@ window {
     min-width: 32px;
     min-height: 32px;
     border-radius: 50%;
-    background: radial-gradient(
-        circle at center,
-        rgba(100, 200, 255, 0.1),
-        rgba(100, 200, 255, 0.05)
-    );
+    background: radial-gradient(circle at center, rgba(100, 200, 255, 0.1), rgba(100, 200, 255, 0.05));
     border: 1px solid rgba(100, 200, 255, 0.2);
     margin: 2px;
-    transition: all 200ms var(--ease-out-cubic);
+    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .stat-item:hover {
-    background: radial-gradient(
-        circle at center,
-        rgba(100, 200, 255, 0.15),
-        rgba(100, 200, 255, 0.08)
-    );
+    background: radial-gradient(circle at center, rgba(100, 200, 255, 0.15), rgba(100, 200, 255, 0.08));
     border-color: rgba(100, 200, 255, 0.3);
     box-shadow: 0 0 12px rgba(100, 200, 255, 0.3);
+}
+
+/* Performance Bars */
+.performance-bars {
+    margin: 12px 6px;
+    padding: 4px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.perf-bar {
+    min-height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.perf-bar .bar-fill {
+    min-height: 3px;
+    border-radius: 3px;
+    transition: all 300ms ease-out;
+    box-shadow: 0 0 4px currentColor;
+}
+
+/* Different holographic colors for each metric */
+.battery-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(0, 255, 200, 0.7), rgba(150, 255, 0, 0.7), rgba(255, 200, 0, 0.7));
+    color: rgba(100, 255, 150, 0.8);
+}
+
+.cpu-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(255, 0, 150, 0.7), rgba(255, 100, 0, 0.7), rgba(255, 200, 0, 0.7));
+    color: rgba(255, 100, 100, 0.8);
+}
+
+.memory-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(150, 0, 255, 0.7), rgba(0, 150, 255, 0.7), rgba(0, 255, 255, 0.7));
+    color: rgba(100, 150, 255, 0.8);
+}
+
+.gpu-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(255, 0, 200, 0.7), rgba(150, 0, 255, 0.7), rgba(0, 100, 255, 0.7));
+    color: rgba(200, 100, 255, 0.8);
 }
 
 /* Battery Dial */

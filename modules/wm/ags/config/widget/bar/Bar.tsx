@@ -1,6 +1,5 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4"
 import Workspaces from "./Workspaces"
-import BatteryDial from "./BatteryDial"
 import { Variable, bind } from "astal"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
@@ -59,38 +58,30 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                     <Workspaces />
                 </box>
 
-                {/* Top spacer */}
-                <box vexpand />
-
-                {/* Center section - Performance Monitor */}
-                <box 
-                    cssClasses={["performance-monitor"]}
-                    valign={Gtk.Align.CENTER}
-                    halign={Gtk.Align.CENTER}
-                    vertical>
-                    {/* Top row */}
-                    <box cssClasses={["stat-row"]} spacing={4}>
-                        <BatteryDial />
-                        <box cssClasses={["stat-item", "cpu"]}>
-                            <label label="◉" />
-                        </box>
-                    </box>
-                    {/* Bottom row */}
-                    <box cssClasses={["stat-row"]} spacing={4}>
-                        <box cssClasses={["stat-item", "memory"]}>
-                            <label label="◐" />
-                        </box>
-                        <box cssClasses={["stat-item", "gpu"]}>
-                            <label label="▣" />
-                        </box>
-                    </box>
-                </box>
-
                 {/* Center spacer */}
                 <box vexpand />
 
                 {/* Bottom section */}
                 <box vertical valign={Gtk.Align.END}>
+                    {/* Performance bars */}
+                    <box 
+                        cssClasses={["performance-bars"]}
+                        vertical
+                        spacing={1}>
+                        <box cssClasses={["perf-bar", "battery-bar"]} halign={Gtk.Align.FILL}>
+                            <box cssClasses={["bar-fill"]} widthRequest={28} />
+                        </box>
+                        <box cssClasses={["perf-bar", "cpu-bar"]} halign={Gtk.Align.FILL}>
+                            <box cssClasses={["bar-fill"]} widthRequest={24} />
+                        </box>
+                        <box cssClasses={["perf-bar", "memory-bar"]} halign={Gtk.Align.FILL}>
+                            <box cssClasses={["bar-fill"]} widthRequest={32} />
+                        </box>
+                        <box cssClasses={["perf-bar", "gpu-bar"]} halign={Gtk.Align.FILL}>
+                            <box cssClasses={["bar-fill"]} widthRequest={20} />
+                        </box>
+                    </box>
+                    
                     <box vertical cssClasses={["clock"]}>
                         <label 
                             cssClasses={["date"]}
