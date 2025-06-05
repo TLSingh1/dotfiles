@@ -55,6 +55,8 @@
           indent-blankline-nvim
           # Color highlighter
           nvim-colorizer-lua
+          # Snacks - collection of small QoL plugins
+          snacks-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools

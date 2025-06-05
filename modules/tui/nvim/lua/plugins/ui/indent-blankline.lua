@@ -4,10 +4,11 @@ return {
   "indent-blankline.nvim",
   
   -- Only load if ui category is enabled
-  enabled = function()
-    return nixCats.cats.ui
-  end,
-  
+  -- enabled = function()
+  --   return nixCats.cats.ui
+  -- end,
+  enabled = false,  
+
   event = { "BufReadPost", "BufNewFile" },
   
   after = function()
