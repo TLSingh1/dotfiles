@@ -94,8 +94,10 @@ let
   hostSpecificRepeatingBinds = {
     "my-nixos" = {
       # Workspace increment/decrement for laptop
-      "ALT, 59" = "workspace, +1";  # 59 = comma key
-      "ALT, 60" = "workspace, -1";  # 60 = period key
+      # "ALT, 59" = "workspace, +1";  # 59 = comma key
+      # "ALT, 60" = "workspace, -1";  # 60 = period key
+      "SUPER, j" = "workspace, +1";  # 59 = comma key
+      "SUPER, k" = "workspace, -1";  # 60 = period key
     };
   };
 in

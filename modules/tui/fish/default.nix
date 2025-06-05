@@ -35,6 +35,7 @@
     interactiveShellInit = ''
       # Custom prompt setup if needed
       # (starship should handle this if you're using it)
+      zoxide init --cmd cd fish | source
       
       # Set up fzf key bindings if fzf is available
       if command -v fzf >/dev/null
