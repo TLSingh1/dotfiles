@@ -4,21 +4,42 @@ local keymap = vim.keymap.set
 local nvim_keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
+nvim_keymap("i", "jk", "<ESC><right>", opts)
+nvim_keymap("n", "<leader>w", ":w <CR>", opts)
+nvim_keymap("n", "<leader>q", ":q <CR>", opts)
+nvim_keymap("n", "<leader>Q", ":bdelete <cr>", opts)
+nvim_keymap("n", "<leader><leader>q", ":qa <CR>", opts)
+nvim_keymap("n", "<leader>Y", ":%y <CR>", opts)
+nvim_keymap("x", "p", "p:let @+=@0<CR>", opts)
+nvim_keymap("n", "<c-n>", ":bdelete <cr>", opts)
+nvim_keymap("n", "<leader>;", ":", opts)
+nvim_keymap("n", "<S-l>", ":bnext<CR>", opts)
+nvim_keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
+------------------- Navigation ----------------
+nvim_keymap("n", "<leader>h", "<C-w>h", opts)
+nvim_keymap("n", "<leader>j", "<C-w>j", opts)
+nvim_keymap("n", "<leader>k", "<C-w>k", opts)
+nvim_keymap("n", "<leader>l", "<C-w>l", opts)
+---
+------------------- Window --------------------
+nvim_keymap("n", "<leader>d", ":vs <CR>", opts)
+nvim_keymap("n", "<leader>s", ":split <CR>", opts)
+-- vim.keymap.set("n", "<C-h>", require("smart-splits").resize_left)
+-- vim.keymap.set("n", "<C-j>", require("smart-splits").resize_down)
+-- vim.keymap.set("n", "<C-k>", require("smart-splits").resize_up)
+-- vim.keymap.set("n", "<C-l>", require("smart-splits").resize_right)
+-- keymap("n", "<leader><leader>h", "<cmd>lua require('smart-splits').swap_buf_left() vim.cmd('wincmd h')<CR>", opts)
+-- keymap("n", "<leader><leader>j", "<cmd>lua require('smart-splits').swap_buf_down() vim.cmd('wincmd j')<CR>", opts)
+-- keymap("n", "<leader><leader>k", "<cmd>lua require('smart-splits').swap_buf_up() vim.cmd('wincmd k')<CR>", opts)
+-- keymap("n", "<leader><leader>l", "<cmd>lua require('smart-splits').swap_buf_right() vim.cmd('wincmd l')<CR>", opts)
+--------------------------------------------------------------------------------
+
+
+
 -- Clear search highlighting
 keymap("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h")
-keymap("n", "<C-j>", "<C-w>j")
-keymap("n", "<C-k>", "<C-w>k")
-keymap("n", "<C-l>", "<C-w>l")
-nvim_keymap("n", "<leader>d", ":vs <CR>", opts)
-nvim_keymap("n", "<leader>s", ":split <CR>", opts)
-
--- Buffer navigation
-keymap("n", "<S-l>", "<cmd>bnext<CR>")
-keymap("n", "<S-h>", "<cmd>bprevious<CR>")
-keymap("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
 -- Stay in indent mode
 keymap("v", "<", "<gv")
@@ -28,5 +49,3 @@ keymap("v", ">", ">gv")
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
-nvim_keymap("n", "<leader>w", "<cmd>w<CR>", opts)
-nvim_keymap("i", "jk", "<ESC><right>", opts)

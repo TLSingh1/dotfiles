@@ -40,7 +40,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 - **Behavior**: Click outside to close, ESC key dismisses, remembers last active tab
 
 ### 2. System Tab
-**Quick Toggles (3x3 Grid)**:
+**Quick Toggles (4x3 Grid)**:
 - WiFi on/off
 - Bluetooth on/off
 - Airplane mode
@@ -50,19 +50,38 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 - VPN status
 - Caffeine (prevent sleep)
 - Screenshot tool
+- Dynamic Colors (wallpaper-based theming)
+- Dark Mode
+- Gaming Mode (disable notifications)
 
 **Sliders**:
 - Master volume with output device dropdown
 - Brightness with auto-brightness toggle
 - Microphone gain with input device selector
 
+**Notification Center**:
+- Collapsible section showing active operations and notification history
+- **Active Operations Area**:
+  - Real-time progress for ongoing tasks (WiFi connection, file transfers, etc.)
+  - Cancelable operations with X button
+  - Progress bars or spinners for each operation
+  - Estimated time remaining when available
+- **Notification History**:
+  - Chronological list of all notifications (system + app)
+  - Grouped by application with expandable sections
+  - Search/filter bar for finding specific notifications
+  - Quick actions (mark as read, clear all, pin important)
+  - Notification persistence settings (keep for 24h, 7 days, forever)
+  - Click notification to open related app/tab
+- **Integration with AstalNotifd**:
+  - Captures all system notifications
+  - Stores notification metadata (app, time, urgency)
+  - Handles notification actions and callbacks
+
 **Additional Elements**:
 - Command palette launcher button
-- Active operations status area
-  - Shows ongoing operations (e.g., "Connecting to WiFi...", "Switching audio device...")
-  - Progress indicators for long operations
-  - Click to view full notification history
 - System uptime indicator
+- Resource usage mini-graph (CPU/Memory sparklines)
 
 ### 3. Network Tab
 **WiFi Section**:
@@ -156,7 +175,64 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 - Preset EQ profiles (Music, Gaming, Voice)
 - Custom profile creation
 
-### 8. AI Assistant (Right Sidebar)
+### 8. Appearance Tab
+**Dynamic Color System**:
+- **Wallpaper Color Extraction**:
+  - Real-time monitoring of swww wallpaper changes
+  - Intelligent color extraction using advanced algorithms:
+    - Dominant color detection
+    - Complementary color generation
+    - Vibrant and muted palette options
+  - Holographic enhancement:
+    - Iridescent overlay generation
+    - Chromatic aberration accents
+    - Glassmorphic transparency levels
+- **Live Preview**:
+  - Split-screen preview showing current vs new colors
+  - Apply button with smooth transition animation
+  - Reset to defaults option
+- **Color Overrides**:
+  - Individual color pickers for:
+    - Primary, secondary, accent colors
+    - Background and surface colors
+    - Text and icon colors
+  - Import/export color schemes
+  - Community theme marketplace integration
+
+**Visual Effects**:
+- **Shader Selection**:
+  - Dropdown with installed shaders
+  - Live preview window
+  - Shader parameters adjustment
+  - Performance impact indicator
+- **Animation Settings**:
+  - Global animation speed
+  - Transition curve selection
+  - Reduce motion option
+- **Transparency Control**:
+  - Window transparency levels
+  - Blur intensity adjustment
+  - Exclusion rules for specific apps
+
+**Theme Profiles**:
+- **Preset Themes**:
+  - Holographic (default)
+  - Cyberpunk
+  - Minimal
+  - Nature-inspired
+  - High contrast
+- **Profile Management**:
+  - Save current settings as profile
+  - Schedule themes by time of day
+  - Automatic dark/light mode switching
+  - Per-workspace theme assignment
+
+**Performance Settings**:
+- GPU acceleration toggle
+- Reduced effects mode
+- Battery saver visual preset
+
+### 9. AI Assistant (Right Sidebar)
 **Chat Interface**:
 - Model selector dropdown (Claude, Gemini)
 - Conversation history with markdown rendering
@@ -175,7 +251,7 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 - File attachment button
 - Send button with loading state
 
-### 9. Command Palette
+### 10. Command Palette
 **Features**:
 - Fuzzy search all settings and actions
 - Recent commands section
@@ -184,15 +260,16 @@ These libraries provide reactive bindings and eliminate the need for many shell 
 - Shortcut hints
 - Real-time preview of actions
 
-### 10. Visual Effects
+### 11. Visual Effects
 **Hyprshade Integration**:
 - Holographic base shader
 - Blue light filter with schedule
 - CRT/retro effect
 - Dynamic blur for UI elements
 - Shader hot-reloading
+- Dynamic color-aware shaders (uses extracted wallpaper colors)
 
-### 11. Notification System
+### 12. Notification System
 **Operation Status Notifications** (appear for these operations):
 
 **Network Operations**:

@@ -59,6 +59,8 @@
           snacks-nvim
           # Image viewing support
           image-nvim
+          # Diagram rendering
+          diagram-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools
@@ -99,6 +101,11 @@
           fd
           # Image viewing dependencies
           imagemagick
+          # Diagram renderers
+          mermaid-cli
+          plantuml
+          d2
+          gnuplot
         ];
         project = with pkgs; [
           # Project management tools

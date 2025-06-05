@@ -5,8 +5,7 @@ let
   # Common bindings shared across all hosts
   commonBinds = {
     # Terminal
-    "ALT, 36" = "exec, ghostty";  # 36 = Return key
-    "ALT SHIFT, 36" = "exec, kitty";  # 36 = Return key
+    "ALT, 36" = "exec, kitty";  # 36 = Return key
     
     # Browser
     "SUPER, L" = "exec, zen";  # Launch Zen browser
