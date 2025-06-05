@@ -24,12 +24,14 @@
     bat  # for fish aliases and functions
     zoxide
     wev
+    wlr-randr
 
     # Development tools
     rustc
     cargo
     claude-code
     gh
+    meson
 
     # Networking tools
     mtr

@@ -35,7 +35,8 @@ in
     settings = {
       # Monitor configuration
       monitor = [
-        "eDP-1, 1920x1200@144, 0x0, 1.0"
+        "HDMI-A-1, 1920x1080@60, 0x0, 1.0"
+        "eDP-1, 1920x1200@144, 0x1080, 1.0"
       ];
 
       # Variables
@@ -167,10 +168,23 @@ in
 
 
       ];
+
+      workspace = [
+        "1, monitor:eDP-1"
+        "2, monitor:eDP-1"
+        "3, monitor:eDP-1"
+        "4, monitor:eDP-1"
+        "5, monitor:eDP-1"
+        "6, monitor:HDMI-A-1"
+        "7, monitor:HDMI-A-1"
+        "8, monitor:HDMI-A-1"
+        "9, monitor:HDMI-A-1"
+        "10, monitor:HDMI-A-1"
+      ];
       
       # Autostart applications
       exec-once = [
-        # "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts"  # Start AGS bar
+        "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts"  # Start AGS bar
         "swww-daemon"  # Wallpaper daemon
       ];
     };
