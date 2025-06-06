@@ -28,6 +28,7 @@ in
     ../../modules/gui/browsers
     ../../modules/gui/1password
     ../../modules/gui/claude-desktop
+    ../../modules/gui/vesktop
     ../../modules/tui/ghostty
     
   ] ++ lib.optionals (hostname == "nixos-desktop") [
@@ -40,6 +41,7 @@ in
     ../../modules/gui/browsers
     ../../modules/gui/1password
     ../../modules/gui/claude-desktop
+    ../../modules/gui/vesktop
     ../../modules/tui/ghostty
     # Could add desktop-specific modules here:
     # ../../modules/gui/steam
