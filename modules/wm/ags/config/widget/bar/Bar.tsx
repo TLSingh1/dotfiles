@@ -2,8 +2,9 @@ import { App, Astal, Gtk, Gdk } from "astal/gtk4"
 import Workspaces from "./Workspaces"
 import { Variable, bind } from "astal"
 import { exec, execAsync } from "astal/process"
-import Network from "astal4/network"
-import Bluetooth from "astal4/bluetooth"
+// TODO: Add these when available in AGS setup
+// import Network from "astal4/network"
+// import Bluetooth from "astal4/bluetooth"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
     const { TOP, BOTTOM, LEFT } = Astal.WindowAnchor
@@ -40,8 +41,17 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     
     const updateDateTime = () => {
         const now = new Date()
-        const date = now.toLocaleDateString("en", { month: "short", day: "numeric" })
-        const time = now.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit", hour12: false })
+        const date = now.toLocaleDateString("en-CA", { 
+            month: "short", 
+            day: "numeric",
+            timeZone: "America/Vancouver"
+        })
+        const time = now.toLocaleTimeString("en-CA", { 
+            hour: "2-digit", 
+            minute: "2-digit", 
+            hour12: false,
+            timeZone: "America/Vancouver"
+        })
         return { date, time }
     }
     
@@ -62,12 +72,17 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     updateClock()
     
     // Initialize network and bluetooth
-    const network = new Network()
-    const bluetooth = new Bluetooth()
+    // TODO: Uncomment when modules are available
+    // const network = new Network()
+    // const bluetooth = new Bluetooth()
+    
+    // Variables for wifi/bluetooth status
+    const wifiConnected = Variable(true)
+    const bluetoothEnabled = Variable(false)
     
     // Screenshot function
     const takeScreenshot = () => {
-        execAsync(["grimblast", "copy", "area"])
+        execAsync(["grimblast", "--notify", "copy", "area"])
             .then(() => console.log("Screenshot taken"))
             .catch(err => console.error("Screenshot failed:", err))
     }
@@ -97,7 +112,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                 {/* Top section */}
                 <box vertical valign={Gtk.Align.START}>
                     <button cssClasses={["launcher"]}>
-                        <label label="◈" />
+                        <image icon-name="view-app-grid-symbolic" />
                     </button>
                     <Workspaces monitorName={monitorName} />
                 </box>
@@ -114,28 +129,28 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                             cssClasses={["system-button", "screenshot-button"]}
                             onClicked={takeScreenshot}
                             tooltip-text="Take screenshot (area)">
-                            <label label="📷" />
+                            <image icon-name="camera-photo-symbolic" />
                         </button>
                         
                         {/* WiFi button */}
                         <button 
                             cssClasses={["system-button", "wifi-button"]}
-                            tooltip-text={bind(network, "wifi").as(w => 
-                                w ? `WiFi: ${w.ssid || "Connected"}` : "WiFi: Disconnected"
+                            tooltip-text={bind(wifiConnected).as(connected => 
+                                connected ? "WiFi: Connected" : "WiFi: Disconnected"
                             )}>
-                            <label label={bind(network, "wifi").as(w => 
-                                w ? "📶" : "📵"
+                            <image icon-name={bind(wifiConnected).as(connected => 
+                                connected ? "network-wireless-signal-excellent-symbolic" : "network-wireless-disabled-symbolic"
                             )} />
                         </button>
                         
                         {/* Bluetooth button */}
                         <button 
                             cssClasses={["system-button", "bluetooth-button"]}
-                            tooltip-text={bind(bluetooth, "isPowered").as(p => 
-                                p ? "Bluetooth: On" : "Bluetooth: Off"
+                            tooltip-text={bind(bluetoothEnabled).as(enabled => 
+                                enabled ? "Bluetooth: On" : "Bluetooth: Off"
                             )}>
-                            <label label={bind(bluetooth, "isPowered").as(p => 
-                                p ? "🔷" : "🔸"
+                            <image icon-name={bind(bluetoothEnabled).as(enabled => 
+                                enabled ? "bluetooth-active-symbolic" : "bluetooth-disabled-symbolic"
                             )} />
                         </button>
                     </box>
@@ -170,7 +185,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                         />
                     </box>
                     <button cssClasses={["power-button"]}>
-                        <label label="◉" />
+                        <image icon-name="system-shutdown-symbolic" />
                     </button>
                 </box>
             </box>

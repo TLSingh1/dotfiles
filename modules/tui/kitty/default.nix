@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.kitty = {
     enable = true;
     # Add your kitty configuration here
@@ -26,14 +29,16 @@
       font_family = "monospace";
       font_size = 12;
       enable_audio_bell = true;
+      # Orange holographic theme
       background = "#000000";
-      background_opacity = "0.1";
-      foreground = "#c8d3f5";
-      selection_background = "#2d3f76";
-      selection_foreground = "#c8d3f5";
-      url_color = "#4fd6be";
-      cursor = "#c8d3f5";
-      cursor_text_color = "#222436";
+      background_opacity = "0.15";
+      foreground = "#ffd4b0";
+      selection_background = "#3a2015";
+      selection_foreground = "#ffdc00";
+      url_color = "#ff9c64";
+      cursor = "#ffdc00";
+      cursor_text_color = "#0a0505";
+      cursor_trail = 3;
       # modify_font = "underline_position 200%";
       modify_font = "cell_height 130%";
       # modify_font = ["cell_height 150%"];
@@ -50,39 +55,39 @@
       # };
 
       # Tabs
-      active_tab_background = "#82aaff";
-      active_tab_foreground = "#1e2030";
-      inactive_tab_background = "#2f334d";
-      inactive_tab_foreground = "#545c7e";
-      # tab_bar_background = "#1b1d2b";
+      active_tab_background = "#ff9c64";
+      active_tab_foreground = "#0a0505";
+      inactive_tab_background = "#2a1510";
+      inactive_tab_foreground = "#805030";
+      tab_bar_background = "#0a0505";
 
       # Windows
-      active_border_color = "#82aaff";
-      inactive_border_color = "#2f334d";
+      active_border_color = "#ff9c64";
+      inactive_border_color = "#3a2015";
 
-      # normal
-      color0 = "#1b1d2b";
-      color1 = "#ff757f";
-      color2 = "#c3e88d";
-      color3 = "#ffc777";
-      color4 = "#82aaff";
-      color5 = "#c099ff";
-      color6 = "#86e1fc";
-      color7 = "#828bb8";
+      # normal colors - orange holographic theme
+      color0 = "#0a0505"; # black (background)
+      color1 = "#ff6464"; # red (coral)
+      color2 = "#ffa500"; # green (orange)
+      color3 = "#ffdc00"; # yellow
+      color4 = "#ff9c64"; # blue (primary orange)
+      color5 = "#ff64dc"; # magenta
+      color6 = "#ff8c64"; # cyan (amber)
+      color7 = "#ffd4b0"; # white (foreground)
 
-      # bright
-      color8 = "#444a73";
-      color9 = "#ff757f";
-      color10 = "#c3e88d";
-      color11 = "#ffc777";
-      color12 = "#82aaff";
-      color13 = "#c099ff";
-      color14 = "#86e1fc";
-      color15 = "#c8d3f5";
+      # bright colors
+      color8 = "#3a2015"; # bright black
+      color9 = "#ff7050"; # bright red (orange-red)
+      color10 = "#ffb08c"; # bright green (light orange)
+      color11 = "#ffee00"; # bright yellow (electric)
+      color12 = "#ffa050"; # bright blue (light orange)
+      color13 = "#ff64c8"; # bright magenta
+      color14 = "#ffa58c"; # bright cyan (light amber)
+      color15 = "#ffe4d0"; # bright white
 
       # extended colors
-      color16 = "#ff966c";
-      color17 = "#c53b53";
+      color16 = "#ff8050"; # extended orange
+      color17 = "#ff4500"; # extended deep orange
 
       # Mouse
       open_url_with = "default";
@@ -98,4 +103,4 @@
       window_padding_width = "10 20 10 20";
     };
   };
-} 
+}

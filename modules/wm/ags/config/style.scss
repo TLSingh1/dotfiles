@@ -602,3 +602,65 @@ window {
     font-weight: 400;
     margin-bottom: 2px;
 }
+
+/* Icon styling for holographic effect */
+image {
+    -gtk-icon-size: 18px;
+}
+
+.launcher image {
+    color: var(--primary-orange);
+    -gtk-icon-size: 20px;
+    -gtk-icon-shadow: 
+        0 0 10px var(--shadow-orange-40),
+        0 0 20px var(--shadow-orange-20);
+}
+
+.launcher:hover image {
+    color: var(--accent-yellow);
+    -gtk-icon-shadow: 
+        0 0 15px var(--accent-yellow),
+        0 0 25px var(--shadow-orange-40);
+}
+
+.power-button image {
+    color: var(--error-magenta);
+    -gtk-icon-size: 18px;
+    -gtk-icon-shadow: 
+        0 0 10px rgba(255, 100, 200, 0.6),
+        0 0 20px rgba(255, 100, 200, 0.3);
+}
+
+.power-button:hover image {
+    color: var(--error-magenta-dark);
+    -gtk-icon-shadow: 
+        0 0 15px var(--error-magenta),
+        0 0 25px rgba(255, 100, 200, 0.5);
+}
+
+.system-button image {
+    -gtk-icon-size: 18px;
+    transition: all 150ms ease;
+    -gtk-icon-shadow: 
+        0 0 8px var(--shadow-orange-30),
+        0 0 16px var(--shadow-orange-20);
+}
+
+.system-button:hover image {
+    transform: scale(1.1);
+    -gtk-icon-shadow: 
+        0 0 12px var(--shadow-orange-40),
+        0 0 24px var(--shadow-orange-30);
+}
+
+.screenshot-button:hover image {
+    color: var(--accent-magenta);
+}
+
+.wifi-button:hover image {
+    color: var(--accent-yellow);
+}
+
+.bluetooth-button:hover image {
+    color: var(--primary-orange-light);
+}
