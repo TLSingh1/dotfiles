@@ -141,7 +141,7 @@ return {
 				},
 				icons = {
 					webdev_colors = true,
-					git_placement = "after",
+					git_placement = "before",
 					padding = " ",
 					symlink_arrow = " ➛ ",
 					show = {

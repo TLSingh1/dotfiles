@@ -36,7 +36,7 @@
       selection_background = "#3a2015";
       selection_foreground = "#ffdc00";
       url_color = "#ff9c64";
-      cursor = "#ffdc00";
+      cursor = "#ff64dc";  # Accent magenta - stands out against orange
       cursor_text_color = "#0a0505";
       cursor_trail = 3;
       # modify_font = "underline_position 200%";

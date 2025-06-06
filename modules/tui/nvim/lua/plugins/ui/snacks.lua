@@ -88,10 +88,5 @@ return {
 		vim.api.nvim_set_hl(0, "SnacksIndentScope5", { fg = "#94e2d5" }) -- Teal
 		vim.api.nvim_set_hl(0, "SnacksIndentScope6", { fg = "#89b4fa" }) -- Blue
 		vim.api.nvim_set_hl(0, "SnacksIndentScope7", { fg = "#b4befe" }) -- Lavender
-
-		-- Create dashboard command
-		vim.api.nvim_create_user_command("Dashboard", function()
-			Snacks.dashboard()
-		end, {})
 	end,
 }
