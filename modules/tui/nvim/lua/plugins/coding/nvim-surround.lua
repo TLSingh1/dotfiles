@@ -8,7 +8,7 @@ return {
 		return nixCats.cats.coding
 	end,
 
-	event = "VeryLazy",
+	event = { "BufReadPre", "BufNewFile" },
 	after = function()
 		require("nvim-surround").setup({
 			-- Number of lines within which surrounding is searched
