@@ -155,9 +155,8 @@ class OSDService {
     }
     
     private getBrightnessIcon(value: number): string {
-        if (value < 33) return "display-brightness-low-symbolic"
-        if (value < 66) return "display-brightness-medium-symbolic"
-        return "display-brightness-high-symbolic"
+        // Try standard brightness icon
+        return "display-brightness-symbolic"
     }
     
     private async monitorKeyboardLayout() {

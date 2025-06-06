@@ -65,6 +65,7 @@ class BrightnessService extends GObject.Object {
                 const newScreen = screenCurrent / screenMax
                 
                 if (Math.abs(newScreen - this._screen) > 0.01) {
+                    console.log(`Brightness changed from ${Math.round(this._screen * 100)}% to ${Math.round(newScreen * 100)}%`)
                     this._screen = newScreen
                     this.notify("screen")
                 }

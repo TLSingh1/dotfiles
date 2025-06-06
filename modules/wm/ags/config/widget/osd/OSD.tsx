@@ -55,7 +55,7 @@ export default function OSD() {
             <box
               cssClasses={["osd-progress-fill", `osd-${props.type}-fill`]}
               halign={Gtk.Align.START}
-              widthRequest={bind(osdProps).as(p => Math.round((p.value || 0) * 3))}
+              widthRequest={bind(osdProps).as(p => Math.round((p.value || 0) * 1.4))}
             />
           </box>
           <label
@@ -130,7 +130,7 @@ export default function OSD() {
                     <box
                       cssClasses={["osd-progress-fill", `osd-${props.type}-fill`]}
                       halign={Gtk.Align.START}
-                      widthRequest={Math.round((props.value || 0) * 3)}
+                      widthRequest={Math.round((props.value || 0) * 1.4)}
                     />
                   </box>
                   <label

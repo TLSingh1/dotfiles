@@ -740,6 +740,8 @@ image {
     border: 1px solid var(--surface-orange-20);
     border-radius: 12px;
     min-height: 8px;
+    min-width: 140px;
+    max-width: 140px;
     box-shadow: 
         inset 0 2px 4px rgba(0, 0, 0, 0.3),
         0 0 20px var(--shadow-orange-05);
