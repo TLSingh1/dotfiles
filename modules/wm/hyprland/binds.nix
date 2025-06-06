@@ -96,6 +96,10 @@ let
     ", 68" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";   # Volume down (repeats when held)
     ", 69" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";   # Volume up (repeats when held)
     ", 74" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";   # Volume up (repeats when held)
+    
+    # Brightness controls (keys 75, 76)
+    ", 75" = "exec, brightnessctl set 5%-";   # Brightness down (repeats when held)
+    ", 76" = "exec, brightnessctl set +5%";   # Brightness up (repeats when held)
   };
   
   # Host-specific bindings

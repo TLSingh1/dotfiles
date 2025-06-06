@@ -1,15 +1,19 @@
-{ config, pkgs, inputs, lib, osConfig, ... }:
-
-let
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  osConfig,
+  ...
+}: let
   # Import the binds configuration with the current hostname
   binds = import ./binds.nix {
     hostname = osConfig.networking.hostName or "default";
   };
-  
+
   # Import animations configuration
   animations = import ./animations.nix;
-in
-{
+in {
   # Hyprland-related packages
   home.packages = with pkgs; [
     wofi # application launcher
@@ -27,25 +31,23 @@ in
 
     xwayland.enable = true;
     # xwayland.forceZeroScaling = true;
-        
+
     # Import environment variables for systemd services
     systemd.variables = ["--all"];
 
     settings = {
       # Monitor configuration
       monitor = [
-        # Laptop display
-        "eDP-1, 1920x1200@144, 0x1080, 1.0"
-        # Apple Studio Display (primary connection)
-        "DP-1, 5120x2880@60, 1920x0, 2.0"
-        # Apple Studio Display (secondary connection - disabled)
-        "DP-2, disable"
+        # Samsung Odyssey G5 (top)
+        "DP-1, 2560x1440@60, 0x0, 1.0"
+        # Laptop display (bottom)
+        "eDP-1, 1920x1200@144, 0x1440, 1.0"
       ];
 
       # Variables
       "$terminal" = "kitty";
       "$menu" = "wofi --show drun";
-      
+
       # Import bindings from binds.nix
       bind = lib.mapAttrsToList (key: value: "${key}, ${value}") binds.bind;
       bindm = lib.mapAttrsToList (key: value: "${key}, ${value}") binds.bindm;
@@ -59,7 +61,7 @@ in
         # Blue holographic theme (original)
         # "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
         # "col.inactive_border" = "rgba(ff00ff44)";
-        
+
         # Orange holographic theme
         "col.active_border" = "rgba(ff4500ff) rgba(ffee00ff) rgba(ff1493ff) rgba(ff6b00ff) rgba(ffd700ff) 45deg";
         "col.inactive_border" = "rgba(ff450033)";
@@ -85,10 +87,10 @@ in
         };
         shadow = {
           enabled = true;
-          range = 20;  # Increased for more dramatic effect
-          render_power = 4;  # Higher power for stronger shadow
-          color = "rgba(ff450099)";  # Orange shadow to match theme
-          offset = "0 0";  # Center the shadow
+          range = 20; # Increased for more dramatic effect
+          render_power = 4; # Higher power for stronger shadow
+          color = "rgba(ff450099)"; # Orange shadow to match theme
+          offset = "0 0"; # Center the shadow
           scale = 1.0;
         };
         # drop_shadow = true;
@@ -156,7 +158,6 @@ in
         "center,class:(org.telegram.desktop)"
         "workspace special:telegram, class:(org.telegram.desktop)"
 
-
         # Zen browser
         "opacity 0.85 0.85,class:(zen)"
 
@@ -171,8 +172,6 @@ in
         "size 1500 900,class:(Slack)"
         "center,class:(Slack)"
         "workspace special:slack, class:(Slack)"
-
-
       ];
 
       workspace = [
@@ -182,21 +181,19 @@ in
         "3, monitor:eDP-1"
         "4, monitor:eDP-1"
         "5, monitor:eDP-1"
-        # Apple Studio Display workspaces
+        # Samsung Odyssey G5 workspaces
         "6, monitor:DP-1"
         "7, monitor:DP-1"
         "8, monitor:DP-1"
         "9, monitor:DP-1"
         "10, monitor:DP-1"
-        "11, monitor:DP-1"
-        "12, monitor:DP-1"
       ];
-      
+
       # Autostart applications
       exec-once = [
-        "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts"  # Start AGS bar
-        "swww-daemon"  # Wallpaper daemon
+        "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts" # Start AGS bar
+        "swww-daemon" # Wallpaper daemon
       ];
     };
   };
-} 
+}
