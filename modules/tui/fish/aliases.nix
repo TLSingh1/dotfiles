@@ -12,8 +12,13 @@
   "..." = "cd ../..";
   "...." = "cd ../../..";
 
-  # Screenshots
-  ss = "grim -g $(slurp)";
+  # Screenshots (using grimblast for notifications)
+  ss = "grimblast copy area";          # Screenshot area to clipboard
+  ssf = "grimblast save area";         # Screenshot area to file
+  sss = "grimblast copy screen";       # Screenshot screen to clipboard
+  sssf = "grimblast save screen";      # Screenshot screen to file
+  ssw = "grimblast copy active";       # Screenshot window to clipboard
+  sswf = "grimblast save active";      # Screenshot window to file
   
   # Git shortcuts
   g = "git";

@@ -1,7 +1,9 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4"
 import Workspaces from "./Workspaces"
 import { Variable, bind } from "astal"
-import { exec } from "astal/process"
+import { exec, execAsync } from "astal/process"
+import Network from "astal4/network"
+import Bluetooth from "astal4/bluetooth"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
     const { TOP, BOTTOM, LEFT } = Astal.WindowAnchor
@@ -59,6 +61,17 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     
     updateClock()
     
+    // Initialize network and bluetooth
+    const network = new Network()
+    const bluetooth = new Bluetooth()
+    
+    // Screenshot function
+    const takeScreenshot = () => {
+        execAsync(["grimblast", "copy", "area"])
+            .then(() => console.log("Screenshot taken"))
+            .catch(err => console.error("Screenshot failed:", err))
+    }
+    
     console.log("Creating bar for monitor:", gdkmonitor.get_model())
 
     const barWindow = <window
@@ -94,6 +107,39 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
                 {/* Bottom section */}
                 <box vertical valign={Gtk.Align.END}>
+                    {/* System control buttons */}
+                    <box vertical spacing={8}>
+                        {/* Screenshot button */}
+                        <button 
+                            cssClasses={["system-button", "screenshot-button"]}
+                            onClicked={takeScreenshot}
+                            tooltip-text="Take screenshot (area)">
+                            <label label="📷" />
+                        </button>
+                        
+                        {/* WiFi button */}
+                        <button 
+                            cssClasses={["system-button", "wifi-button"]}
+                            tooltip-text={bind(network, "wifi").as(w => 
+                                w ? `WiFi: ${w.ssid || "Connected"}` : "WiFi: Disconnected"
+                            )}>
+                            <label label={bind(network, "wifi").as(w => 
+                                w ? "📶" : "📵"
+                            )} />
+                        </button>
+                        
+                        {/* Bluetooth button */}
+                        <button 
+                            cssClasses={["system-button", "bluetooth-button"]}
+                            tooltip-text={bind(bluetooth, "isPowered").as(p => 
+                                p ? "Bluetooth: On" : "Bluetooth: Off"
+                            )}>
+                            <label label={bind(bluetooth, "isPowered").as(p => 
+                                p ? "🔷" : "🔸"
+                            )} />
+                        </button>
+                    </box>
+                    
                     {/* Performance bars */}
                     <box 
                         cssClasses={["performance-bars"]}
