@@ -1,13 +1,17 @@
 -- Main configuration module
 
 -- Load basic vim options
-require('config.options')
+require("config.options")
 
 -- Load keymaps
-require('config.keymaps')
+require("config.keymaps")
 
 -- Load plugins using lze
-require('plugins')
+require("plugins")
 
 -- Load colorscheme (after plugins to ensure themes are available)
-require('config.colorscheme') 
+require("config.colorscheme")
+
+-- Load autocommands
+require("config.autocmds")
+
