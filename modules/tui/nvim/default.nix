@@ -71,6 +71,9 @@
           nui-nvim
           # Image clipboard support
           img-clip-nvim
+          # Better folding
+          nvim-ufo
+          promise-async
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools
