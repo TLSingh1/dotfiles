@@ -21,6 +21,7 @@ in
     # Personal laptop modules
     ../../modules/wm/hyprland/home.nix
     ../../modules/wm/ags
+    ../../modules/wm/dunst
     ../../modules/tui/nvim
     ../../modules/tui/kitty
     ../../modules/gui/apps
@@ -32,6 +33,7 @@ in
   ] ++ lib.optionals (hostname == "nixos-desktop") [
     # Desktop specific modules
     ../../modules/wm/hyprland/home.nix
+    ../../modules/wm/dunst
     ../../modules/tui/nvim
     ../../modules/tui/kitty
     ../../modules/gui/apps

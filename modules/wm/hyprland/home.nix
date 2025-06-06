@@ -15,7 +15,6 @@ in
     wofi # application launcher
     grimblast # screenshot tool
     waybar # status bar
-    dunst # notification daemon
     wl-clipboard # clipboard utilities
     swww # wallpaper daemon
     kdePackages.dolphin # file manager
@@ -57,8 +56,13 @@ in
         gaps_in = 8;
         gaps_out = 18;
         border_size = 3;
-        "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
-        "col.inactive_border" = "rgba(ff00ff44)";
+        # Blue holographic theme (original)
+        # "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
+        # "col.inactive_border" = "rgba(ff00ff44)";
+        
+        # Orange holographic theme
+        "col.active_border" = "rgba(ff4500ff) rgba(ffee00ff) rgba(ff1493ff) rgba(ff6b00ff) rgba(ffd700ff) 45deg";
+        "col.inactive_border" = "rgba(ff450033)";
         layout = "dwindle";
         resize_on_border = true;
         extend_border_grab_area = 15;
@@ -81,9 +85,11 @@ in
         };
         shadow = {
           enabled = true;
-          range = 4;
-          render_power = 3;
-          color = "rgba(1a1a1aee)";
+          range = 20;  # Increased for more dramatic effect
+          render_power = 4;  # Higher power for stronger shadow
+          color = "rgba(ff450099)";  # Orange shadow to match theme
+          offset = "0 0";  # Center the shadow
+          scale = 1.0;
         };
         # drop_shadow = true;
         # shadow_range = 4;

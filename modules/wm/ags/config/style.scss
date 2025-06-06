@@ -1,5 +1,129 @@
 /* AGS Bar - Optimized Futuristic Tech Theme */
 
+/* Color Variables - Futuristic Holographic Blue Theme (Original) */
+/*
+:root {
+  --primary-blue: #64c8ff;
+  --primary-blue-light: #8cd5ff;
+  --primary-blue-dark: #2085ff;
+  --secondary-purple: #9664ff;
+  --secondary-purple-light: #b58cff;
+  
+  --accent-cyan: #00ffc8;
+  --accent-green: #96ff00;
+  --accent-yellow: #ffc800;
+  
+  --error-red: #ff6480;
+  --error-red-dark: #ff3264;
+  --error-orange: #ff6432;
+  
+  --bg-dark: rgba(10, 10, 20, 0.95);
+  --bg-dark-secondary: rgba(15, 15, 30, 0.85);
+  
+  --surface-blue-10: rgba(100, 200, 255, 0.1);
+  --surface-blue-15: rgba(100, 200, 255, 0.15);
+  --surface-blue-20: rgba(100, 200, 255, 0.2);
+  --surface-blue-25: rgba(100, 200, 255, 0.25);
+  --surface-blue-30: rgba(100, 200, 255, 0.3);
+  --surface-blue-40: rgba(100, 200, 255, 0.4);
+  --surface-blue-50: rgba(100, 200, 255, 0.5);
+  --surface-blue-60: rgba(100, 200, 255, 0.6);
+  --surface-blue-80: rgba(100, 200, 255, 0.8);
+  --surface-blue-90: rgba(100, 200, 255, 0.9);
+  
+  --surface-purple-15: rgba(150, 100, 255, 0.15);
+  --surface-purple-25: rgba(150, 100, 255, 0.25);
+  
+  --glow-blue-light: rgba(140, 210, 255, 0.9);
+  --glow-blue-medium: rgba(100, 190, 255, 0.7);
+  --glow-blue-dark: rgba(100, 190, 255, 0.3);
+  --glow-blue-intense: rgba(210, 230, 255, 0.8);
+  
+  --surface-white-10: rgba(255, 255, 255, 0.1);
+  --surface-white-20: rgba(255, 255, 255, 0.2);
+  --surface-white-30: rgba(255, 255, 255, 0.3);
+  --surface-white-40: rgba(255, 255, 255, 0.4);
+  --surface-white-50: rgba(255, 255, 255, 0.5);
+  
+  --gradient-purple-start: rgba(80, 180, 255, 0.05);
+  --gradient-purple-end: rgba(120, 80, 255, 0.05);
+  --gradient-purple-start-hover: rgba(80, 180, 255, 0.08);
+  --gradient-purple-end-hover: rgba(120, 80, 255, 0.08);
+  
+  --shadow-base: rgba(0, 0, 0, 0.4);
+  --shadow-blue-20: rgba(100, 200, 255, 0.2);
+  --shadow-blue-30: rgba(100, 200, 255, 0.3);
+  --shadow-blue-40: rgba(100, 200, 255, 0.4);
+  --shadow-blue-05: rgba(100, 200, 255, 0.05);
+}
+*/
+
+/* Color Variables - Futuristic Holographic Orange Theme */
+:root {
+  /* Primary orange palette */
+  --primary-orange: #ff9c64;
+  --primary-orange-light: #ffb08c;
+  --primary-orange-dark: #ff7020;
+  --secondary-amber: #ff8c64;
+  --secondary-amber-light: #ffa58c;
+  
+  /* Accent colors - warm spectrum */
+  --accent-yellow: #ffdc00;
+  --accent-coral: #ff6464;
+  --accent-magenta: #ff64dc;
+  
+  /* Error/power colors - shifted to magenta */
+  --error-magenta: #ff64c8;
+  --error-magenta-dark: #ff32a0;
+  --error-coral: #ff6464;
+  
+  /* Background colors - warmer tones */
+  --bg-dark: rgba(20, 10, 10, 0.95);
+  --bg-dark-secondary: rgba(30, 15, 15, 0.85);
+  
+  /* Surface orange transparencies */
+  --surface-orange-10: rgba(255, 156, 100, 0.1);
+  --surface-orange-15: rgba(255, 156, 100, 0.15);
+  --surface-orange-20: rgba(255, 156, 100, 0.2);
+  --surface-orange-25: rgba(255, 156, 100, 0.25);
+  --surface-orange-30: rgba(255, 156, 100, 0.3);
+  --surface-orange-40: rgba(255, 156, 100, 0.4);
+  --surface-orange-50: rgba(255, 156, 100, 0.5);
+  --surface-orange-60: rgba(255, 156, 100, 0.6);
+  --surface-orange-80: rgba(255, 156, 100, 0.8);
+  --surface-orange-90: rgba(255, 156, 100, 0.9);
+  
+  /* Secondary amber surfaces */
+  --surface-amber-15: rgba(255, 140, 100, 0.15);
+  --surface-amber-25: rgba(255, 140, 100, 0.25);
+  
+  /* Glow effects - warm tones */
+  --glow-orange-light: rgba(255, 180, 140, 0.9);
+  --glow-orange-medium: rgba(255, 156, 100, 0.7);
+  --glow-orange-dark: rgba(255, 156, 100, 0.3);
+  --glow-orange-intense: rgba(255, 210, 180, 0.8);
+  
+  /* White overlays remain the same */
+  --surface-white-10: rgba(255, 255, 255, 0.1);
+  --surface-white-20: rgba(255, 255, 255, 0.2);
+  --surface-white-30: rgba(255, 255, 255, 0.3);
+  --surface-white-40: rgba(255, 255, 255, 0.4);
+  --surface-white-50: rgba(255, 255, 255, 0.5);
+  
+  /* Gradient colors - warm spectrum */
+  --gradient-orange-start: rgba(255, 120, 80, 0.05);
+  --gradient-orange-end: rgba(255, 80, 120, 0.05);
+  --gradient-orange-start-hover: rgba(255, 120, 80, 0.08);
+  --gradient-orange-end-hover: rgba(255, 80, 120, 0.08);
+  
+  /* Shadows - warmer tones */
+  --shadow-base: rgba(0, 0, 0, 0.4);
+  --shadow-orange-20: rgba(255, 156, 100, 0.2);
+  --shadow-orange-30: rgba(255, 156, 100, 0.3);
+  --shadow-orange-40: rgba(255, 156, 100, 0.4);
+  --shadow-orange-05: rgba(255, 156, 100, 0.05);
+}
+
 /* Animation Variables */
 :root {
   /* Easing curves */
@@ -48,16 +172,16 @@ window {
 .bar-container {
     background: linear-gradient(
         180deg,
-        rgba(10, 10, 20, 0.95),
-        rgba(15, 15, 30, 0.85)
+        var(--bg-dark),
+        var(--bg-dark-secondary)
     );
     margin: 12px;
     border-radius: 24px;
-    border: 1px solid rgba(100, 200, 255, 0.1);
+    border: 1px solid var(--surface-orange-10);
     box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 40px rgba(100, 200, 255, 0.05);
+        0 8px 32px var(--shadow-base),
+        inset 0 1px 0 var(--surface-white-10),
+        0 0 40px var(--shadow-orange-05);
 }
 
 .vertical-bar {
@@ -69,33 +193,33 @@ window {
 .launcher {
     background: linear-gradient(
         135deg,
-        rgba(100, 200, 255, 0.15),
-        rgba(150, 100, 255, 0.15)
+        var(--surface-orange-15),
+        var(--surface-amber-15)
     );
-    color: #64c8ff;
+    color: var(--primary-orange);
     min-width: 36px;
     min-height: 36px;
     border-radius: 24px;
     margin-bottom: 12px;
     font-size: 18px;
-    border: 1px solid rgba(100, 200, 255, 0.3);
+    border: 1px solid var(--surface-orange-30);
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        0 2px 8px rgba(100, 200, 255, 0.2);
+        inset 0 1px 0 var(--surface-white-20),
+        0 2px 8px var(--shadow-orange-20);
     transition: all 150ms ease; /* Hover transition */
 }
 
 .launcher:hover {
     background: linear-gradient(
         135deg,
-        rgba(100, 200, 255, 0.25),
-        rgba(150, 100, 255, 0.25)
+        var(--surface-orange-25),
+        var(--surface-amber-25)
     );
-    border-color: rgba(100, 200, 255, 0.5);
+    border-color: var(--surface-orange-50);
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        0 4px 16px rgba(100, 200, 255, 0.3),
-        0 0 20px rgba(100, 200, 255, 0.2);
+        inset 0 1px 0 var(--surface-white-30),
+        0 4px 16px var(--shadow-orange-30),
+        0 0 20px var(--shadow-orange-20);
 }
 
 .launcher:active {
@@ -106,33 +230,33 @@ window {
 .power-button {
     background: linear-gradient(
         135deg,
-        rgba(255, 50, 100, 0.15),
-        rgba(255, 100, 50, 0.15)
+        rgba(255, 100, 200, 0.15),
+        rgba(255, 100, 220, 0.15)
     );
-    color: #ff6480;
+    color: var(--error-magenta);
     min-width: 36px;
     min-height: 36px;
     border-radius: 24px;
     margin-top: 12px;
     font-size: 16px;
-    border: 1px solid rgba(255, 100, 150, 0.3);
+    border: 1px solid rgba(255, 100, 200, 0.3);
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 2px 8px rgba(255, 50, 100, 0.2);
+        inset 0 1px 0 var(--surface-white-10),
+        0 2px 8px rgba(255, 100, 200, 0.2);
     transition: all 150ms ease; /* Hover transition */
 }
 
 .power-button:hover {
     background: linear-gradient(
         135deg,
-        rgba(255, 50, 100, 0.25),
-        rgba(255, 100, 50, 0.25)
+        rgba(255, 100, 200, 0.25),
+        rgba(255, 100, 220, 0.25)
     );
-    border-color: rgba(255, 100, 150, 0.5);
+    border-color: rgba(255, 100, 200, 0.5);
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        0 4px 16px rgba(255, 50, 100, 0.3),
-        0 0 20px rgba(255, 50, 100, 0.2);
+        inset 0 1px 0 var(--surface-white-20),
+        0 4px 16px rgba(255, 100, 200, 0.3),
+        0 0 20px rgba(255, 100, 200, 0.2);
 }
 
 .power-button:active {
@@ -160,7 +284,7 @@ window {
 .workspace-container:hover {
     background: radial-gradient(
         circle at center,
-        rgba(100, 200, 255, 0.1),
+        var(--surface-orange-10),
         transparent
     );
 }
@@ -168,7 +292,7 @@ window {
 /* Active container has subtle glow */
 .workspace-container.active {
     padding-left: 15px;
-    background: radial-gradient(circle at center, rgba(100, 200, 255, 0.15), transparent);
+    background: radial-gradient(circle at center, var(--surface-orange-15), transparent);
 }
 
 /* Workspace orbs - tiny by default */
@@ -179,14 +303,14 @@ window {
     padding: 0;
     background: radial-gradient(
         circle at center,
-        rgba(100, 200, 255, 0.3),
-        rgba(100, 200, 255, 0.2),
+        var(--surface-orange-30),
+        var(--surface-orange-20),
         transparent
     );
-    border: 1px solid rgba(100, 200, 255, 0.2);
+    border: 1px solid var(--surface-orange-20);
     box-shadow: 
-        0 0 4px rgba(100, 200, 255, 0.2),
-        inset 0 0 2px rgba(255, 255, 255, 0.1);
+        0 0 4px var(--shadow-orange-20),
+        inset 0 0 2px var(--surface-white-10);
     transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1); /* ease-out-cubic */
 }
 
@@ -194,14 +318,14 @@ window {
 .workspace-container:hover .workspace-orb {
     background: radial-gradient(
         circle at center,
-        rgba(100, 200, 255, 0.5),
-        rgba(100, 200, 255, 0.3),
+        var(--surface-orange-50),
+        var(--surface-orange-30),
         transparent
     );
-    border-color: rgba(100, 200, 255, 0.4);
+    border-color: var(--surface-orange-40);
     box-shadow: 
-        0 0 8px rgba(100, 200, 255, 0.4),
-        inset 0 0 3px rgba(255, 255, 255, 0.2);
+        0 0 8px var(--shadow-orange-40),
+        inset 0 0 3px var(--surface-white-20);
 }
 
 /* Active workspace - larger glowing orb */
@@ -210,42 +334,42 @@ window {
     min-height: 12px;
     background: radial-gradient(
         circle at center,
-        rgba(140, 210, 255, 0.9),
-        rgba(100, 190, 255, 0.7),
-        rgba(100, 190, 255, 0.3)
+        var(--glow-orange-light),
+        var(--glow-orange-medium),
+        var(--glow-orange-dark)
     );
-    border: 1px solid rgba(210, 230, 255, 0.8);
+    border: 1px solid var(--glow-orange-intense);
     box-shadow: 
-        0 0 12px rgba(140, 210, 255, 0.9),
-        0 0 24px rgba(100, 190, 255, 0.6),
-        0 0 36px rgba(100, 190, 255, 0.3),
-        inset 0 0 6px rgba(255, 255, 255, 0.4);
+        0 0 12px var(--glow-orange-light),
+        0 0 24px var(--surface-orange-60),
+        0 0 36px var(--surface-orange-30),
+        inset 0 0 6px var(--surface-white-40);
     animation: orb-glow 2s var(--ease-in-out-quad) infinite;
 }
 
 /* Active hover - increase glow intensity */
 .workspace-container.active:hover .workspace-orb {
     box-shadow: 
-        0 0 16px rgba(140, 210, 255, 1),
-        0 0 32px rgba(100, 190, 255, 0.8),
-        0 0 48px rgba(100, 190, 255, 0.4),
-        inset 0 0 8px rgba(255, 255, 255, 0.5);
+        0 0 16px var(--primary-orange),
+        0 0 32px var(--surface-orange-80),
+        0 0 48px var(--surface-orange-40),
+        inset 0 0 8px var(--surface-white-50);
 }
 
 @keyframes orb-glow {
     0%, 100% {
         box-shadow: 
-            0 0 12px rgba(140, 210, 255, 0.9),
-            0 0 24px rgba(100, 190, 255, 0.6),
-            0 0 36px rgba(100, 190, 255, 0.3),
-            inset 0 0 6px rgba(255, 255, 255, 0.4);
+            0 0 12px var(--glow-orange-light),
+            0 0 24px var(--surface-orange-60),
+            0 0 36px var(--surface-orange-30),
+            inset 0 0 6px var(--surface-white-40);
     }
     50% {
         box-shadow: 
-            0 0 16px rgba(140, 210, 255, 1),
-            0 0 32px rgba(100, 190, 255, 0.8),
-            0 0 48px rgba(100, 190, 255, 0.5),
-            inset 0 0 10px rgba(255, 255, 255, 0.6);
+            0 0 16px var(--primary-orange),
+            0 0 32px var(--surface-orange-80),
+            0 0 48px var(--surface-orange-50),
+            inset 0 0 10px var(--surface-white-50);
     }
 }
 
@@ -253,29 +377,29 @@ window {
 .performance-monitor {
     background: linear-gradient(
         135deg,
-        rgba(80, 180, 255, 0.05),
-        rgba(120, 80, 255, 0.05)
+        var(--gradient-orange-start),
+        var(--gradient-orange-end)
     );
     border-radius: 16px;
-    border: 1px solid rgba(100, 200, 255, 0.2);
+    border: 1px solid var(--surface-orange-20);
     padding: 8px;
     margin: 12px 4px;
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 2px 8px rgba(100, 200, 255, 0.1);
+        inset 0 1px 0 var(--surface-white-10),
+        0 2px 8px var(--shadow-orange-20);
     transition: all 200ms var(--ease-out-cubic);
 }
 
 .performance-monitor:hover {
     background: linear-gradient(
         135deg,
-        rgba(80, 180, 255, 0.08),
-        rgba(120, 80, 255, 0.08)
+        var(--gradient-orange-start-hover),
+        var(--gradient-orange-end-hover)
     );
-    border-color: rgba(100, 200, 255, 0.3);
+    border-color: var(--surface-orange-30);
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        0 4px 16px rgba(100, 200, 255, 0.2);
+        inset 0 1px 0 var(--surface-white-20),
+        0 4px 16px var(--shadow-orange-20);
 }
 
 /* Grid layout for stats */
@@ -287,16 +411,16 @@ window {
     min-width: 32px;
     min-height: 32px;
     border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(100, 200, 255, 0.1), rgba(100, 200, 255, 0.05));
-    border: 1px solid rgba(100, 200, 255, 0.2);
+    background: radial-gradient(circle at center, var(--surface-orange-10), rgba(255, 156, 100, 0.05));
+    border: 1px solid var(--surface-orange-20);
     margin: 2px;
     transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .stat-item:hover {
-    background: radial-gradient(circle at center, rgba(100, 200, 255, 0.15), rgba(100, 200, 255, 0.08));
-    border-color: rgba(100, 200, 255, 0.3);
-    box-shadow: 0 0 12px rgba(100, 200, 255, 0.3);
+    background: radial-gradient(circle at center, var(--surface-orange-15), rgba(255, 156, 100, 0.08));
+    border-color: var(--surface-orange-30);
+    box-shadow: 0 0 12px var(--shadow-orange-30);
 }
 
 /* Performance Bars */
@@ -305,7 +429,7 @@ window {
     padding: 4px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--surface-white-10);
     box-shadow: 
         inset 0 1px 0 rgba(255, 255, 255, 0.05),
         0 2px 8px rgba(0, 0, 0, 0.3);
@@ -327,23 +451,23 @@ window {
 
 /* Different holographic colors for each metric */
 .battery-bar .bar-fill {
-    background: linear-gradient(90deg, rgba(0, 255, 200, 0.7), rgba(150, 255, 0, 0.7), rgba(255, 200, 0, 0.7));
-    color: rgba(100, 255, 150, 0.8);
+    background: linear-gradient(90deg, rgba(255, 220, 0, 0.7), rgba(255, 180, 0, 0.7), rgba(255, 140, 0, 0.7));
+    color: rgba(255, 200, 100, 0.8);
 }
 
 .cpu-bar .bar-fill {
-    background: linear-gradient(90deg, rgba(255, 0, 150, 0.7), rgba(255, 100, 0, 0.7), rgba(255, 200, 0, 0.7));
-    color: rgba(255, 100, 100, 0.8);
+    background: linear-gradient(90deg, rgba(255, 100, 0, 0.7), rgba(255, 140, 0, 0.7), rgba(255, 180, 0, 0.7));
+    color: rgba(255, 140, 100, 0.8);
 }
 
 .memory-bar .bar-fill {
-    background: linear-gradient(90deg, rgba(150, 0, 255, 0.7), rgba(0, 150, 255, 0.7), rgba(0, 255, 255, 0.7));
-    color: rgba(100, 150, 255, 0.8);
+    background: linear-gradient(90deg, rgba(255, 80, 120, 0.7), rgba(255, 100, 180, 0.7), rgba(255, 140, 220, 0.7));
+    color: rgba(255, 120, 180, 0.8);
 }
 
 .gpu-bar .bar-fill {
-    background: linear-gradient(90deg, rgba(255, 0, 200, 0.7), rgba(150, 0, 255, 0.7), rgba(0, 100, 255, 0.7));
-    color: rgba(200, 100, 255, 0.8);
+    background: linear-gradient(90deg, rgba(255, 100, 220, 0.7), rgba(255, 80, 180, 0.7), rgba(255, 60, 140, 0.7));
+    color: rgba(255, 100, 200, 0.8);
 }
 
 /* Battery Dial */
@@ -356,7 +480,7 @@ window {
 }
 
 .battery-dial:hover {
-    background: rgba(100, 200, 255, 0.05);
+    background: rgba(255, 156, 100, 0.05);
 }
 
 .dial-canvas {
@@ -366,7 +490,7 @@ window {
 .battery-label {
     font-size: 10px;
     font-weight: 600;
-    color: rgba(100, 200, 255, 0.9);
+    color: var(--surface-orange-90);
 }
 
 /* Battery state animations */
@@ -379,26 +503,26 @@ window {
 }
 
 .battery-dial.full {
-    box-shadow: 0 0 16px rgba(32, 150, 255, 0.4);
+    box-shadow: 0 0 16px var(--shadow-orange-40);
 }
 
 @keyframes pulse-green {
     0%, 100% {
-        box-shadow: 0 0 8px rgba(32, 255, 100, 0.3);
+        box-shadow: 0 0 8px rgba(255, 220, 32, 0.3);
     }
     50% {
-        box-shadow: 0 0 20px rgba(32, 255, 100, 0.6),
-                    0 0 30px rgba(32, 255, 100, 0.3);
+        box-shadow: 0 0 20px rgba(255, 220, 32, 0.6),
+                    0 0 30px rgba(255, 220, 32, 0.3);
     }
 }
 
 @keyframes pulse-red {
     0%, 100% {
-        box-shadow: 0 0 8px rgba(255, 32, 32, 0.4);
+        box-shadow: 0 0 8px rgba(255, 100, 32, 0.4);
     }
     50% {
-        box-shadow: 0 0 20px rgba(255, 32, 32, 0.8),
-                    0 0 30px rgba(255, 32, 32, 0.4);
+        box-shadow: 0 0 20px rgba(255, 100, 32, 0.8),
+                    0 0 30px rgba(255, 100, 32, 0.4);
     }
 }
 
@@ -407,19 +531,19 @@ window {
     padding: 8px 4px;
     margin: 8px 0;
     border-radius: 12px;
-    background: rgba(100, 200, 255, 0.05);
-    border: 1px solid rgba(100, 200, 255, 0.1);
+    background: rgba(255, 156, 100, 0.05);
+    border: 1px solid var(--surface-orange-10);
 }
 
 .time {
-    color: #64c8ff;
+    color: var(--primary-orange);
     font-size: 14px;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
 }
 
 .date {
-    color: rgba(100, 200, 255, 0.6);
+    color: var(--surface-orange-60);
     font-size: 10px;
     font-weight: 400;
     margin-bottom: 2px;
