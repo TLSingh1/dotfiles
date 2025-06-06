@@ -41,6 +41,12 @@
           # Syntax highlighting and code parsing
           nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
+          # Auto-pairing with treesitter support
+          ultimate-autopair-nvim
+          # Surround text objects
+          nvim-surround
+          # Auto close and rename HTML/XML tags
+          nvim-ts-autotag
         ];
         ui = with pkgs.vimPlugins; [
           # Terminal and UI enhancements
