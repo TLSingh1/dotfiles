@@ -20,6 +20,8 @@
           lze
           lzextras
           plenary-nvim
+          # Library dependencies
+          promise-async
         ];
       };
 
@@ -73,7 +75,6 @@
           img-clip-nvim
           # Better folding
           nvim-ufo
-          promise-async
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools

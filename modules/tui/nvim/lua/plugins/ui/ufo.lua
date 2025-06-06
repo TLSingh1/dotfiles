@@ -10,9 +10,6 @@ return {
   
   event = { "BufReadPost", "BufNewFile" },
   
-  -- Dependencies
-  dep_of = { "promise-async" },
-  
   after = function()
     -- Set up folding options
     vim.o.foldcolumn = '1' -- '0' is not bad
