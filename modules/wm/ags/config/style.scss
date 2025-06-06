@@ -686,7 +686,7 @@ image {
         0 0 60px var(--shadow-orange-30),
         inset 0 1px 0 var(--surface-white-10),
         inset 0 0 40px var(--shadow-orange-05);
-    min-width: 320px;
+    min-width: 200px;
     animation: osd-appear 200ms var(--ease-out-cubic);
 }
 
