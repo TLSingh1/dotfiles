@@ -664,3 +664,263 @@ image {
 .bluetooth-button:hover image {
     color: var(--primary-orange-light);
 }
+
+/* OSD Widget Styles - Futuristic Orange Holographic Theme */
+
+.osd-window {
+    background-color: transparent;
+}
+
+.osd-container {
+    background: linear-gradient(
+        135deg,
+        rgba(20, 10, 10, 0.98),
+        rgba(30, 15, 15, 0.95)
+    );
+    border-radius: 24px;
+    border: 2px solid var(--surface-orange-30);
+    padding: 24px 32px;
+    margin: 20px;
+    box-shadow: 
+        0 8px 32px var(--shadow-base),
+        0 0 60px var(--shadow-orange-30),
+        inset 0 1px 0 var(--surface-white-10),
+        inset 0 0 40px var(--shadow-orange-05);
+    min-width: 320px;
+    animation: osd-appear 200ms var(--ease-out-cubic);
+}
+
+@keyframes osd-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Icon container with holographic glow */
+.osd-icon-container {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at center,
+        var(--surface-orange-20),
+        var(--surface-orange-10),
+        transparent 70%
+    );
+    box-shadow: 
+        0 0 40px var(--shadow-orange-40),
+        inset 0 0 20px var(--surface-orange-10);
+}
+
+.osd-icon {
+    color: var(--primary-orange);
+    -gtk-icon-shadow: 
+        0 0 20px var(--glow-orange-light),
+        0 0 40px var(--glow-orange-medium),
+        0 0 60px var(--glow-orange-dark);
+    transition: all 200ms var(--ease-out-cubic);
+}
+
+/* Progress bar container */
+.osd-progress-container {
+    margin-top: 16px;
+}
+
+.osd-progress-bar {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 156, 100, 0.1),
+        rgba(255, 156, 100, 0.05)
+    );
+    border: 1px solid var(--surface-orange-20);
+    border-radius: 12px;
+    min-height: 8px;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 20px var(--shadow-orange-05);
+    margin-bottom: 12px;
+}
+
+.osd-progress-fill {
+    min-height: 8px;
+    border-radius: 12px;
+    transition: width 150ms var(--ease-out-cubic);
+    box-shadow: 
+        0 0 20px currentColor,
+        inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Different colors for different OSD types */
+.osd-volume-fill {
+    background: linear-gradient(
+        90deg,
+        var(--primary-orange),
+        var(--primary-orange-light),
+        var(--accent-yellow)
+    );
+    color: var(--glow-orange-medium);
+}
+
+.osd-brightness-fill {
+    background: linear-gradient(
+        90deg,
+        var(--accent-yellow),
+        var(--primary-orange),
+        var(--primary-orange-light)
+    );
+    color: var(--accent-yellow);
+}
+
+.osd-microphone-fill {
+    background: linear-gradient(
+        90deg,
+        var(--accent-coral),
+        var(--primary-orange),
+        var(--accent-magenta)
+    );
+    color: var(--accent-coral);
+}
+
+/* Value label */
+.osd-value {
+    color: var(--primary-orange);
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 
+        0 0 10px var(--glow-orange-light),
+        0 0 20px var(--glow-orange-medium);
+    margin-top: 8px;
+}
+
+/* Text label for non-progress OSDs */
+.osd-label {
+    color: var(--primary-orange);
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 
+        0 0 15px var(--glow-orange-light),
+        0 0 30px var(--glow-orange-medium);
+    margin-top: 8px;
+}
+
+/* Special styling for muted states */
+.osd-muted {
+    border-color: var(--error-coral);
+    box-shadow: 
+        0 8px 32px var(--shadow-base),
+        0 0 60px rgba(255, 100, 100, 0.3),
+        inset 0 1px 0 var(--surface-white-10),
+        inset 0 0 40px rgba(255, 100, 100, 0.05);
+}
+
+.osd-muted .osd-icon {
+    color: var(--error-coral);
+    -gtk-icon-shadow: 
+        0 0 20px var(--error-coral),
+        0 0 40px rgba(255, 100, 100, 0.5);
+}
+
+.osd-muted .osd-icon-container {
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 100, 100, 0.2),
+        rgba(255, 100, 100, 0.1),
+        transparent 70%
+    );
+    box-shadow: 
+        0 0 40px rgba(255, 100, 100, 0.4),
+        inset 0 0 20px rgba(255, 100, 100, 0.1);
+}
+
+/* Keyboard OSD special styling */
+.osd-keyboard {
+    .osd-icon {
+        color: var(--accent-magenta);
+        -gtk-icon-shadow: 
+            0 0 20px var(--accent-magenta),
+            0 0 40px rgba(255, 100, 220, 0.5);
+    }
+    
+    .osd-icon-container {
+        background: radial-gradient(
+            circle at center,
+            rgba(255, 100, 220, 0.2),
+            rgba(255, 100, 220, 0.1),
+            transparent 70%
+        );
+    }
+}
+
+/* Caps Lock / Num Lock special states */
+.osd-caps-on {
+    border-color: var(--accent-yellow);
+    box-shadow: 
+        0 8px 32px var(--shadow-base),
+        0 0 60px rgba(255, 220, 0, 0.3),
+        inset 0 1px 0 var(--surface-white-10),
+        inset 0 0 40px rgba(255, 220, 0, 0.05);
+    
+    .osd-label {
+        color: var(--accent-yellow);
+        text-shadow: 
+            0 0 15px var(--accent-yellow),
+            0 0 30px rgba(255, 220, 0, 0.5);
+    }
+}
+
+/* Media OSD styling */
+.osd-media {
+    .osd-icon {
+        color: var(--accent-magenta);
+        -gtk-icon-shadow: 
+            0 0 20px var(--accent-magenta),
+            0 0 40px rgba(255, 100, 220, 0.5);
+    }
+    
+    .osd-icon-container {
+        background: radial-gradient(
+            circle at center,
+            rgba(255, 100, 220, 0.2),
+            rgba(255, 100, 220, 0.1),
+            transparent 70%
+        );
+        animation: media-pulse 1s var(--ease-in-out-cubic) infinite;
+    }
+}
+
+@keyframes media-pulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 40px var(--shadow-orange-40),
+            inset 0 0 20px var(--surface-orange-10);
+    }
+    50% {
+        box-shadow: 
+            0 0 60px var(--accent-magenta),
+            inset 0 0 30px rgba(255, 100, 220, 0.2);
+    }
+}
+
+/* Workspace OSD styling */
+.osd-workspace {
+    .osd-icon-container {
+        animation: workspace-rotate 500ms var(--ease-out-cubic);
+    }
+}
+
+@keyframes workspace-rotate {
+    from {
+        transform: rotate(-180deg) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+}
