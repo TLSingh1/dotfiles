@@ -4,10 +4,10 @@ return {
   "typescript-tools.nvim",
   
   -- Only load if coding category is enabled
-  enabled = function()
-    return nixCats.cats.coding
-  end,
-  
+  -- enabled = function()
+  --   return nixCats.cats.coding
+  -- end,
+  enabled = false,  
   ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
   event = { "BufReadPre", "BufNewFile" }, -- Load on file open for better reliability
   after = function()

@@ -32,6 +32,7 @@
     claude-code
     gh
     meson
+    awscli2
 
     # Networking tools
     mtr

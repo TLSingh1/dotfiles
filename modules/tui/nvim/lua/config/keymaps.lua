@@ -49,3 +49,16 @@ keymap("v", ">", ">gv")
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
+-- Fix cursor position to be ON first non-blank character, not before it
+vim.api.nvim_create_autocmd("CursorMoved", {
+  callback = function()
+    local line = vim.api.nvim_get_current_line()
+    local col = vim.fn.col('.') - 1
+    local first_non_blank = line:find('%S')
+    
+    if first_non_blank and col < first_non_blank - 1 then
+      vim.api.nvim_win_set_cursor(0, {vim.fn.line('.'), first_non_blank - 1})
+    end
+  end
+})
+

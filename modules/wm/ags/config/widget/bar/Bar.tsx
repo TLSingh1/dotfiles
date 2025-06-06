@@ -1,9 +1,40 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk4"
 import Workspaces from "./Workspaces"
 import { Variable, bind } from "astal"
+import { exec } from "astal/process"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
     const { TOP, BOTTOM, LEFT } = Astal.WindowAnchor
+    
+    // Get hyprland monitor name from GDK monitor
+    const getMonitorName = () => {
+        try {
+            const monitorModel = gdkmonitor.get_model()
+            const monitorsJson = exec("hyprctl -j monitors")
+            const monitors = JSON.parse(monitorsJson)
+            
+            // Find the monitor that matches this GDK monitor
+            // For laptop display, the model might be different, so we check for specific patterns
+            const monitor = monitors.find((m: any) => {
+                if (monitorModel === "StudioDisplay" && m.model === "StudioDisplay") {
+                    return true
+                }
+                // For laptop display, check if it's eDP-1
+                if (m.name === "eDP-1" && monitorModel !== "StudioDisplay") {
+                    return true
+                }
+                return false
+            })
+            
+            return monitor ? monitor.name : "eDP-1" // Default to laptop if not found
+        } catch (e) {
+            console.error("Failed to get monitor name:", e)
+            return "eDP-1" // Default to laptop on error
+        }
+    }
+    
+    const monitorName = getMonitorName()
+    console.log(`Monitor ${gdkmonitor.get_model()} mapped to Hyprland monitor: ${monitorName}`)
     
     const updateDateTime = () => {
         const now = new Date()
@@ -55,7 +86,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                     <button cssClasses={["launcher"]}>
                         <label label="◈" />
                     </button>
-                    <Workspaces />
+                    <Workspaces monitorName={monitorName} />
                 </box>
 
                 {/* Center spacer */}

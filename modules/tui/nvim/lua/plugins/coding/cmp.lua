@@ -29,6 +29,17 @@ return {
       -- elsewhere in your config, without redefining it
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+        providers = {
+          snippets = {
+            opts = {
+              friendly_snippets = true, -- Load friendly-snippets
+              search_paths = { vim.fn.stdpath('config') .. '/snippets' }, -- Additional custom snippets path
+              global_snippets = { 'all' }, -- Global snippets available in all filetypes
+              extended_filetypes = {}, -- e.g. { typescript = { 'javascript' } }
+              ignored_filetypes = {}, -- Filetypes to ignore
+            },
+          },
+        },
       },
 
       -- Experimental signature help support
@@ -55,17 +66,9 @@ return {
         },
       },
 
-      -- Experimental snippets support
+      -- Snippets configuration using vim.snippet API
       snippets = {
-        expand = function(snippet)
-          vim.snippet.expand(snippet)
-        end,
-        active = function(filter)
-          return vim.snippet.active(filter)
-        end,
-        jump = function(direction)
-          vim.snippet.jump(direction)
-        end,
+        preset = 'default', -- Use default preset which includes vim.snippet integration
       },
     })
   end,

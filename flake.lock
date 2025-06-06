@@ -118,23 +118,6 @@
         "type": "github"
       }
     },
-    "fast-cmp": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1723078001,
-        "narHash": "sha256-qVU02nIclxt5Fgh+8Cll087AoWtaLo4g2846VYf+ALY=",
-        "owner": "yioneko",
-        "repo": "nvim-cmp",
-        "rev": "6c3d595f3223c1ae7392d4fde1626355439af6c1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "yioneko",
-        "ref": "perf",
-        "repo": "nvim-cmp",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -614,7 +597,6 @@
         "ags": "ags",
         "astal": "astal_2",
         "claude-desktop": "claude-desktop",
-        "fast-cmp": "fast-cmp",
         "flake-utils": "flake-utils",
         "ghostty": "ghostty",
         "home-manager": "home-manager",

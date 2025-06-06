@@ -51,6 +51,8 @@ local options = {
 	foldenable = true,
 	foldlevelstart = 99,
 	fillchars = { eob = " " },
+	startofline = true, -- Move cursor to first non-blank character
+	virtualedit = "", -- Ensure cursor can't move past actual characters
 }
 
 for k, v in pairs(options) do

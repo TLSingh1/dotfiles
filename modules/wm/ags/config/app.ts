@@ -9,8 +9,11 @@ App.start({
         const monitors = App.get_monitors()
         console.log(`Found ${monitors.length} monitors`)
         
-        // Create bar only on primary monitor for testing
-        const bar = Bar(monitors[0])
-        console.log("Bar created:", bar)
+        // Create a bar for each monitor
+        monitors.forEach((monitor, index) => {
+            console.log(`Creating bar for monitor ${index}:`, monitor.get_model())
+            const bar = Bar(monitor)
+            console.log(`Bar created for monitor ${index}:`, bar)
+        })
     },
 })

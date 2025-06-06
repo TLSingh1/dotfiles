@@ -35,8 +35,12 @@ in
     settings = {
       # Monitor configuration
       monitor = [
-        "HDMI-A-1, 1920x1080@60, 0x0, 1.0"
+        # Laptop display
         "eDP-1, 1920x1200@144, 0x1080, 1.0"
+        # Apple Studio Display (primary connection)
+        "DP-1, 5120x2880@60, 1920x0, 2.0"
+        # Apple Studio Display (secondary connection - disabled)
+        "DP-2, disable"
       ];
 
       # Variables
@@ -53,16 +57,12 @@ in
         gaps_in = 8;
         gaps_out = 18;
         border_size = 3;
-        "col.active_border" = [
-          "rgba(329cffee)"
-          "rgba(9232ffee)"
-          # "45deg"
-        ];
-        "col.inactive_border" = "0x00FFFFFF";
+        "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
+        "col.inactive_border" = "rgba(ff00ff44)";
         layout = "dwindle";
         resize_on_border = true;
         extend_border_grab_area = 15;
-        hover_icon_on_border = true;
+        hover_icon_on_border = false;
       };
 
       decoration = {
@@ -170,16 +170,20 @@ in
       ];
 
       workspace = [
+        # Laptop display workspaces
         "1, monitor:eDP-1"
         "2, monitor:eDP-1"
         "3, monitor:eDP-1"
         "4, monitor:eDP-1"
         "5, monitor:eDP-1"
-        "6, monitor:HDMI-A-1"
-        "7, monitor:HDMI-A-1"
-        "8, monitor:HDMI-A-1"
-        "9, monitor:HDMI-A-1"
-        "10, monitor:HDMI-A-1"
+        # Apple Studio Display workspaces
+        "6, monitor:DP-1"
+        "7, monitor:DP-1"
+        "8, monitor:DP-1"
+        "9, monitor:DP-1"
+        "10, monitor:DP-1"
+        "11, monitor:DP-1"
+        "12, monitor:DP-1"
       ];
       
       # Autostart applications

@@ -27,7 +27,7 @@
       font_size = 12;
       enable_audio_bell = true;
       background = "#000000";
-      background_opacity = "0.5";
+      background_opacity = "0.1";
       foreground = "#c8d3f5";
       selection_background = "#2d3f76";
       selection_foreground = "#c8d3f5";
