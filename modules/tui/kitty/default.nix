@@ -27,7 +27,7 @@
       # Example settings - customize as needed
       shell = "fish";
       font_family = "monospace";
-      font_size = 12;
+      font_size = 10;
       enable_audio_bell = true;
       # Orange holographic theme
       background = "#000000";

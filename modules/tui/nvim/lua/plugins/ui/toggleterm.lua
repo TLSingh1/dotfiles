@@ -1,5 +1,9 @@
 -- ToggleTerm - Terminal management
 
+local function temp()
+	vim.print("hello world")
+end
+
 return {
 	"toggleterm.nvim",
 
@@ -35,4 +39,3 @@ return {
 		})
 	end,
 }
-

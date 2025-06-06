@@ -98,7 +98,7 @@ return {
 				-- map("n", "<leader>hD", function()
 				-- 	gs.diffthis("~")
 				-- end, { desc = "Diff this ~" })
-				map("n", "<leader>td", gs.toggle_deleted, { desc = "Toggle deleted" })
+				-- map("n", "<leader>td", gs.toggle_deleted, { desc = "Toggle deleted" })
 
 				-- Text object
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk" })
@@ -106,4 +106,3 @@ return {
 		})
 	end,
 }
-
