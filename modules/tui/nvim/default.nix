@@ -77,6 +77,8 @@
           img-clip-nvim
           # Better folding
           nvim-ufo
+          # Better notifications
+          nvim-notify
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools

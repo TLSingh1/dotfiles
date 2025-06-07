@@ -12,10 +12,13 @@ return {
 	after = function()
 		-- Configure diagnostic display with icons using the modern API
 		vim.diagnostic.config({
-			-- virtual_text = {
-			-- 	prefix = "●", -- Could be '■', '▎', 'x'
-			-- },
-			virtual_text = false, -- Disable virtual_text since lsp_lines will show diagnostics
+			virtual_text = {
+				prefix = "●", -- Could be '■', '▎', 'x'
+			},
+			-- virtual_text = false, -- Disable virtual_text since lsp_lines will show diagnostics
+			virtual_lines = {
+				only_current_line = true,
+			},
 			signs = {
 				text = {
 					[vim.diagnostic.severity.ERROR] = "󰅚",
