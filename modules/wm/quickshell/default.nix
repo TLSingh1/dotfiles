@@ -65,6 +65,18 @@ let
     sha256 = "1m8xpk8r8zamj9hgji5rlpisywxmmnni4877nbvf5imxl2hsmah8";
   };
 
+  # Wrap quickshell with Qt dependencies
+  quickshell-wrapped = pkgs.runCommand "quickshell-wrapped" {
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+  } ''
+    mkdir -p $out/bin
+    makeWrapper ${inputs.quickshell.packages.${pkgs.system}.default}/bin/qs $out/bin/qs \
+      --prefix QT_PLUGIN_PATH : "${pkgs.qt6.qtbase}/${pkgs.qt6.qtbase.qtPluginPrefix}" \
+      --prefix QT_PLUGIN_PATH : "${pkgs.qt6.qt5compat}/${pkgs.qt6.qtbase.qtPluginPrefix}" \
+      --prefix QML2_IMPORT_PATH : "${pkgs.qt6.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}" \
+      --prefix QML2_IMPORT_PATH : "${pkgs.qt6.qtdeclarative}/${pkgs.qt6.qtbase.qtQmlPrefix}"
+  '';
+
   # Create a wrapper script that starts quickshell with caelestia config
   caelestia-run-script = pkgs.writeScript "caelestia-shell-run.fish" ''
     #!${pkgs.fish}/bin/fish
@@ -74,17 +86,18 @@ let
     set -l sni 'quickshell.service.sni.host.warning = false'  # StatusNotifierItem warnings on reload
     set -l process 'QProcess: Destroyed while process'  # Long running processes on reload
     
-    ${inputs.quickshell.packages.${pkgs.system}.default}/bin/qs -p (dirname (status filename)) --log-rules "$dbus;$notifs;$sni" | ${pkgs.gnugrep}/bin/grep -vE -e $process
+    ${quickshell-wrapped}/bin/qs -p (dirname (status filename)) --log-rules "$dbus;$notifs;$sni" | ${pkgs.gnugrep}/bin/grep -vE -e $process
   '';
 
 in
 {
   home.packages = with pkgs; [
-    inputs.quickshell.packages.${pkgs.system}.default
+    quickshell-wrapped
     caelestia-scripts
     
     # Qt dependencies for caelestia shell
     qt6.qt5compat
+    qt6.qtdeclarative
     
     # Runtime dependencies for caelestia
     # hyprland is already installed elsewhere
@@ -106,7 +119,7 @@ in
     lm_sensors
     curl
     material-symbols
-    jetbrains-mono
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ibm-plex
     fd
     python3Packages.pyaudio
