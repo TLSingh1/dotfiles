@@ -5,17 +5,25 @@
   xdg.configFile = {
     # Main caelestia shell configuration - this entire directory IS the shell
     "quickshell/caelestia" = {
-      source = ./.;
+      source = let
+        # Create a filtered copy of the directory
+        filteredSource = pkgs.runCommand "caelestia-shell-filtered" {} ''
+          mkdir -p $out
+          cd ${./.}
+          
+          # Copy everything except Nix files and documentation
+          find . -type f \( \
+            ! -name "*.nix" \
+            ! -name "*.nix.old" \
+            ! -name "README.md" \
+            ! -name "TESTING_GUIDE.md" \
+          \) -exec install -D {} $out/{} \;
+          
+          # Copy directories
+          find . -type d ! -path "./.*" -exec mkdir -p $out/{} \;
+        '';
+      in filteredSource;
       recursive = true;
-      # Exclude Nix files and other non-shell files
-      filter = path: type:
-        let
-          baseName = baseNameOf path;
-          isNixFile = lib.hasSuffix ".nix" baseName;
-          isDocFile = baseName == "README.md" || baseName == "TESTING_GUIDE.md";
-          isBackup = lib.hasSuffix ".old" baseName;
-        in
-        !(isNixFile || isDocFile || isBackup);
     };
     
     # Fish completions (our fixed version)
