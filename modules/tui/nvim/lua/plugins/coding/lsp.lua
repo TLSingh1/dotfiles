@@ -110,5 +110,10 @@ return {
 		require("lspconfig").ts_ls.setup({
 			capabilities = capabilities,
 		})
+
+		-- Setup qmlls for QML development
+		require("lspconfig").qmlls.setup({
+			capabilities = capabilities,
+		})
 	end,
 }
