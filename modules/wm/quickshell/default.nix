@@ -32,7 +32,6 @@ let
       makeWrapper ${pkgs.fish}/bin/fish $out/bin/caelestia \
         --add-flags "$out/share/caelestia-scripts/main.fish" \
         --prefix PATH : ${lib.makeBinPath (with pkgs; [
-          hyprland
           imagemagick
           wl-clipboard
           fuzzel
@@ -43,7 +42,6 @@ let
           grim
           wayfreeze
           wl-screenrec
-          astal
           git
           coreutils
           findutils
@@ -89,7 +87,7 @@ in
     caelestia-scripts
     
     # Runtime dependencies for caelestia
-    hyprland
+    # hyprland is already installed elsewhere
     hyprpaper
     imagemagick
     wl-clipboard
@@ -102,7 +100,7 @@ in
     grim
     wayfreeze
     wl-screenrec
-    astal
+    inputs.astal.packages.${pkgs.system}.default
     
     # Additional dependencies from shell install script
     lm_sensors
@@ -148,9 +146,9 @@ in
       recursive = true;
     };
     
-    # Install fish completions
+    # Install fish completions (fixed version)
     "fish/completions/caelestia.fish" = {
-      source = "${caelestia-scripts}/share/caelestia-scripts/completions/caelestia.fish";
+      source = ./caelestia-completions.fish;
     };
     
     # Default caelestia config
