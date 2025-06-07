@@ -3,11 +3,6 @@
         "communication": {
             "apps": [
                 {
-                    "selector": ".class == \"discord\"",
-                    "spawn": "discord",
-                    "action": "spawn move"
-                },
-                {
                     "selector": ".class == \"vesktop\"",
                     "spawn": "vesktop",
                     "action": "spawn move"

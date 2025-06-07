@@ -3,10 +3,19 @@
 {
   # Configuration files
   xdg.configFile = {
-    # Main caelestia shell configuration - link to our local shell directory
+    # Main caelestia shell configuration - this entire directory IS the shell
     "quickshell/caelestia" = {
-      source = ./shell;
+      source = ./.;
       recursive = true;
+      # Exclude Nix files and other non-shell files
+      filter = path: type:
+        let
+          baseName = baseNameOf path;
+          isNixFile = lib.hasSuffix ".nix" baseName;
+          isDocFile = baseName == "README.md" || baseName == "TESTING_GUIDE.md";
+          isBackup = lib.hasSuffix ".old" baseName;
+        in
+        !(isNixFile || isDocFile || isBackup);
     };
     
     # Fish completions (our fixed version)
@@ -14,9 +23,9 @@
       source = ./caelestia-completions.fish;
     };
     
-    # Caelestia toggles configuration
+    # Your custom scripts.json for toggle workspaces
     "caelestia/scripts.json" = {
-      source = ./config/scripts.json;
+      source = ./scripts.json;
     };
   };
 

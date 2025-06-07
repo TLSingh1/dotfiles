@@ -1,48 +1,59 @@
-# Quickshell Module with Caelestia Shell
+# Quickshell Module - Caelestia Shell Configuration
 
-This module provides a complete Quickshell setup with the Caelestia shell configuration.
+This module IS the Caelestia shell configuration for Quickshell, fully integrated into home-manager.
 
 ## Structure
 
-- `default.nix` - Main module entry point
-- `packages.nix` - Nix derivations for caelestia-scripts and quickshell wrapper
-- `config.nix` - Configuration file management and environment setup
-- `shell/` - The actual Caelestia shell QML configuration (editable)
-- `config/` - User configuration files
-  - `scripts.json` - Toggle workspace apps configuration
-- `caelestia-completions.fish` - Fixed fish completions
+```
+quickshell/
+├── default.nix              # Module entry point
+├── packages.nix            # Nix derivations
+├── config.nix             # Configuration management
+├── shell.qml              # Shell entry point
+├── scripts.json           # Your toggle workspace apps
+├── modules/               # UI components
+│   ├── bar/              # Status bar
+│   ├── dashboard/        # Dashboard widget
+│   ├── launcher/         # App launcher
+│   └── ...
+├── widgets/              # Reusable QML widgets  
+├── services/             # System integrations
+├── config/               # Appearance settings
+└── assets/               # Images and resources
+```
 
 ## Customization
 
-### Shell UI
-Edit files in the `shell/` directory:
-- `shell.qml` - Main entry point
-- `modules/` - UI components (bar, dashboard, launcher, etc.)
-- `widgets/` - Reusable widgets
-- `config/` - Appearance and behavior settings
+Everything in this directory (except .nix files) is YOUR shell configuration:
 
-### Toggle Workspaces
-Edit `config/scripts.json` to customize which apps open in special workspaces.
+- **shell.qml** - Main entry point
+- **modules/** - Modify UI components directly
+- **config/** - Change appearance, behavior
+- **scripts.json** - Configure toggle workspace apps
+- **widgets/** - Create custom widgets
 
-### Color Schemes
-```bash
-caelestia scheme <scheme-name>
-```
-
-Available schemes: catppuccin, gruvbox, rosepine, onedark, oldworld, shadotheme
-
-## Commands
-
-- `caelestia shell show dashboard/launcher/session` - Show specific UI
-- `caelestia toggle <workspace>` - Toggle special workspaces
-- `caelestia screenshot/record` - Screen capture
-- `caelestia wallpaper` - Change wallpaper
-- `caelestia clipboard/emoji-picker` - Utilities
-
-## Service Management
+## Usage
 
 ```bash
-systemctl --user status caelestia-shell   # Check status
-systemctl --user restart caelestia-shell  # Restart
-systemctl --user stop caelestia-shell     # Stop
+# Commands
+caelestia shell toggle dashboard    # Toggle dashboard
+caelestia shell toggle launcher     # Toggle launcher  
+caelestia toggle <workspace>        # Toggle special workspaces
+caelestia scheme <name>             # Change color scheme
+caelestia wallpaper -f <path>       # Set wallpaper
+
+# Service management
+systemctl --user restart caelestia-shell
+
+# Edit shell (opens this directory)
+caelestia-edit
 ```
+
+## Development Workflow
+
+1. Edit any QML files directly in this directory
+2. Run `caelestia shell reload-config` to see changes
+3. Rebuild system only when changing Nix configs
+4. All changes are tracked in git
+
+This is YOUR shell - modify it however you want!
