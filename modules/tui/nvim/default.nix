@@ -49,6 +49,8 @@
           nvim-surround
           # Auto close and rename HTML/XML tags
           nvim-ts-autotag
+          # Better LSP diagnostics display
+          lsp_lines-nvim
         ];
         ui = with pkgs.vimPlugins; [
           # Terminal and UI enhancements

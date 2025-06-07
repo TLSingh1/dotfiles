@@ -84,7 +84,7 @@ return {
 					InactiveWindow = { bg = "#000000" },
 					WinBar = { bg = "#1a0f0a" },
 					WinBarNC = { bg = "#000000" },
-					StatusLine = { bg = "#0a0505" },
+					StatusLine = { bg = "#000000" },
 					FloatBorder = { fg = "#ff9c64", bg = "#000000" },
 					WinSeparator = { fg = "#ff9c64", bg = "#000000" },
 

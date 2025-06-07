@@ -10,6 +10,31 @@ return {
 
 	event = { "BufReadPre", "BufNewFile" },
 	after = function()
+		-- Configure diagnostic display with icons using the modern API
+		vim.diagnostic.config({
+			-- virtual_text = {
+			-- 	prefix = "●", -- Could be '■', '▎', 'x'
+			-- },
+			virtual_text = false, -- Disable virtual_text since lsp_lines will show diagnostics
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = "󰅚",
+					[vim.diagnostic.severity.WARN] = "󰀦",
+					[vim.diagnostic.severity.HINT] = "󰌵",
+					[vim.diagnostic.severity.INFO] = "󰋼",
+				},
+			},
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+			float = {
+				border = "rounded",
+				source = "always",
+				header = "",
+				prefix = "",
+			},
+		})
+
 		-- blink.cmp handles LSP capabilities automatically, no need for manual setup
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
