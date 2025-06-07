@@ -22,6 +22,8 @@
           plenary-nvim
           # Library dependencies
           promise-async
+          # UI framework (used by many plugins)
+          nui-nvim
         ];
       };
 
@@ -71,8 +73,6 @@
           image-nvim
           # Diagram rendering
           diagram-nvim
-          # UI framework (used by many plugins)
-          nui-nvim
           # Image clipboard support
           img-clip-nvim
           # Better folding

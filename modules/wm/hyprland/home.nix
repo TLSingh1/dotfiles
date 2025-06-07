@@ -191,7 +191,7 @@ in {
 
       # Autostart applications
       exec-once = [
-        "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts" # Start AGS bar
+        # "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts" # Start AGS bar
         "swww-daemon" # Wallpaper daemon
       ];
     };

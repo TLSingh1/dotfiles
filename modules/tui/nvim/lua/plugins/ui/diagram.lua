@@ -4,9 +4,10 @@ return {
   "diagram.nvim",
   
   -- Only load if ui category is enabled
-  enabled = function()
-    return nixCats.cats.ui
-  end,
+  enabled = false,
+  -- enabled = function()
+  --   return nixCats.cats.ui
+  -- end,
   
   -- Load when opening markdown or neorg files
   ft = { "markdown", "norg" },

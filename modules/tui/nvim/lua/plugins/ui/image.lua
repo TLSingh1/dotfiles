@@ -2,9 +2,10 @@ return {
   "image.nvim",
   
   -- Only load if ui category is enabled
-  enabled = function()
-    return nixCats.cats.ui
-  end,
+  enabled = false,
+  # enabled = function()
+  #   return nixCats.cats.ui
+  # end,
   
   ft = { "markdown", "norg", "typst", "html", "css" },
   

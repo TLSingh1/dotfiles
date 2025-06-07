@@ -4,6 +4,7 @@ return {
 		return nixCats.cats.ui
 	end,
 	event = "DeferredUIEnter",
+	on_plugin = "nvim-notify",
 	after = function()
 		require("noice").setup({
 			lsp = {

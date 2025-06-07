@@ -1,21 +1,24 @@
-{ config, lib, pkgs, inputs, ... }:
-
-with lib;
-
-let
-  cfg = config.modules.wm.ags;
-in
 {
-  imports = [ inputs.ags.homeManagerModules.default ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.wm.ags;
+in {
+  imports = [inputs.ags.homeManagerModules.default];
 
   options.modules.wm.ags = {
-    enable = mkEnableOption "AGS - Aylur's GTK Shell" // {
-      default = true;
-    };
+    enable =
+      mkEnableOption "AGS - Aylur's GTK Shell"
+      // {
+        default = false;
+      };
   };
 
   config = mkIf cfg.enable {
-
     # Required packages for AGS and our widgets
     home.packages = with pkgs; [
       # Core dependencies
@@ -24,37 +27,37 @@ in
       gtksourceview
       webkitgtk
       accountsservice
-      
+
       # Styling and theming
-      sassc              # SCSS compiler
-      dart-sass          # Alternative SCSS compiler
-      
+      sassc # SCSS compiler
+      dart-sass # Alternative SCSS compiler
+
       # Our widget dependencies
-      matugen            # Material You color generator
-      swww               # Wallpaper daemon
-      hyprpicker         # Color picker
-      wl-clipboard       # Clipboard utilities
-      grim               # Screenshot utility
-      slurp              # Screen area selector
-      
+      matugen # Material You color generator
+      swww # Wallpaper daemon
+      hyprpicker # Color picker
+      wl-clipboard # Clipboard utilities
+      grim # Screenshot utility
+      slurp # Screen area selector
+
       # System info
-      btop               # For system monitoring widgets
-      pamixer            # Audio control
-      brightnessctl      # Brightness control
-      networkmanager     # Network management
-      
+      btop # For system monitoring widgets
+      pamixer # Audio control
+      brightnessctl # Brightness control
+      networkmanager # Network management
+
       # Optional but useful
-      jq                 # JSON processing
-      socat              # Socket communication
-      ripgrep            # Fast searching
-      fd                 # Fast file finding
+      jq # JSON processing
+      socat # Socket communication
+      ripgrep # Fast searching
+      fd # Fast file finding
     ];
 
     # Configure AGS
     programs.ags = {
       enable = true;
       configDir = ./config;
-      
+
       # Extra packages AGS might need
       extraPackages = with pkgs; [
         gtksourceview
@@ -78,3 +81,4 @@ in
     };
   };
 }
+
