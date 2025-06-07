@@ -2,40 +2,39 @@
 -- https://github.com/stevearc/conform.nvim
 
 return {
-  "conform.nvim",
-  
-  -- Only load if coding category is enabled
-  enabled = function()
-    return nixCats.cats.coding
-  end,
+	"conform.nvim",
 
-  event = { "BufWritePre" },
-  cmd = { "ConformInfo" },
+	-- Only load if coding category is enabled
+	enabled = function()
+		return nixCats.cats.coding
+	end,
 
-  after = function()
-    require("conform").setup({
-      format_on_save = {
-        timeout_ms = 1000,
-        lsp_fallback = true,
-      },
-      formatters_by_ft = {
-        lua = { "stylua" },
-        nix = { "alejandra" },
-        markdown = { "prettierd", "prettier" },
-      },
-      formatters = {
-        prettier = {
-          prepend_args = { "--prose-wrap", "always" },
-        },
-      },
-    })
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
 
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "*",
-      callback = function(args)
-        require("conform").format({ bufnr = args.buf })
-      end,
-    })
+	after = function()
+		require("conform").setup({
+			format_on_save = {
+				timeout_ms = 1000,
+				lsp_fallback = true,
+			},
+			formatters_by_ft = {
+				lua = { "stylua" },
+				nix = { "alejandra" },
+				markdown = { "prettierd", "prettier" },
+			},
+			formatters = {
+				prettier = {
+					prepend_args = { "--prose-wrap", "always" },
+				},
+			},
+		})
 
-  end,
-} 
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*",
+			callback = function(args)
+				require("conform").format({ bufnr = args.buf })
+			end,
+		})
+	end,
+}

@@ -79,6 +79,8 @@
           nvim-ufo
           # Better notifications
           nvim-notify
+          # Complete UI replacement for messages, cmdline and popupmenu
+          noice-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools

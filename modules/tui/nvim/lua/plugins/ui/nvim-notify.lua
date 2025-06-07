@@ -37,6 +37,19 @@ return {
 
 		-- Set as default notify function
 		vim.notify = notify
+
+		-- Set highlight groups for borders
+		vim.api.nvim_set_hl(0, "NotifyERRORBorder", { fg = "#f38ba8", bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyWARNBorder", { fg = "#f9e2af", bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#89b4fa", bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { fg = "#94e2d5", bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyTRACEBorder", { fg = "#cba6f7", bg = "#000000" })
+
+		-- Also set body backgrounds to match
+		vim.api.nvim_set_hl(0, "NotifyERRORBody", { bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyWARNBody", { bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyINFOBody", { bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyDEBUGBody", { bg = "#000000" })
+		vim.api.nvim_set_hl(0, "NotifyTRACEBody", { bg = "#000000" })
 	end,
 }
-
