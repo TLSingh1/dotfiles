@@ -19,6 +19,11 @@ let
     # Browser
     "SUPER, L" = "exec, zen";  # Launch Zen browser
     
+    # Caelestia shell bindings
+    "SUPER, D" = "exec, caelestia shell toggle dashboard";
+    "SUPER, SPACE" = "exec, caelestia shell toggle launcher";
+    "SUPER, S" = "exec, caelestia shell toggle session";
+    
     # Special workspace toggles
     "ALT, Q" = "exec, ${special_app} kitty";
     "ALT, W" = "exec, ${special_app} zen";

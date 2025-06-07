@@ -19,6 +19,7 @@ let
 
     buildInputs = with pkgs; [
       fish
+      python3
     ];
 
     installPhase = ''
@@ -27,6 +28,15 @@ let
       
       # Copy all the scripts to share directory
       cp -r * $out/share/caelestia-scripts/
+      
+      # Fix Python shebangs
+      find $out/share/caelestia-scripts -name "*.py" -type f -exec sed -i '1s|^#!/bin/python3|#!${pkgs.python3}/bin/python3|' {} \;
+      find $out/share/caelestia-scripts -name "*.py" -type f -exec sed -i '1s|^#!/bin/python|#!${pkgs.python3}/bin/python|' {} \;
+      find $out/share/caelestia-scripts -name "*.py" -type f -exec sed -i '1s|^#!/usr/bin/env python3|#!${pkgs.python3}/bin/python3|' {} \;
+      find $out/share/caelestia-scripts -name "*.py" -type f -exec sed -i '1s|^#!/usr/bin/env python|#!${pkgs.python3}/bin/python|' {} \;
+      
+      # Make Python scripts executable
+      find $out/share/caelestia-scripts -name "*.py" -type f -exec chmod +x {} \;
       
       # Create wrapper for main script that sets up proper environment
       makeWrapper ${pkgs.fish}/bin/fish $out/bin/caelestia \
@@ -119,7 +129,7 @@ in
     lm_sensors
     curl
     material-symbols
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
     ibm-plex
     fd
     python3Packages.pyaudio
