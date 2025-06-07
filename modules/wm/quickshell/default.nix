@@ -66,25 +66,25 @@ let
   };
 
   # Create a wrapper script that starts quickshell with caelestia config
-  caelestia-run-script = pkgs.writeTextFile {
-    name = "caelestia-shell-run";
-    executable = true;
-    text = ''
-      #!${pkgs.fish}/bin/fish
-      
-      # Source the utility functions
-      set -q XDG_DATA_HOME && set C_DATA $XDG_DATA_HOME/caelestia || set C_DATA $HOME/.local/share/caelestia
-      
-      # Start quickshell with caelestia config
-      exec ${inputs.quickshell.packages.${pkgs.system}.default}/bin/qs -c caelestia
-    '';
-  };
+  caelestia-run-script = pkgs.writeScript "caelestia-shell-run.fish" ''
+    #!${pkgs.fish}/bin/fish
+    
+    set -l dbus 'quickshell.dbus.properties.warning = false;quickshell.dbus.dbusmenu.warning = false'  # System tray dbus property errors
+    set -l notifs 'quickshell.service.notifications.warning = false'  # Notification server warnings on reload
+    set -l sni 'quickshell.service.sni.host.warning = false'  # StatusNotifierItem warnings on reload
+    set -l process 'QProcess: Destroyed while process'  # Long running processes on reload
+    
+    ${inputs.quickshell.packages.${pkgs.system}.default}/bin/qs -p (dirname (status filename)) --log-rules "$dbus;$notifs;$sni" | ${pkgs.gnugrep}/bin/grep -vE -e $process
+  '';
 
 in
 {
   home.packages = with pkgs; [
     inputs.quickshell.packages.${pkgs.system}.default
     caelestia-scripts
+    
+    # Qt dependencies for caelestia shell
+    qt6.qt5compat
     
     # Runtime dependencies for caelestia
     # hyprland is already installed elsewhere
@@ -126,13 +126,17 @@ in
       recursive = true;
     };
     
-    # Shell directory with run.fish
+    # Shell directory WITHOUT run.fish (we'll add our own)
     "caelestia/shell" = {
-      source = caelestia-shell-src;
+      source = pkgs.runCommand "caelestia-shell-filtered" {} ''
+        mkdir -p $out
+        cp -r ${caelestia-shell-src}/* $out/
+        rm -f $out/run.fish
+      '';
       recursive = true;
     };
     
-    # Create the run.fish script in the expected location
+    # Create our own run.fish script with proper shebang
     "caelestia/shell/run.fish" = {
       source = caelestia-run-script;
       executable = true;
