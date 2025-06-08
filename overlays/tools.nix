@@ -21,15 +21,15 @@ final: prev: {
     '';
 
     installPhase = ''
-      mkdir -p $out/share/ccusage
-      cp -r . $out/share/ccusage/
+      mkdir -p $out/lib/ccusage
+      cp -r dist/* $out/lib/ccusage/
       
       mkdir -p $out/bin
-      install -m755 dist/index.js $out/bin/ccusage
-      
-      # Fix the shebang to use Nix's node
-      substituteInPlace $out/bin/ccusage \
-        --replace "#!/usr/bin/env node" "#!${prev.nodejs}/bin/node"
+      cat > $out/bin/ccusage << EOF
+#!${prev.nodejs}/bin/node
+import("$out/lib/ccusage/index.js");
+EOF
+      chmod +x $out/bin/ccusage
     '';
 
     meta = with prev.lib; {
