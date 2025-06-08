@@ -1,0 +1,32 @@
+// Test styles with hard-coded values
+window.Bar {
+    background: transparent;
+    
+    box.vertical-bar {
+        background-color: #6750A4; // Purple
+        min-width: 56px;
+        padding: 8px;
+        margin: 8px;
+        border-radius: 16px;
+    }
+    
+    .launcher {
+        background-color: #EADDFF; // Light purple
+        color: #21005D; // Dark purple
+        min-width: 40px;
+        min-height: 40px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        font-size: 20px;
+    }
+    
+    .power-button {
+        background-color: #BA1A1A; // Red
+        color: white;
+        min-width: 40px;
+        min-height: 40px;
+        border-radius: 20px;
+        margin-top: 8px;
+        font-size: 20px;
+    }
+}

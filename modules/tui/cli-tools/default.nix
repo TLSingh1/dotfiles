@@ -22,10 +22,18 @@
     eza
     fzf
     bat  # for fish aliases and functions
+    zoxide
+    wev
+    wlr-randr
 
     # Development tools
     rustc
     cargo
+    claude-code
+    ccusage
+    gh
+    meson
+    awscli2
 
     # Networking tools
     mtr
@@ -38,6 +46,7 @@
     ipcalc
 
     # Misc
+    cmatrix
     cowsay
     file
     which

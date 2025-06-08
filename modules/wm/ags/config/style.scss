@@ -1,0 +1,928 @@
+/* AGS Bar - Optimized Futuristic Tech Theme */
+
+/* Color Variables - Futuristic Holographic Blue Theme (Original) */
+/*
+:root {
+  --primary-blue: #64c8ff;
+  --primary-blue-light: #8cd5ff;
+  --primary-blue-dark: #2085ff;
+  --secondary-purple: #9664ff;
+  --secondary-purple-light: #b58cff;
+  
+  --accent-cyan: #00ffc8;
+  --accent-green: #96ff00;
+  --accent-yellow: #ffc800;
+  
+  --error-red: #ff6480;
+  --error-red-dark: #ff3264;
+  --error-orange: #ff6432;
+  
+  --bg-dark: rgba(10, 10, 20, 0.95);
+  --bg-dark-secondary: rgba(15, 15, 30, 0.85);
+  
+  --surface-blue-10: rgba(100, 200, 255, 0.1);
+  --surface-blue-15: rgba(100, 200, 255, 0.15);
+  --surface-blue-20: rgba(100, 200, 255, 0.2);
+  --surface-blue-25: rgba(100, 200, 255, 0.25);
+  --surface-blue-30: rgba(100, 200, 255, 0.3);
+  --surface-blue-40: rgba(100, 200, 255, 0.4);
+  --surface-blue-50: rgba(100, 200, 255, 0.5);
+  --surface-blue-60: rgba(100, 200, 255, 0.6);
+  --surface-blue-80: rgba(100, 200, 255, 0.8);
+  --surface-blue-90: rgba(100, 200, 255, 0.9);
+  
+  --surface-purple-15: rgba(150, 100, 255, 0.15);
+  --surface-purple-25: rgba(150, 100, 255, 0.25);
+  
+  --glow-blue-light: rgba(140, 210, 255, 0.9);
+  --glow-blue-medium: rgba(100, 190, 255, 0.7);
+  --glow-blue-dark: rgba(100, 190, 255, 0.3);
+  --glow-blue-intense: rgba(210, 230, 255, 0.8);
+  
+  --surface-white-10: rgba(255, 255, 255, 0.1);
+  --surface-white-20: rgba(255, 255, 255, 0.2);
+  --surface-white-30: rgba(255, 255, 255, 0.3);
+  --surface-white-40: rgba(255, 255, 255, 0.4);
+  --surface-white-50: rgba(255, 255, 255, 0.5);
+  
+  --gradient-purple-start: rgba(80, 180, 255, 0.05);
+  --gradient-purple-end: rgba(120, 80, 255, 0.05);
+  --gradient-purple-start-hover: rgba(80, 180, 255, 0.08);
+  --gradient-purple-end-hover: rgba(120, 80, 255, 0.08);
+  
+  --shadow-base: rgba(0, 0, 0, 0.4);
+  --shadow-blue-20: rgba(100, 200, 255, 0.2);
+  --shadow-blue-30: rgba(100, 200, 255, 0.3);
+  --shadow-blue-40: rgba(100, 200, 255, 0.4);
+  --shadow-blue-05: rgba(100, 200, 255, 0.05);
+}
+*/
+
+/* Color Variables - Futuristic Holographic Orange Theme */
+:root {
+  /* Primary orange palette */
+  --primary-orange: #ff9c64;
+  --primary-orange-light: #ffb08c;
+  --primary-orange-dark: #ff7020;
+  --secondary-amber: #ff8c64;
+  --secondary-amber-light: #ffa58c;
+  
+  /* Accent colors - warm spectrum */
+  --accent-yellow: #ffdc00;
+  --accent-coral: #ff6464;
+  --accent-magenta: #ff64dc;
+  
+  /* Error/power colors - shifted to magenta */
+  --error-magenta: #ff64c8;
+  --error-magenta-dark: #ff32a0;
+  --error-coral: #ff6464;
+  
+  /* Background colors - warmer tones */
+  --bg-dark: rgba(20, 10, 10, 0.95);
+  --bg-dark-secondary: rgba(30, 15, 15, 0.85);
+  
+  /* Surface orange transparencies */
+  --surface-orange-10: rgba(255, 156, 100, 0.1);
+  --surface-orange-15: rgba(255, 156, 100, 0.15);
+  --surface-orange-20: rgba(255, 156, 100, 0.2);
+  --surface-orange-25: rgba(255, 156, 100, 0.25);
+  --surface-orange-30: rgba(255, 156, 100, 0.3);
+  --surface-orange-40: rgba(255, 156, 100, 0.4);
+  --surface-orange-50: rgba(255, 156, 100, 0.5);
+  --surface-orange-60: rgba(255, 156, 100, 0.6);
+  --surface-orange-80: rgba(255, 156, 100, 0.8);
+  --surface-orange-90: rgba(255, 156, 100, 0.9);
+  
+  /* Secondary amber surfaces */
+  --surface-amber-15: rgba(255, 140, 100, 0.15);
+  --surface-amber-25: rgba(255, 140, 100, 0.25);
+  
+  /* Glow effects - warm tones */
+  --glow-orange-light: rgba(255, 180, 140, 0.9);
+  --glow-orange-medium: rgba(255, 156, 100, 0.7);
+  --glow-orange-dark: rgba(255, 156, 100, 0.3);
+  --glow-orange-intense: rgba(255, 210, 180, 0.8);
+  
+  /* White overlays remain the same */
+  --surface-white-10: rgba(255, 255, 255, 0.1);
+  --surface-white-20: rgba(255, 255, 255, 0.2);
+  --surface-white-30: rgba(255, 255, 255, 0.3);
+  --surface-white-40: rgba(255, 255, 255, 0.4);
+  --surface-white-50: rgba(255, 255, 255, 0.5);
+  
+  /* Gradient colors - warm spectrum */
+  --gradient-orange-start: rgba(255, 120, 80, 0.05);
+  --gradient-orange-end: rgba(255, 80, 120, 0.05);
+  --gradient-orange-start-hover: rgba(255, 120, 80, 0.08);
+  --gradient-orange-end-hover: rgba(255, 80, 120, 0.08);
+  
+  /* Shadows - warmer tones */
+  --shadow-base: rgba(0, 0, 0, 0.4);
+  --shadow-orange-20: rgba(255, 156, 100, 0.2);
+  --shadow-orange-30: rgba(255, 156, 100, 0.3);
+  --shadow-orange-40: rgba(255, 156, 100, 0.4);
+  --shadow-orange-05: rgba(255, 156, 100, 0.05);
+}
+
+/* Animation Variables */
+:root {
+  /* Easing curves */
+  --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+* {
+    all: unset;
+    font-family: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+}
+
+/* Smooth transitions globally */
+button {
+    transition: all 150ms ease; /* Faster for hover states */
+}
+
+/* Root window styling */
+window {
+    background-color: transparent;
+}
+
+/* Bar styles */
+.Bar {
+    background-color: transparent;
+}
+
+.bar-container {
+    background: linear-gradient(
+        180deg,
+        var(--bg-dark),
+        var(--bg-dark-secondary)
+    );
+    margin: 12px;
+    border-radius: 24px;
+    border: 1px solid var(--surface-orange-10);
+    box-shadow: 
+        0 8px 32px var(--shadow-base),
+        inset 0 1px 0 var(--surface-white-10),
+        0 0 40px var(--shadow-orange-05);
+}
+
+.vertical-bar {
+    min-width: 48px;
+    padding: 12px 8px;
+}
+
+/* Launcher button */
+.launcher {
+    background: linear-gradient(
+        135deg,
+        var(--surface-orange-15),
+        var(--surface-amber-15)
+    );
+    color: var(--primary-orange);
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 24px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    border: 1px solid var(--surface-orange-30);
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-20),
+        0 2px 8px var(--shadow-orange-20);
+    transition: all 150ms ease; /* Hover transition */
+}
+
+.launcher:hover {
+    background: linear-gradient(
+        135deg,
+        var(--surface-orange-25),
+        var(--surface-amber-25)
+    );
+    border-color: var(--surface-orange-50);
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-30),
+        0 4px 16px var(--shadow-orange-30),
+        0 0 20px var(--shadow-orange-20);
+}
+
+.launcher:active {
+    transition: all 50ms cubic-bezier(0.25, 0.46, 0.45, 0.94); /* ease-out-quad for quick response */
+}
+
+/* Power button */
+.power-button {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 100, 200, 0.15),
+        rgba(255, 100, 220, 0.15)
+    );
+    color: var(--error-magenta);
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 24px;
+    margin-top: 12px;
+    font-size: 16px;
+    border: 1px solid rgba(255, 100, 200, 0.3);
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-10),
+        0 2px 8px rgba(255, 100, 200, 0.2);
+    transition: all 150ms ease; /* Hover transition */
+}
+
+.power-button:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 100, 200, 0.25),
+        rgba(255, 100, 220, 0.25)
+    );
+    border-color: rgba(255, 100, 200, 0.5);
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-20),
+        0 4px 16px rgba(255, 100, 200, 0.3),
+        0 0 20px rgba(255, 100, 200, 0.2);
+}
+
+.power-button:active {
+    transition: all 50ms cubic-bezier(0.25, 0.46, 0.45, 0.94); /* ease-out-quad */
+}
+
+/* Workspaces */
+.workspaces {
+    margin: 6px 0;
+    padding: 0 4px;
+}
+
+/* Workspace container - invisible by default */
+.workspace-container {
+    padding-left: 18px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin: 2px 0;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1); /* ease-out-cubic for enter */
+}
+
+/* Container hover effect */
+.workspace-container:hover {
+    background: radial-gradient(
+        circle at center,
+        var(--surface-orange-10),
+        transparent
+    );
+}
+
+/* Active container has subtle glow */
+.workspace-container.active {
+    padding-left: 15px;
+    background: radial-gradient(circle at center, var(--surface-orange-15), transparent);
+}
+
+/* Workspace orbs - tiny by default */
+.workspace-orb {
+    min-width: 6px;
+    min-height: 6px;
+    border-radius: 50%;
+    padding: 0;
+    background: radial-gradient(
+        circle at center,
+        var(--surface-orange-30),
+        var(--surface-orange-20),
+        transparent
+    );
+    border: 1px solid var(--surface-orange-20);
+    box-shadow: 
+        0 0 4px var(--shadow-orange-20),
+        inset 0 0 2px var(--surface-white-10);
+    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1); /* ease-out-cubic */
+}
+
+/* Hover state - orb gets brighter when container is hovered */
+.workspace-container:hover .workspace-orb {
+    background: radial-gradient(
+        circle at center,
+        var(--surface-orange-50),
+        var(--surface-orange-30),
+        transparent
+    );
+    border-color: var(--surface-orange-40);
+    box-shadow: 
+        0 0 8px var(--shadow-orange-40),
+        inset 0 0 3px var(--surface-white-20);
+}
+
+/* Active workspace - larger glowing orb */
+.workspace-container.active .workspace-orb {
+    min-width: 12px;
+    min-height: 12px;
+    background: radial-gradient(
+        circle at center,
+        var(--glow-orange-light),
+        var(--glow-orange-medium),
+        var(--glow-orange-dark)
+    );
+    border: 1px solid var(--glow-orange-intense);
+    box-shadow: 
+        0 0 12px var(--glow-orange-light),
+        0 0 24px var(--surface-orange-60),
+        0 0 36px var(--surface-orange-30),
+        inset 0 0 6px var(--surface-white-40);
+    animation: orb-glow 2s var(--ease-in-out-quad) infinite;
+}
+
+/* Active hover - increase glow intensity */
+.workspace-container.active:hover .workspace-orb {
+    box-shadow: 
+        0 0 16px var(--primary-orange),
+        0 0 32px var(--surface-orange-80),
+        0 0 48px var(--surface-orange-40),
+        inset 0 0 8px var(--surface-white-50);
+}
+
+@keyframes orb-glow {
+    0%, 100% {
+        box-shadow: 
+            0 0 12px var(--glow-orange-light),
+            0 0 24px var(--surface-orange-60),
+            0 0 36px var(--surface-orange-30),
+            inset 0 0 6px var(--surface-white-40);
+    }
+    50% {
+        box-shadow: 
+            0 0 16px var(--primary-orange),
+            0 0 32px var(--surface-orange-80),
+            0 0 48px var(--surface-orange-50),
+            inset 0 0 10px var(--surface-white-50);
+    }
+}
+
+/* System control buttons */
+.system-button {
+    background: linear-gradient(
+        135deg,
+        var(--surface-orange-10),
+        rgba(255, 156, 100, 0.05)
+    );
+    color: var(--primary-orange);
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 18px;
+    margin: 4px;
+    font-size: 16px;
+    border: 1px solid var(--surface-orange-20);
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-10),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 150ms ease;
+}
+
+.system-button:hover {
+    background: linear-gradient(
+        135deg,
+        var(--surface-orange-15),
+        var(--surface-orange-10)
+    );
+    border-color: var(--surface-orange-30);
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-20),
+        0 4px 16px var(--shadow-orange-20),
+        0 0 12px var(--shadow-orange-20);
+}
+
+.system-button:active {
+    transform: scale(0.95);
+    transition: all 50ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Specific button colors */
+.screenshot-button:hover {
+    color: var(--accent-magenta);
+    border-color: rgba(255, 100, 220, 0.4);
+}
+
+.wifi-button:hover {
+    color: var(--accent-yellow);
+    border-color: rgba(255, 220, 0, 0.4);
+}
+
+.bluetooth-button:hover {
+    color: var(--primary-orange-light);
+    border-color: var(--surface-orange-40);
+}
+
+/* Performance Monitor */
+.performance-monitor {
+    background: linear-gradient(
+        135deg,
+        var(--gradient-orange-start),
+        var(--gradient-orange-end)
+    );
+    border-radius: 16px;
+    border: 1px solid var(--surface-orange-20);
+    padding: 8px;
+    margin: 12px 4px;
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-10),
+        0 2px 8px var(--shadow-orange-20);
+    transition: all 200ms var(--ease-out-cubic);
+}
+
+.performance-monitor:hover {
+    background: linear-gradient(
+        135deg,
+        var(--gradient-orange-start-hover),
+        var(--gradient-orange-end-hover)
+    );
+    border-color: var(--surface-orange-30);
+    box-shadow: 
+        inset 0 1px 0 var(--surface-white-20),
+        0 4px 16px var(--shadow-orange-20);
+}
+
+/* Grid layout for stats */
+.stat-row {
+    margin: 2px;
+}
+
+.stat-item {
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, var(--surface-orange-10), rgba(255, 156, 100, 0.05));
+    border: 1px solid var(--surface-orange-20);
+    margin: 2px;
+    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.stat-item:hover {
+    background: radial-gradient(circle at center, var(--surface-orange-15), rgba(255, 156, 100, 0.08));
+    border-color: var(--surface-orange-30);
+    box-shadow: 0 0 12px var(--shadow-orange-30);
+}
+
+/* Performance Bars */
+.performance-bars {
+    margin: 12px 6px;
+    padding: 4px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border-radius: 6px;
+    border: 1px solid var(--surface-white-10);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.perf-bar {
+    min-height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.perf-bar .bar-fill {
+    min-height: 3px;
+    border-radius: 3px;
+    transition: all 300ms ease-out;
+    box-shadow: 0 0 4px currentColor;
+}
+
+/* Different holographic colors for each metric */
+.battery-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(255, 220, 0, 0.7), rgba(255, 180, 0, 0.7), rgba(255, 140, 0, 0.7));
+    color: rgba(255, 200, 100, 0.8);
+}
+
+.cpu-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(255, 100, 0, 0.7), rgba(255, 140, 0, 0.7), rgba(255, 180, 0, 0.7));
+    color: rgba(255, 140, 100, 0.8);
+}
+
+.memory-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(255, 80, 120, 0.7), rgba(255, 100, 180, 0.7), rgba(255, 140, 220, 0.7));
+    color: rgba(255, 120, 180, 0.8);
+}
+
+.gpu-bar .bar-fill {
+    background: linear-gradient(90deg, rgba(255, 100, 220, 0.7), rgba(255, 80, 180, 0.7), rgba(255, 60, 140, 0.7));
+    color: rgba(255, 100, 200, 0.8);
+}
+
+/* Battery Dial */
+.battery-dial {
+    min-width: 32px;
+    min-height: 32px;
+    margin: 2px;
+    border-radius: 16px;
+    transition: all 200ms var(--ease-out-cubic);
+}
+
+.battery-dial:hover {
+    background: rgba(255, 156, 100, 0.05);
+}
+
+.dial-canvas {
+    background: transparent;
+}
+
+.battery-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--surface-orange-90);
+}
+
+/* Battery state animations */
+.battery-dial.charging {
+    animation: pulse-green 2s var(--ease-in-out-cubic) infinite;
+}
+
+.battery-dial.low {
+    animation: pulse-red 1s var(--ease-in-out-cubic) infinite;
+}
+
+.battery-dial.full {
+    box-shadow: 0 0 16px var(--shadow-orange-40);
+}
+
+@keyframes pulse-green {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(255, 220, 32, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 220, 32, 0.6),
+                    0 0 30px rgba(255, 220, 32, 0.3);
+    }
+}
+
+@keyframes pulse-red {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(255, 100, 32, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 100, 32, 0.8),
+                    0 0 30px rgba(255, 100, 32, 0.4);
+    }
+}
+
+/* Clock styles */
+.clock {
+    padding: 8px 4px;
+    margin: 8px 0;
+    border-radius: 12px;
+    background: rgba(255, 156, 100, 0.05);
+    border: 1px solid var(--surface-orange-10);
+}
+
+.time {
+    color: var(--primary-orange);
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.date {
+    color: var(--surface-orange-60);
+    font-size: 10px;
+    font-weight: 400;
+    margin-bottom: 2px;
+}
+
+/* Icon styling for holographic effect */
+image {
+    -gtk-icon-size: 18px;
+}
+
+.launcher image {
+    color: var(--primary-orange);
+    -gtk-icon-size: 20px;
+    -gtk-icon-shadow: 
+        0 0 10px var(--shadow-orange-40),
+        0 0 20px var(--shadow-orange-20);
+}
+
+.launcher:hover image {
+    color: var(--accent-yellow);
+    -gtk-icon-shadow: 
+        0 0 15px var(--accent-yellow),
+        0 0 25px var(--shadow-orange-40);
+}
+
+.power-button image {
+    color: var(--error-magenta);
+    -gtk-icon-size: 18px;
+    -gtk-icon-shadow: 
+        0 0 10px rgba(255, 100, 200, 0.6),
+        0 0 20px rgba(255, 100, 200, 0.3);
+}
+
+.power-button:hover image {
+    color: var(--error-magenta-dark);
+    -gtk-icon-shadow: 
+        0 0 15px var(--error-magenta),
+        0 0 25px rgba(255, 100, 200, 0.5);
+}
+
+.system-button image {
+    -gtk-icon-size: 18px;
+    transition: all 150ms ease;
+    -gtk-icon-shadow: 
+        0 0 8px var(--shadow-orange-30),
+        0 0 16px var(--shadow-orange-20);
+}
+
+.system-button:hover image {
+    transform: scale(1.1);
+    -gtk-icon-shadow: 
+        0 0 12px var(--shadow-orange-40),
+        0 0 24px var(--shadow-orange-30);
+}
+
+.screenshot-button:hover image {
+    color: var(--accent-magenta);
+}
+
+.wifi-button:hover image {
+    color: var(--accent-yellow);
+}
+
+.bluetooth-button:hover image {
+    color: var(--primary-orange-light);
+}
+
+/* OSD Widget Styles - Futuristic Orange Holographic Theme */
+
+.osd-window {
+    background-color: transparent;
+}
+
+.osd-container {
+    background: linear-gradient(
+        135deg,
+        rgba(20, 10, 10, 0.98),
+        rgba(30, 15, 15, 0.95)
+    );
+    border-radius: 24px;
+    border: 2px solid var(--surface-orange-30);
+    padding: 24px 32px;
+    margin: 20px;
+    box-shadow: 
+        0 8px 32px var(--shadow-base),
+        0 0 60px var(--shadow-orange-30),
+        inset 0 1px 0 var(--surface-white-10),
+        inset 0 0 40px var(--shadow-orange-05);
+    min-width: 200px;
+    animation: osd-appear 200ms var(--ease-out-cubic);
+}
+
+@keyframes osd-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Icon container with holographic glow */
+.osd-icon-container {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at center,
+        var(--surface-orange-20),
+        var(--surface-orange-10),
+        transparent 70%
+    );
+    box-shadow: 
+        0 0 40px var(--shadow-orange-40),
+        inset 0 0 20px var(--surface-orange-10);
+}
+
+.osd-icon {
+    color: var(--primary-orange);
+    -gtk-icon-shadow: 
+        0 0 20px var(--glow-orange-light),
+        0 0 40px var(--glow-orange-medium),
+        0 0 60px var(--glow-orange-dark);
+    transition: all 200ms var(--ease-out-cubic);
+}
+
+/* Progress bar container */
+.osd-progress-container {
+    margin-top: 16px;
+}
+
+.osd-progress-bar {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 156, 100, 0.1),
+        rgba(255, 156, 100, 0.05)
+    );
+    border: 1px solid var(--surface-orange-20);
+    border-radius: 12px;
+    min-height: 8px;
+    min-width: 140px;
+    max-width: 140px;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 20px var(--shadow-orange-05);
+    margin-bottom: 12px;
+}
+
+.osd-progress-fill {
+    min-height: 8px;
+    border-radius: 12px;
+    transition: width 150ms var(--ease-out-cubic);
+    box-shadow: 
+        0 0 20px currentColor,
+        inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Different colors for different OSD types */
+.osd-volume-fill {
+    background: linear-gradient(
+        90deg,
+        var(--primary-orange),
+        var(--primary-orange-light),
+        var(--accent-yellow)
+    );
+    color: var(--glow-orange-medium);
+}
+
+.osd-brightness-fill {
+    background: linear-gradient(
+        90deg,
+        var(--accent-yellow),
+        var(--primary-orange),
+        var(--primary-orange-light)
+    );
+    color: var(--accent-yellow);
+}
+
+.osd-microphone-fill {
+    background: linear-gradient(
+        90deg,
+        var(--accent-coral),
+        var(--primary-orange),
+        var(--accent-magenta)
+    );
+    color: var(--accent-coral);
+}
+
+/* Value label */
+.osd-value {
+    color: var(--primary-orange);
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 
+        0 0 10px var(--glow-orange-light),
+        0 0 20px var(--glow-orange-medium);
+    margin-top: 8px;
+}
+
+/* Text label for non-progress OSDs */
+.osd-label {
+    color: var(--primary-orange);
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 
+        0 0 15px var(--glow-orange-light),
+        0 0 30px var(--glow-orange-medium);
+    margin-top: 8px;
+}
+
+/* Special styling for muted states */
+.osd-muted {
+    border-color: var(--error-coral);
+    box-shadow: 
+        0 8px 32px var(--shadow-base),
+        0 0 60px rgba(255, 100, 100, 0.3),
+        inset 0 1px 0 var(--surface-white-10),
+        inset 0 0 40px rgba(255, 100, 100, 0.05);
+}
+
+.osd-muted .osd-icon {
+    color: var(--error-coral);
+    -gtk-icon-shadow: 
+        0 0 20px var(--error-coral),
+        0 0 40px rgba(255, 100, 100, 0.5);
+}
+
+.osd-muted .osd-icon-container {
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 100, 100, 0.2),
+        rgba(255, 100, 100, 0.1),
+        transparent 70%
+    );
+    box-shadow: 
+        0 0 40px rgba(255, 100, 100, 0.4),
+        inset 0 0 20px rgba(255, 100, 100, 0.1);
+}
+
+/* Keyboard OSD special styling */
+.osd-keyboard {
+    .osd-icon {
+        color: var(--accent-magenta);
+        -gtk-icon-shadow: 
+            0 0 20px var(--accent-magenta),
+            0 0 40px rgba(255, 100, 220, 0.5);
+    }
+    
+    .osd-icon-container {
+        background: radial-gradient(
+            circle at center,
+            rgba(255, 100, 220, 0.2),
+            rgba(255, 100, 220, 0.1),
+            transparent 70%
+        );
+    }
+}
+
+/* Caps Lock / Num Lock special states */
+.osd-caps-on {
+    border-color: var(--accent-yellow);
+    box-shadow: 
+        0 8px 32px var(--shadow-base),
+        0 0 60px rgba(255, 220, 0, 0.3),
+        inset 0 1px 0 var(--surface-white-10),
+        inset 0 0 40px rgba(255, 220, 0, 0.05);
+    
+    .osd-label {
+        color: var(--accent-yellow);
+        text-shadow: 
+            0 0 15px var(--accent-yellow),
+            0 0 30px rgba(255, 220, 0, 0.5);
+    }
+}
+
+/* Media OSD styling */
+.osd-media {
+    .osd-icon {
+        color: var(--accent-magenta);
+        -gtk-icon-shadow: 
+            0 0 20px var(--accent-magenta),
+            0 0 40px rgba(255, 100, 220, 0.5);
+    }
+    
+    .osd-icon-container {
+        background: radial-gradient(
+            circle at center,
+            rgba(255, 100, 220, 0.2),
+            rgba(255, 100, 220, 0.1),
+            transparent 70%
+        );
+        animation: media-pulse 1s var(--ease-in-out-cubic) infinite;
+    }
+}
+
+@keyframes media-pulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 40px var(--shadow-orange-40),
+            inset 0 0 20px var(--surface-orange-10);
+    }
+    50% {
+        box-shadow: 
+            0 0 60px var(--accent-magenta),
+            inset 0 0 30px rgba(255, 100, 220, 0.2);
+    }
+}
+
+/* Workspace OSD styling */
+.osd-workspace {
+    .osd-icon-container {
+        animation: workspace-rotate 500ms var(--ease-out-cubic);
+    }
+}
+
+@keyframes workspace-rotate {
+    from {
+        transform: rotate(-180deg) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+}

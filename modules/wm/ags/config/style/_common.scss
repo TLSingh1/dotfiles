@@ -1,0 +1,80 @@
+// Common widget styles
+@use 'variables' as *;
+
+// Tooltips
+tooltip {
+    background-color: $surface-variant;
+    color: $on-surface-variant;
+    border-radius: $border-radius-small;
+    padding: 8px 12px;
+    margin: 4px;
+    box-shadow: $shadow-lg;
+}
+
+// Common button styles
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    
+    &:focus {
+        outline: 2px solid $primary;
+        outline-offset: -2px;
+    }
+}
+
+// Icon styles
+.icon {
+    font-size: 18px;
+}
+
+// Scrollable containers
+scrolledwindow {
+    background-color: transparent;
+    
+    > viewport > * {
+        background-color: transparent;
+    }
+}
+
+// Common animations
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+// Utility classes
+.rounded {
+    border-radius: $border-radius;
+}
+
+.rounded-sm {
+    border-radius: $border-radius-small;
+}
+
+.shadow-sm {
+    box-shadow: $shadow-sm;
+}
+
+.shadow-md {
+    box-shadow: $shadow-md;
+}
+
+.shadow-lg {
+    box-shadow: $shadow-lg;
+}

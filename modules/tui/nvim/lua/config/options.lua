@@ -1,10 +1,6 @@
--- Basic vim options
-
--- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Set leader key
 vim.g.mapleader = " "
 
 local options = {
@@ -51,8 +47,10 @@ local options = {
 	foldenable = true,
 	foldlevelstart = 99,
 	fillchars = { eob = " " },
+	startofline = true, -- Move cursor to first non-blank character
+	virtualedit = "", -- Ensure cursor can't move past actual characters
 }
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
-end 
+end

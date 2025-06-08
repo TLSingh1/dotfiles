@@ -1,0 +1,41 @@
+// Layout
+$bar-width: 56px;
+$bar-padding: 8px;
+$widget-spacing: 8px;
+$border-radius: 16px;
+$border-radius-small: 12px;
+
+// Animation
+$transition-speed: 200ms;
+$hover-scale: 1.05;
+
+// Default Material Design 3 colors (will be overridden by matugen at runtime)
+$primary: #6750A4;
+$primary-container: #EADDFF;
+$on-primary: #FFFFFF;
+$on-primary-container: #21005D;
+
+$secondary: #625B71;
+$secondary-container: #E8DEF8;
+$on-secondary: #FFFFFF;
+$on-secondary-container: #1D192B;
+
+$surface: #FEF7FF;
+$surface-variant: #E7E0EC;
+$on-surface: #1D1B20;
+$on-surface-variant: #49454F;
+
+$background: #FEF7FF;
+$on-background: #1D1B20;
+
+$error: #BA1A1A;
+$on-error: #FFFFFF;
+
+// Fallback GTK colors
+$fg-color: $on-surface;
+$bg-color: $surface;
+
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);

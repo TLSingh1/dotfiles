@@ -1,7 +1,8 @@
-# Fish shell functions
-{ pkgs, lib, ... }:
 {
-  # Create and enter directory
+  pkgs,
+  lib,
+  ...
+}: {
   mkcd = ''
     if test (count $argv) -ne 1
       echo "Usage: mkcd <directory>"
@@ -10,20 +11,19 @@
     mkdir -p $argv[1] && cd $argv[1]
   '';
 
-  # Extract various archive formats
   extract = ''
     if test (count $argv) -ne 1
       echo "Usage: extract <file>"
       return 1
     end
-    
+
     set file $argv[1]
-    
+
     if not test -f $file
       echo "Error: '$file' is not a valid file"
       return 1
     end
-    
+
     switch $file
       case "*.tar.bz2"
         tar xjf $file
@@ -107,4 +107,5 @@
     end
     ps aux | grep $argv[1] | grep -v grep | awk '{print $2}' | xargs -r kill
   '';
-} 
+}
+

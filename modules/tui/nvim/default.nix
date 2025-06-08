@@ -1,60 +1,76 @@
-{ config, pkgs, inputs, lib, ... }:
-
 {
-  # Import nixCats module
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
   imports = [
     inputs.nixCats.homeModule
   ];
 
-  # Minimal nixCats configuration
   nixCats = {
     enable = true;
-    packageNames = [ "myNvim" ];
-    luaPath = ./.; # Points to the current directory where init.lua is located
+    packageNames = ["myNvim"];
+    luaPath = ./.;
 
     # Plugin categories
-    categoryDefinitions.replace = ({ pkgs, ... }: {
+    categoryDefinitions.replace = {pkgs, ...}: {
       # Startup plugins (always loaded)
       startupPlugins = {
         general = with pkgs.vimPlugins; [
           lze
           lzextras
           plenary-nvim
+          promise-async
+          nui-nvim
         ];
       };
 
       # Optional plugins (lazy-loaded)
       optionalPlugins = {
         ai = with pkgs.vimPlugins; [
-          # AI-powered code completion
           supermaven-nvim
         ];
         coding = with pkgs.vimPlugins; [
-          # LSP and language support
           nvim-lspconfig
           typescript-tools-nvim
-          # Modern completion engine
           blink-cmp
           friendly-snippets
-          # Code formatting
           conform-nvim
-          # Syntax highlighting and code parsing
           nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
+          ultimate-autopair-nvim
+          nvim-surround
+          nvim-ts-autotag
+          lsp_lines-nvim
         ];
         ui = with pkgs.vimPlugins; [
-          # Terminal and UI enhancements
           toggleterm-nvim
           telescope-nvim
           nvim-tree-lua
           nvim-web-devicons
           catppuccin-nvim
+          render-markdown-nvim
+          indent-blankline-nvim
+          nvim-colorizer-lua
+          snacks-nvim
+          image-nvim
+          diagram-nvim
+          img-clip-nvim
+          nvim-ufo
+          nvim-notify
+          noice-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools
+          # obsidian-nvim
+          # nord-nvim
         ];
         git = with pkgs.vimPlugins; [
-          # Git integration tools
+          neogit
+          diffview-nvim
+          gitsigns-nvim
         ];
       };
 
@@ -64,11 +80,7 @@
           # Core utilities
         ];
         coding = with pkgs; [
-          # Language servers
           lua-language-server
-          # TypeScript support (typescript-tools.nvim provides its own server)
-          # nodejs # Required for typescript-tools.nvim
-          # Code formatters
           stylua # Lua formatter
           nodePackages.prettier # JavaScript/TypeScript/JSON/CSS/HTML formatter
           prettierd # Faster prettier daemon
@@ -79,14 +91,17 @@
           taplo # TOML formatter
         ];
         nix = with pkgs; [
-          # Nix-specific tools
           nixd
           alejandra
         ];
         ui = with pkgs; [
-          # UI and search utilities
           ripgrep
           fd
+          imagemagick
+          mermaid-cli
+          plantuml
+          d2
+          gnuplot
         ];
         project = with pkgs; [
           # Project management tools
@@ -98,13 +113,12 @@
           # AI and ML tools
         ];
       };
-    });
+    };
 
-    # Package definition
     packageDefinitions.replace = {
-      myNvim = { pkgs, ... }: {
+      myNvim = {pkgs, ...}: {
         settings = {
-          aliases = [ "nvim" ];
+          aliases = ["nvim"];
           wrapRc = true;
         };
         categories = {
@@ -119,4 +133,5 @@
       };
     };
   };
-} 
+}
+

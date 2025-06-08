@@ -2,14 +2,33 @@
 { hostname ? "default" }:
 
 let
+  # Import the special app script
+  special_app = ../../../scripts/special_app.sh;
+  special_workspace = appName: workspaceName: let
+    checkCommand = "hyprctl clients | grep '${appName}'";
+  in "${checkCommand} && hyprctl dispatch togglespecialworkspace ${workspaceName} || ${appName}";
+  
+  # Helper function to create bindings
+  mkBind = mod: key: action: "${mod}, ${key}, ${action}";
+  
   # Common bindings shared across all hosts
   commonBinds = {
     # Terminal
-    "ALT, 36" = "exec, ghostty";  # 36 = Return key
-    "ALT SHIFT, 36" = "exec, kitty";  # 36 = Return key
+    "ALT, 36" = "exec, kitty";  # 36 = Return key
     
     # Browser
     "SUPER, L" = "exec, zen";  # Launch Zen browser
+    
+    # Caelestia shell bindings
+    "SUPER, D" = "exec, caelestia shell toggle dashboard";
+    "SUPER, SPACE" = "exec, caelestia shell toggle launcher";
+    "SUPER, S" = "exec, caelestia shell toggle session";
+    
+    # Special workspace toggles
+    "ALT, Q" = "exec, ${special_app} kitty";
+    "ALT, W" = "exec, ${special_app} zen";
+    "ALT, E" = "exec, ${special_app} vesktop";
+    "ALT, R" = "exec, ${special_workspace "slack" "slack"}";
     
     # Window management
     "ALT, 22" = "killactive,";  # 22 = Backspace
@@ -22,11 +41,6 @@ let
     "ALT, j" = "movefocus, d";
     "ALT, k" = "movefocus, u";
     
-    # Window resizing
-    "ALT SHIFT, H" = "resizeactive, -40 0";
-    "ALT SHIFT, L" = "resizeactive, 40 0";
-    "ALT SHIFT, J" = "resizeactive, 0 40";
-    "ALT SHIFT, K" = "resizeactive, 0 -40";
     
     # Special workspaces
     "ALT, m" = "movetoworkspacesilent, special";
@@ -75,6 +89,22 @@ let
     "ALT CTRL, l" = "exec, hyprctl --batch 'dispatch movewindow r; dispatch moveactive 10 0'";
     "ALT CTRL, k" = "exec, hyprctl --batch 'dispatch movewindow u; dispatch moveactive 0 -10'";
     "ALT CTRL, j" = "exec, hyprctl --batch 'dispatch movewindow d; dispatch moveactive 0 10'";
+    
+    # Window resizing (repeats when held)
+    "ALT SHIFT, H" = "resizeactive, -40 0";
+    "ALT SHIFT, L" = "resizeactive, 40 0";
+    "ALT SHIFT, J" = "resizeactive, 0 40";
+    "ALT SHIFT, K" = "resizeactive, 0 -40";
+    
+    # Volume controls (keys 67, 68, 69)
+    ", 67" = "exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";  # Mute toggle
+    ", 68" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";   # Volume down (repeats when held)
+    ", 69" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";   # Volume up (repeats when held)
+    ", 74" = "exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";   # Volume up (repeats when held)
+    
+    # Brightness controls (keys 75, 76)
+    ", 75" = "exec, brightnessctl set 5%-";   # Brightness down (repeats when held)
+    ", 76" = "exec, brightnessctl set +5%";   # Brightness up (repeats when held)
   };
   
   # Host-specific bindings
@@ -94,8 +124,10 @@ let
   hostSpecificRepeatingBinds = {
     "my-nixos" = {
       # Workspace increment/decrement for laptop
-      "ALT, 60" = "workspace, +1";  # 60 = period key
-      "ALT, 59" = "workspace, -1";  # 59 = comma key
+      # "ALT, 59" = "workspace, +1";  # 59 = comma key
+      # "ALT, 60" = "workspace, -1";  # 60 = period key
+      "SUPER, j" = "workspace, +1";  # 59 = comma key
+      "SUPER, k" = "workspace, -1";  # 60 = period key
     };
   };
 in

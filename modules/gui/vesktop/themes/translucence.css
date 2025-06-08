@@ -1,0 +1,158 @@
+@import url(https://capnkitten.github.io/BetterDiscord/Themes/Translucence/css/source.css);
+
+:root {
+  --app-bg: url(https://media.discordapp.net/attachments/834266925482639382/1056967035566948462/wp6333916-anime-aesthetic-night-wallpapers.jpg);
+  --app-blur: 6px;
+  --app-margin: 0px;
+  --app-radius: 8px;
+  /*    -    */
+
+  --accent-hue: 192;
+  --accent-saturation: 72.3%;
+  --accent-lightness: 68.8%;
+  --accent-opacity: 1;
+  --accent-text-color: #000;
+  /*    -    */
+
+  --sidebar-color: rgba(0, 0, 0, 0.4);
+  --main-content-color: rgba(0, 0, 0, 0.2);
+  /*    -    */
+
+  --message-color: rgba(0, 0, 0, 0);
+  --message-radius: 8px;
+  --message-padding-top: 0px;
+  --message-padding-side: 6px;
+  /*    -    */
+
+  --reply-hue: 226;
+  --reply-saturation: 77.4%;
+  --reply-lightness: 61.8%;
+  --reply-opacity: 1;
+  /*    -    */
+  --mention-opacity: 0.25;
+
+  --textarea-color: 255, 255, 255;
+  --textarea-alpha: 0.1;
+  --textarea-alpha-focus: 0.15;
+  --textarea-text-color: #fff;
+  --textarea-radius: 22px;
+  /*    -    */
+
+  --card-color: rgba(0, 0, 0, 0.4);
+  --card-color-hover: rgba(0, 0, 0, 0.5);
+  --card-color-select: rgba(0, 0, 0, 0.7);
+  /*    -    */
+
+  --button-height: 32px;
+  --button-padding: 0 16px;
+  --button-action-color: #000;
+  --button-radius: 16px;
+  /*    -    */
+
+  --interactive-normal: #aaa;
+  --interactive-hover: #ddd;
+  --interactive-active: #fff;
+  --interactive-muted: #777;
+  /*    -    */
+
+  --background-modifier-hover: rgba(255, 255, 255, 0.075);
+  --background-modifier-selected: rgba(255, 255, 255, 0.125);
+  --font-primary: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  --font-display: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+.homeIcon-r0w4ny {
+  display: none;
+}
+
+.tutorialContainer-1pL9QS .wrapper-3kah-n .childWrapper-1j_1ub:before {
+  position: absolute;
+  content: " ";
+  width: 48px;
+  height: 48px;
+  background-image: url(https://media.discordapp.net/attachments/1019856019419050074/1056207071428751451/meowIce.png);
+  background-size: contain;
+  border-radius: 40%;
+}
+
+.reaction-3vwAF2,
+.reaction-102jx9 {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: var(--message-radius);
+  border: none;
+}
+
+.wrapper-30-Nkg:not(.groupStart-3Mlgv1),
+.wrapper-30-Nkg.compact-2Nkcau {
+  margin-top: 0;
+}
+
+.embedFull-1HGV2S,
+[class*=theme-] .invite-3uuHYQ,
+[class*=theme-] .wrapperAudio-1Bzv_Z,
+.wrapper-1HIH0j,
+.attachment-1PZZB2,
+[class*=theme-] .tile-2mmK5T,
+[class*=theme-] .tile-2mmK5T:hover {
+  background-color: rgba(39, 39, 39, 0.4);
+  border-radius: 6px;
+}
+
+.mentioned-Tre-dv {
+  --message-color: hsla(var(--mention-hsl), 0.2);
+}
+
+.mentioned-Tre-dv,
+.replying-eZ7p5z {
+  border-radius: var(--app-radius);
+}
+
+.mentioned-Tre-dv:before,
+.replying-eZ7p5z:before {
+  display: block;
+}
+
+.wrapper__09ecc {
+  margin-left: 0;
+  margin-right: 0;
+  background-color: transparent !important;
+  border-radius: 0;
+}
+
+.wrapper__09ecc.cozy_f5c119,
+.wrapper__09ecc.compact__54ecc {
+  padding: var(--custom-message-spacing-vertical-container-cozy) 0 var(--custom-message-spacing-vertical-container-cozy) var(--custom-message-margin-left-content-cozy) !important;
+  border: none;
+}
+
+.wrapper__09ecc:not(.groupStart__56db5) {
+  margin-top: 0;
+}
+
+.wrapper__09ecc:hover,
+.wrapper__09ecc.selected_fd9051 {
+  background-color: var(--message-color) !important;
+}
+
+.wrapper__09ecc.mentioned__58017 {
+  background-color: hsl(var(--mention-hsl), var(--mention-opacity)) !important;
+  box-shadow: none;
+}
+
+.avatar__08316 {
+  top: unset;
+  left: var(--custom-message-margin-horizontal);
+  margin-top: calc(4px - var(--custom-message-spacing-vertical-container-cozy));
+}
+
+.repliedMessage_e2bf4a:before {
+  transform: none;
+}
+
+.repliedMessage_e2bf4a .replyAvatar_cea07c {
+  margin-left: 0;
+}
+
+.giftCodeContainer__7fa01 {
+  opacity: 0.8;
+}

@@ -1,50 +1,84 @@
-{ config, lib, pkgs, inputs, ... }:
-
-with lib;
-
-let
-  cfg = config.programs.ags-desktop;
-in
 {
-  options.programs.ags-desktop = {
-    enable = mkEnableOption "AGS Desktop Environment";
-    
-    package = mkOption {
-      type = types.package;
-      default = inputs.self.packages.${pkgs.system}.my-desktop;
-      description = "The AGS desktop package to use";
-    };
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.wm.ags;
+in {
+  imports = [inputs.ags.homeManagerModules.default];
+
+  options.modules.wm.ags = {
+    enable =
+      mkEnableOption "AGS - Aylur's GTK Shell"
+      // {
+        default = false;
+      };
   };
 
   config = mkIf cfg.enable {
-    # Add AGS and runtime dependencies
+    # Required packages for AGS and our widgets
     home.packages = with pkgs; [
-      cfg.package
-      inputs.ags.packages.${pkgs.system}.default
-      # Additional runtime dependencies
-      sassc
+      # Core dependencies
       gtk3
-      gtk-layer-shell
+      gtk4
+      gtksourceview
+      webkitgtk
+      accountsservice
+
+      # Styling and theming
+      sassc # SCSS compiler
+      dart-sass # Alternative SCSS compiler
+
+      # Our widget dependencies
+      matugen # Material You color generator
+      swww # Wallpaper daemon
+      hyprpicker # Color picker
+      wl-clipboard # Clipboard utilities
+      grim # Screenshot utility
+      slurp # Screen area selector
+
+      # System info
+      btop # For system monitoring widgets
+      pamixer # Audio control
+      brightnessctl # Brightness control
+      networkmanager # Network management
+
+      # Optional but useful
+      jq # JSON processing
+      socat # Socket communication
+      ripgrep # Fast searching
+      fd # Fast file finding
     ];
 
-    # Create systemd service to autostart
-    systemd.user.services.ags-desktop = {
-      Unit = {
-        Description = "AGS Desktop Environment";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
-      };
-      
-      Service = {
-        Type = "simple";
-        ExecStart = "${cfg.package}/bin/my-desktop";
-        Restart = "on-failure";
-        RestartSec = "5s";
-      };
-      
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
+    # Configure AGS
+    programs.ags = {
+      enable = true;
+      configDir = ./config;
+
+      # Extra packages AGS might need
+      extraPackages = with pkgs; [
+        gtksourceview
+        webkitgtk
+        accountsservice
+        inputs.ags.packages.${pkgs.system}.astal4
+        inputs.ags.packages.${pkgs.system}.io
+        inputs.ags.packages.${pkgs.system}.hyprland
+        inputs.ags.packages.${pkgs.system}.mpris
+        inputs.ags.packages.${pkgs.system}.battery
+        inputs.ags.packages.${pkgs.system}.wireplumber
+        inputs.ags.packages.${pkgs.system}.network
+        inputs.ags.packages.${pkgs.system}.bluetooth
+        inputs.ags.packages.${pkgs.system}.tray
+      ];
+    };
+
+    # Environment variables for AGS
+    home.sessionVariables = {
+      AGS_SKIP_V1_DEPRECATION_WARNING = "1";
     };
   };
-} 
+}
+
