@@ -1,19 +1,15 @@
--- LSP Configuration
-
 return {
 	"nvim-lspconfig",
 
-	-- Only load if coding category is enabled
 	enabled = function()
 		return nixCats.cats.coding
 	end,
 
 	event = { "BufReadPre", "BufNewFile" },
 	after = function()
-		-- Configure diagnostic display with icons using the modern API
 		vim.diagnostic.config({
 			virtual_text = {
-				prefix = "●", -- Could be '■', '▎', 'x'
+				prefix = "●",
 			},
 			-- virtual_text = false, -- Disable virtual_text since lsp_lines will show diagnostics
 			virtual_lines = {
@@ -38,10 +34,8 @@ return {
 			},
 		})
 
-		-- blink.cmp handles LSP capabilities automatically, no need for manual setup
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-		-- Basic LSP keymaps
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
@@ -58,41 +52,36 @@ return {
 			end,
 		})
 
-		-- Setup nixd if we have nix category enabled
 		require("lspconfig").nixd.setup({
 			capabilities = capabilities,
 			settings = {
 				nixd = {
 					nixpkgs = {
-						-- This will use the nixpkgs from your flake
+						-- use the nixpkgs from flake
 						expr = "import <nixpkgs> { }",
 					},
 					formatting = {
-						command = { "alejandra" }, -- or nixfmt, nixpkgs-fmt
+						command = { "alejandra" },
 					},
 				},
 			},
 		})
 
-		-- Setup lua_ls for Lua development
 		require("lspconfig").lua_ls.setup({
 			capabilities = capabilities,
 			settings = {
 				Lua = {
 					runtime = {
-						-- Tell the language server which version of Lua you're using
 						version = "LuaJIT",
 					},
 					diagnostics = {
-						-- Get the language server to recognize the `vim` global
 						globals = {
 							"vim",
 							"require",
-							"nixCats", -- Add nixCats global for our setup
+							"nixCats",
 						},
 					},
 					workspace = {
-						-- Make the server aware of Neovim runtime files
 						library = vim.api.nvim_get_runtime_file("", true),
 						checkThirdParty = false,
 					},
@@ -106,12 +95,10 @@ return {
 			},
 		})
 
-		-- Setup ts_ls for TypeScript/JavaScript development (includes JSX/TSX support)
 		require("lspconfig").ts_ls.setup({
 			capabilities = capabilities,
 		})
 
-		-- Setup qmlls for QML development
 		require("lspconfig").qmlls.setup({
 			capabilities = capabilities,
 		})

@@ -6,7 +6,6 @@
 }: {
   programs.kitty = {
     enable = true;
-    # Add your kitty configuration here
     keybindings = {
       "kitty_mod+alt+k" = "scroll_line_up";
       "kitty_mod+alt+j" = "scroll_line_down";
@@ -24,7 +23,6 @@
       "alt+shift+r" = "set_tab_title";
     };
     settings = {
-      # Example settings - customize as needed
       shell = "fish";
       font_family = "monospace";
       font_size = 10;
@@ -36,7 +34,7 @@
       selection_background = "#3a2015";
       selection_foreground = "#ffdc00";
       url_color = "#ff9c64";
-      cursor = "#ff64dc";  # Accent magenta - stands out against orange
+      cursor = "#ff64dc"; # Accent magenta - stands out against orange
       cursor_text_color = "#0a0505";
       cursor_trail = 3;
       # modify_font = "underline_position 200%";

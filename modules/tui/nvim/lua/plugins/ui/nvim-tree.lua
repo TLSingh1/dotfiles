@@ -1,8 +1,5 @@
--- nvim-tree: A file explorer tree for Neovim written in Lua
-
 return {
 	"nvim-tree.lua",
-	-- Only load if ui category is enabled
 	enabled = function()
 		return nixCats.cats.ui
 	end,
@@ -11,14 +8,11 @@ return {
 		{ ";", "<cmd>NvimTreeToggle<CR>", desc = "Toggle nvim-tree" },
 	},
 	after = function()
-		-- disable netrw at the very start (recommended)
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
 
-		-- optionally enable 24-bit colour
 		vim.opt.termguicolors = true
 
-		-- Custom helper functions
 		local function edit_or_open()
 			local api = require("nvim-tree.api")
 			local node = api.tree.get_node_under_cursor()

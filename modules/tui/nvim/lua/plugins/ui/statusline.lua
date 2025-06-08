@@ -1,4 +1,3 @@
--- Statusline module
 local M = {}
 local api = vim.api
 local diagnostic = vim.diagnostic

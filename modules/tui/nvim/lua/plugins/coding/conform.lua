@@ -1,10 +1,6 @@
--- conform.nvim - Lightweight yet powerful formatter plugin
--- https://github.com/stevearc/conform.nvim
-
 return {
 	"conform.nvim",
 
-	-- Only load if coding category is enabled
 	enabled = function()
 		return nixCats.cats.coding
 	end,

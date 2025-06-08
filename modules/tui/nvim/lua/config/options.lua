@@ -1,10 +1,6 @@
--- Basic vim options
-
--- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Set leader key
 vim.g.mapleader = " "
 
 local options = {
@@ -57,4 +53,4 @@ local options = {
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
-end 
+end

@@ -1,9 +1,6 @@
--- Gitsigns - Git signs in the gutter
-
 return {
 	"gitsigns.nvim",
 
-	-- Only load if git category is enabled
 	enabled = function()
 		return nixCats.cats.git
 	end,

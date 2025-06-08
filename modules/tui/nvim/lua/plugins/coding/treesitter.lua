@@ -1,9 +1,6 @@
--- Treesitter: Syntax highlighting and code parsing
-
 return {
 	"nvim-treesitter",
 
-	-- Only load if coding category is enabled
 	enabled = function()
 		return nixCats.cats.coding
 	end,
@@ -155,4 +152,3 @@ return {
 		-- For example, if you have other treesitter plugins
 	end,
 }
-

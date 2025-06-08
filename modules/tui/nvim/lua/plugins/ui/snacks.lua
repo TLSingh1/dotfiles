@@ -1,9 +1,6 @@
--- Snacks - Collection of small QoL plugins
-
 return {
 	"snacks.nvim",
 
-	-- Only load if ui category is enabled
 	enabled = function()
 		return nixCats.cats.ui
 	end,
@@ -15,7 +12,6 @@ return {
 		local Snacks = require("snacks")
 
 		Snacks.setup({
-			-- Status column configuration
 			statuscolumn = {
 				enabled = true,
 				left = { "mark", "sign" }, -- high priority on the left

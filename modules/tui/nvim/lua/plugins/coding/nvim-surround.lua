@@ -1,9 +1,6 @@
--- nvim-surround - Add/change/delete surrounding delimiter pairs with ease
-
 return {
 	"nvim-surround",
 
-	-- Only load if coding category is enabled
 	enabled = function()
 		return nixCats.cats.coding
 	end,
@@ -11,11 +8,9 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	after = function()
 		require("nvim-surround").setup({
-			-- Number of lines within which surrounding is searched
 			highlight = {
-				duration = 0, -- Highlight duration in milliseconds
+				duration = 0,
 			},
-			-- Keymaps for the plugin
 			keymaps = {
 				insert = "<C-g>s",
 				insert_line = "<C-g>S",
@@ -29,9 +24,7 @@ return {
 				change = "cs",
 				change_line = "cS",
 			},
-			-- Configuration for specific surrounds
 			surrounds = {
-				-- Custom surround for function calls
 				["f"] = {
 					add = function()
 						local result = require("nvim-surround.config").get_input("Function name: ")
@@ -53,7 +46,6 @@ return {
 						end,
 					},
 				},
-				-- Custom surround for HTML tags
 				["t"] = {
 					add = function()
 						local result = require("nvim-surround.config").get_input("Tag name: ")
@@ -62,7 +54,10 @@ return {
 						end
 					end,
 					find = function()
-						return require("nvim-surround.config").get_selection({ pattern = "<.->.-</.->", selection = "inner" })
+						return require("nvim-surround.config").get_selection({
+							pattern = "<.->.-</.->",
+							selection = "inner",
+						})
 					end,
 					delete = "^(%<.->)().-(%</[^>]+>)()$",
 					change = {
@@ -75,7 +70,6 @@ return {
 						end,
 					},
 				},
-				-- Add angle brackets
 				["<"] = {
 					add = { "<", ">" },
 					find = function()
@@ -97,7 +91,6 @@ return {
 					},
 				},
 			},
-			-- Aliases for convenience
 			aliases = {
 				["a"] = ">", -- Single character aliases
 				["b"] = ")",
@@ -118,3 +111,4 @@ return {
 		})
 	end,
 }
+

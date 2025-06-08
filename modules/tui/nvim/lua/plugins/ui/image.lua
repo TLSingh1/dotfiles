@@ -1,16 +1,16 @@
 return {
-  "image.nvim",
-  
-  -- Only load if ui category is enabled
-  enabled = false,
-  # enabled = function()
-  #   return nixCats.cats.ui
-  # end,
-  
-  ft = { "markdown", "norg", "typst", "html", "css" },
-  
-  after = function()
-    require("image").setup({
+	"image.nvim",
+
+	-- Only load if ui category is enabled
+	enabled = false,
+	-- enabled = function()
+	--   return nixCats.cats.ui
+	-- end,
+
+	ft = { "markdown", "norg", "typst", "html", "css" },
+
+	after = function()
+		require("image").setup({
 			backend = "kitty",
 			integrations = {
 				markdown = {
@@ -44,5 +44,5 @@ return {
 			tmux_show_only_in_active_window = false,
 			hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
 		})
-  end,
+	end,
 }

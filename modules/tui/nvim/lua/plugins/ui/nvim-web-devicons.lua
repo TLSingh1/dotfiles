@@ -1,8 +1,5 @@
--- nvim-web-devicons: File type icons for Neovim plugins
-
 return {
 	"nvim-web-devicons",
-	-- Only load if ui category is enabled
 	enabled = function()
 		return nixCats.cats.ui
 	end,
@@ -21,3 +18,4 @@ return {
 		})
 	end,
 }
+

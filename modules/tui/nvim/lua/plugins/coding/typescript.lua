@@ -1,5 +1,3 @@
--- TypeScript Tools - Enhanced TypeScript support
-
 return {
 	"typescript-tools.nvim",
 
@@ -9,19 +7,16 @@ return {
 	-- end,
 	enabled = false,
 	ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-	event = { "BufReadPre", "BufNewFile" }, -- Load on file open for better reliability
+	event = { "BufReadPre", "BufNewFile" },
 	after = function()
-		-- Ensure lspconfig is available (since we removed deps)
 		local has_lspconfig = pcall(require, "lspconfig")
 		if not has_lspconfig then
 			vim.notify("nvim-lspconfig not available for typescript-tools", vim.log.levels.WARN)
 			return
 		end
 
-		-- Setup completion capabilities (blink.cmp handles this automatically)
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-		-- Setup typescript-tools
 		require("typescript-tools").setup({
 			capabilities = capabilities,
 			settings = {

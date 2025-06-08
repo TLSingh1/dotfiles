@@ -1,9 +1,6 @@
--- ultimate-autopair.nvim - Advanced auto-pairing plugin with treesitter support
-
 return {
 	"ultimate-autopair.nvim",
 
-	-- Only load if coding category is enabled
 	enabled = function()
 		return nixCats.cats.coding
 	end,

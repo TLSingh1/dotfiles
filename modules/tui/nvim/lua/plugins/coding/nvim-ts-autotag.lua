@@ -1,24 +1,18 @@
--- nvim-ts-autotag - Auto close and rename HTML/XML tags using treesitter
-
 return {
 	"nvim-ts-autotag",
 
-	-- Only load if coding category is enabled
 	enabled = function()
 		return nixCats.cats.coding
 	end,
 
-	-- Load on these events for better performance
 	event = { "BufReadPre", "BufNewFile" },
 	after = function()
 		require("nvim-ts-autotag").setup({
 			opts = {
-				-- Enable all features by default
-				enable_close = true, -- Auto close tags
-				enable_rename = true, -- Auto rename pairs of tags
-				enable_close_on_slash = true, -- Auto close on trailing </
+				enable_close = true,
+				enable_rename = true,
+				enable_close_on_slash = true,
 			},
-			-- Per-filetype configurations (override global settings)
 			per_filetype = {
 				-- Example: disable auto-close for HTML if needed
 				-- ["html"] = {
@@ -27,7 +21,6 @@ return {
 			},
 			-- Aliases for languages with similar tag structures
 			aliases = {
-				-- Add any custom language aliases here
 				-- ["custom_language"] = "html",
 			},
 		})
@@ -47,4 +40,3 @@ return {
 		-- )
 	end,
 }
-

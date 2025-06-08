@@ -1,13 +1,6 @@
--- ToggleTerm - Terminal management
-
-local function temp()
-	vim.print("hello world")
-end
-
 return {
 	"toggleterm.nvim",
 
-	-- Only load if ui category is enabled
 	enabled = function()
 		return nixCats.cats.ui
 	end,

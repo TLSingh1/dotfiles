@@ -1,9 +1,6 @@
--- Diffview - Single tabpage interface for easily cycling through diffs
-
 return {
 	"diffview.nvim",
 
-	-- Only load if git category is enabled
 	enabled = function()
 		return nixCats.cats.git
 	end,
@@ -26,4 +23,3 @@ return {
 		require("diffview").setup()
 	end,
 }
-

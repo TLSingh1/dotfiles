@@ -1,17 +1,13 @@
--- Catppuccin: Soothing pastel theme for Neovim
-
 return {
 	"catppuccin-nvim",
 
-	-- Only load if ui category is enabled
 	enabled = function()
 		return nixCats.cats.ui
 	end,
 
-	priority = 1000, -- Load before other plugins to ensure colorscheme is available early
+	priority = 1000,
 
 	after = function()
-		-- Simple setup with minimal configuration
 		require("catppuccin").setup({
 			flavour = "mocha",
 			background = {
