@@ -3,26 +3,9 @@
 {
   # Configuration files
   xdg.configFile = {
-    # Main caelestia shell configuration - this entire directory IS the shell
+    # Main caelestia shell configuration
     "quickshell/caelestia" = {
-      source = let
-        # Create a filtered copy of the directory
-        filteredSource = pkgs.runCommand "caelestia-shell-filtered" {} ''
-          mkdir -p $out
-          cd ${./.}
-          
-          # Copy everything except Nix files and documentation
-          find . -type f \( \
-            ! -name "*.nix" \
-            ! -name "*.nix.old" \
-            ! -name "README.md" \
-            ! -name "TESTING_GUIDE.md" \
-          \) -exec install -D {} $out/{} \;
-          
-          # Copy directories
-          find . -type d ! -path "./.*" -exec mkdir -p $out/{} \;
-        '';
-      in filteredSource;
+      source = ./shell;
       recursive = true;
     };
     
@@ -33,7 +16,7 @@
     
     # Your custom scripts.json for toggle workspaces
     "caelestia/scripts.json" = {
-      source = ./scripts.json;
+      source = ./shell/scripts.json;
     };
   };
 
