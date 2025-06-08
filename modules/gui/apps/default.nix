@@ -7,7 +7,7 @@
   home.packages = with pkgs; [
     # Communication
     slack # Slack desktop client
-    signal-dekstop
+    signal-desktop
     # whatsapp-for-mac # WhatsApp desktop client
 
     # Media
