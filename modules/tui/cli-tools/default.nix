@@ -30,6 +30,7 @@
     rustc
     cargo
     claude-code
+    ccusage
     gh
     meson
     awscli2
