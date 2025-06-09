@@ -14,6 +14,8 @@
   # Import animations configuration
   animations = import ./animations.nix;
 in {
+  # Import color sync module
+  imports = [ ./color-sync.nix ];
   # Hyprland-related packages
   home.packages = with pkgs; [
     wofi # application launcher
