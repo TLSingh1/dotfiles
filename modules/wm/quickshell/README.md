@@ -35,9 +35,13 @@ Everything in this directory (except .nix files) is YOUR shell configuration:
 ## Usage
 
 ```bash
-# Commands
-caelestia shell toggle dashboard    # Toggle dashboard
-caelestia shell toggle launcher     # Toggle launcher  
+# Commands using caelestia-quickshell wrapper
+caelestia-quickshell shell toggle dashboard    # Toggle dashboard
+caelestia-quickshell shell toggle launcher     # Toggle launcher  
+caelestia-quickshell shell toggle session      # Toggle session menu
+caelestia-quickshell shell media play-pause    # Media controls
+
+# Direct caelestia commands (no wrapper needed)
 caelestia toggle <workspace>        # Toggle special workspaces
 caelestia scheme <name>             # Change color scheme
 caelestia wallpaper -f <path>       # Set wallpaper
@@ -47,12 +51,15 @@ systemctl --user restart caelestia-shell
 
 # Edit shell (opens this directory)
 caelestia-edit
+
+# Shell alias (after new terminal session)
+caelestia                          # Alias for caelestia-quickshell
 ```
 
 ## Development Workflow
 
 1. Edit any QML files directly in this directory
-2. Run `caelestia shell reload-config` to see changes
+2. Run `caelestia-quickshell shell reload-config` to see changes
 3. Rebuild system only when changing Nix configs
 4. All changes are tracked in git
 

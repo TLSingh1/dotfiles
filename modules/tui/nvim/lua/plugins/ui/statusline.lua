@@ -151,7 +151,7 @@ function M.build_statusline()
 			bold = false
 		else
 			-- Hidden buffers - minimal highlight
-			bg_color = "#0e1415" -- base
+			bg_color = "#000000" -- base
 			fg_color = "#5f7c7d" -- line_number (muted teal)
 			italic = true
 			bold = false
@@ -173,9 +173,9 @@ function M.build_statusline()
 		-- Set buffer-specific diagnostic highlights with Material You 3 colors
 		local diagnostic_colors = {
 			StatusLineDiagError = "#f2718b", -- red (error 70)
-			StatusLineDiagWarn = "#e694b3",  -- flamingo (tertiary 70)
-			StatusLineDiagHint = "#a385cf",  -- mauve (secondary 70)
-			StatusLineDiagInfo = "#67e8f9",  -- sky (secondary 80)
+			StatusLineDiagWarn = "#e694b3", -- flamingo (tertiary 70)
+			StatusLineDiagHint = "#a385cf", -- mauve (secondary 70)
+			StatusLineDiagInfo = "#67e8f9", -- sky (secondary 80)
 		}
 
 		for hl, base_hl in pairs(diagnostic_highlights) do
@@ -187,10 +187,10 @@ function M.build_statusline()
 	end
 
 	-- Git highlights with Material You 3 cyan/teal theme
-	api.nvim_set_hl(0, "StatusLineGitAdded", { fg = "#5eead4", bg = "#0e1415" })   -- yellow (primary 80)
-	api.nvim_set_hl(0, "StatusLineGitRemoved", { fg = "#f2718b", bg = "#0e1415" }) -- red (error 70)
-	api.nvim_set_hl(0, "StatusLineGitChanged", { fg = "#7dd3c0", bg = "#0e1415" }) -- peach (primary 70)
-	api.nvim_set_hl(0, "StatusLineGitBranch", { fg = "#38bdf8", bg = "#0e1415", bold = true }) -- sapphire (secondary 70)
+	api.nvim_set_hl(0, "StatusLineGitAdded", { fg = "#5eead4", bg = "#000000" }) -- yellow (primary 80)
+	api.nvim_set_hl(0, "StatusLineGitRemoved", { fg = "#f2718b", bg = "#000000" }) -- red (error 70)
+	api.nvim_set_hl(0, "StatusLineGitChanged", { fg = "#7dd3c0", bg = "#000000" }) -- peach (primary 70)
+	api.nvim_set_hl(0, "StatusLineGitBranch", { fg = "#38bdf8", bg = "#000000", bold = true }) -- sapphire (secondary 70)
 
 	table.insert(components, "%=") -- Right align
 	table.insert(components, create_git_component())

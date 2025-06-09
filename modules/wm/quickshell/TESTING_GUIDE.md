@@ -25,16 +25,16 @@ This is a living document tracking the testing and configuration of the Caelesti
 
 ## Testing Progress
 
-### 1. Basic Shell Controls
-- [x] `caelestia shell show dashboard` - Opens dashboard (WORKS with wrapper)
-- [x] `caelestia shell show launcher` - Opens app launcher (WORKS with wrapper)
-- [x] `caelestia shell show session` - Shows session/power menu (WORKS with wrapper)
-- [x] `caelestia shell toggle dashboard` - Toggle on current monitor (WORKS with wrapper)
-- [x] `caelestia shell toggle launcher` - Toggle on current monitor (WORKS with wrapper)
-- [ ] `caelestia shell reload-css` - Reload styles only
-- [ ] `caelestia shell reload-config` - Reload entire config
+### 1. Basic Shell Controls (Using caelestia-quickshell wrapper)
+- [x] `caelestia-quickshell shell show dashboard` - Opens dashboard (WORKS)
+- [x] `caelestia-quickshell shell show launcher` - Opens app launcher (WORKS)
+- [x] `caelestia-quickshell shell show session` - Shows session/power menu (WORKS)
+- [x] `caelestia-quickshell shell toggle dashboard` - Toggle on current monitor (WORKS)
+- [x] `caelestia-quickshell shell toggle launcher` - Toggle on current monitor (WORKS)
+- [ ] `caelestia-quickshell shell reload-css` - Reload styles only
+- [ ] `caelestia-quickshell shell reload-config` - Reload entire config
 
-**Notes**: Commands work using `caelestia-quickshell` wrapper. Shell alias needs new terminal session to activate.
+**Notes**: Commands work using `caelestia-quickshell` wrapper. Shell alias `caelestia` available after new terminal session.
 
 ### 2. Main UI Components
 
@@ -76,7 +76,7 @@ This is a living document tracking the testing and configuration of the Caelesti
 
 **Notes**: Launcher opens/closes properly. Quick actions accessed by typing ">" prefix.
 
-### 3. Special Workspaces
+### 3. Special Workspaces (Direct caelestia commands)
 - [ ] `caelestia toggle communication` - Discord/WhatsApp workspace
 - [ ] `caelestia toggle music` - Music apps workspace
 - [ ] `caelestia toggle sysmon` - System monitor
@@ -84,17 +84,17 @@ This is a living document tracking the testing and configuration of the Caelesti
 
 **Notes**: _Add observations here_
 
-### 4. Media Controls
-- [ ] `caelestia shell media play-pause`
-- [ ] `caelestia shell media next`
-- [ ] `caelestia shell media previous`
-- [ ] `caelestia shell media stop`
-- [ ] `caelestia shell brightness up`
-- [ ] `caelestia shell brightness down`
+### 4. Media Controls (Using caelestia-quickshell wrapper)
+- [ ] `caelestia-quickshell shell media play-pause`
+- [ ] `caelestia-quickshell shell media next`
+- [ ] `caelestia-quickshell shell media previous`
+- [ ] `caelestia-quickshell shell media stop`
+- [ ] `caelestia-quickshell shell brightness up`
+- [ ] `caelestia-quickshell shell brightness down`
 
 **Notes**: _Add observations here_
 
-### 5. Screenshots & Recording
+### 5. Screenshots & Recording (Direct caelestia commands)
 - [ ] `caelestia screenshot` - Full screen
 - [ ] `caelestia screenshot -r` - Region selection
 - [ ] `caelestia record` - Screen recording
@@ -103,7 +103,7 @@ This is a living document tracking the testing and configuration of the Caelesti
 
 **Notes**: _Add observations here_
 
-### 6. Clipboard & Utilities
+### 6. Clipboard & Utilities (Direct caelestia commands)
 - [ ] `caelestia clipboard` - History works
 - [ ] `caelestia emoji-picker` - Picker opens
 - [ ] `caelestia pip` - Window to PiP
@@ -111,7 +111,7 @@ This is a living document tracking the testing and configuration of the Caelesti
 
 **Notes**: _Add observations here_
 
-### 7. Color Schemes
+### 7. Color Schemes (Direct caelestia commands)
 - [ ] List available schemes checked
 - [ ] `caelestia scheme` changes work
 - [ ] `caelestia variant` options work
@@ -119,9 +119,9 @@ This is a living document tracking the testing and configuration of the Caelesti
 
 **Available Schemes**: _List found schemes here_
 
-**Notes**: _Add observations here_
+**Notes**: Color schemes use direct caelestia commands, not the wrapper
 
-### 8. Wallpaper Management
+### 8. Wallpaper Management (Direct caelestia commands)
 - [x] `caelestia wallpaper -f` - Set specific file (TESTED - Works!)
 - [ ] `caelestia wallpaper -d` - Directory selector
 - [ ] Wallpaper selection in launcher
@@ -154,6 +154,31 @@ This is a living document tracking the testing and configuration of the Caelesti
 - [ ] Quick open/close stress test
 
 **Notes**: _Add observations here_
+
+---
+
+## Command Reference
+
+### caelestia-quickshell wrapper (for shell control)
+```bash
+caelestia-quickshell shell show <drawer>     # Show drawer
+caelestia-quickshell shell toggle <drawer>   # Toggle drawer
+caelestia-quickshell shell media <action>    # Media controls
+```
+
+### Direct caelestia commands (everything else)
+```bash
+caelestia scheme <name>            # Color schemes
+caelestia wallpaper <args>         # Wallpaper management
+caelestia screenshot <args>        # Screenshots
+caelestia toggle <workspace>       # Special workspaces
+caelestia clipboard               # Clipboard history
+```
+
+### Shell alias
+```bash
+caelestia                         # Alias for caelestia-quickshell (after new terminal)
+```
 
 ---
 

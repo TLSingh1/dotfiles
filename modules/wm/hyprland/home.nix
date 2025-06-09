@@ -57,7 +57,7 @@ in {
       general = {
         gaps_in = 8;
         gaps_out = 18;
-        border_size = 4;
+        border_size = 3;
         # Blue holographic theme (original)
         # "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
         # "col.inactive_border" = "rgba(ff00ff44)";
@@ -68,7 +68,7 @@ in {
 
         # Material You 3 cyan/teal theme with enhanced variance
         "col.active_border" = "rgba(5eead4ff) rgba(d8709aff) rgba(2dd4bfff) rgba(c084fcff) rgba(38bdf8ff) rgba(34d399ff) rgba(f4b8ccff) rgba(7dd3c0ff) 270deg";
-        "col.inactive_border" = "rgba(5f7c7d44)";
+        "col.inactive_border" = "rgba(00000000)";
         layout = "dwindle";
         resize_on_border = true;
         extend_border_grab_area = 15;
@@ -76,7 +76,7 @@ in {
       };
 
       decoration = {
-        rounding = 15;
+        rounding = 20;
         # rounding_power = 0.1;
         blur = {
           enabled = true;
@@ -90,11 +90,11 @@ in {
           popups = true;
         };
         shadow = {
-          enabled = true;
+          enabled = false;
           range = 25; # Increased for active window emphasis
           render_power = 3; # Balanced shadow strength
           color = "rgba(7dd3c055)"; # Teal shadow with lower opacity
-          offset = "0 5"; # Slight downward offset for depth
+          # offset = "0 5"; # Slight downward offset for depth
           scale = 1.0;
         };
         # drop_shadow = true;
