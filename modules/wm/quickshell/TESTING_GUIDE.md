@@ -18,21 +18,23 @@ This is a living document tracking the testing and configuration of the Caelesti
 - ✅ Qt5Compat.GraphicalEffects module (added qt6.qt5compat)
 - ✅ Python scripts with hardcoded shebangs
 - ✅ Fish completion basename errors
+- ✅ IPC functionality for shell commands (created caelestia-quickshell wrapper)
+- ✅ Added IPC handlers to Visibilities.qml for drawer controls
 
 ---
 
 ## Testing Progress
 
 ### 1. Basic Shell Controls
-- [ ] `caelestia shell show dashboard` - Opens dashboard
-- [ ] `caelestia shell show launcher` - Opens app launcher  
-- [ ] `caelestia shell show session` - Shows session/power menu
-- [ ] `caelestia shell toggle dashboard` - Toggle on current monitor
-- [ ] `caelestia shell toggle launcher` - Toggle on current monitor
+- [x] `caelestia shell show dashboard` - Opens dashboard (WORKS with wrapper)
+- [x] `caelestia shell show launcher` - Opens app launcher (WORKS with wrapper)
+- [x] `caelestia shell show session` - Shows session/power menu (WORKS with wrapper)
+- [x] `caelestia shell toggle dashboard` - Toggle on current monitor (WORKS with wrapper)
+- [x] `caelestia shell toggle launcher` - Toggle on current monitor (WORKS with wrapper)
 - [ ] `caelestia shell reload-css` - Reload styles only
 - [ ] `caelestia shell reload-config` - Reload entire config
 
-**Notes**: _Add observations here_
+**Notes**: Commands work using `caelestia-quickshell` wrapper. Shell alias needs new terminal session to activate.
 
 ### 2. Main UI Components
 
@@ -58,13 +60,21 @@ This is a living document tracking the testing and configuration of the Caelesti
 **Notes**: _Add observations here_
 
 #### Launcher (Super+Space)
-- [ ] Opens with keyboard shortcut
+- [x] Opens with keyboard shortcut (WORKS - also bound to Super+;)
 - [ ] App search works
 - [ ] Apps launch correctly
-- [ ] Wallpaper selector functional
-- [ ] Quick actions work
+- [ ] Wallpaper selector - Type ">wallpaper " to access
+- [ ] Quick actions - Type ">" to access:
+  - [ ] `>scheme` - Change color scheme
+  - [ ] `>wallpaper` - Open wallpaper selector
+  - [ ] `>variant` - Change scheme variant
+  - [ ] `>transparency` - Change shell transparency
+  - [ ] `>light` - Switch to light mode
+  - [ ] `>dark` - Switch to dark mode
+  - [ ] `>lock` - Lock session
+  - [ ] `>sleep` - Suspend then hibernate
 
-**Notes**: _Add observations here_
+**Notes**: Launcher opens/closes properly. Quick actions accessed by typing ">" prefix.
 
 ### 3. Special Workspaces
 - [ ] `caelestia toggle communication` - Discord/WhatsApp workspace

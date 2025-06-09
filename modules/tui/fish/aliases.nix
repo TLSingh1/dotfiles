@@ -72,5 +72,5 @@
   mv = "mv -i";
 
   # Restart caelestia
-  restart-desktop = "systemctl --user restart caelestia-shell";
+  restart-desktop = "systemctl --user restart caelestia-shell.service";
 }

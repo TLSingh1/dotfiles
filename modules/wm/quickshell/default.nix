@@ -44,34 +44,8 @@
     bluez
     ddcutil
     brightnessctl
-  ];
-
-  # Systemd service
-  systemd.user.services.caelestia-shell = {
-    Unit = {
-      Description = "Caelestia desktop shell";
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "exec";
-      ExecStart = "${config.programs.quickshell.finalPackage}/bin/qs -c caelestia";
-      Restart = "on-failure";
-      Slice = "app-graphical.slice";
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-  };
-
-  # Shell aliases
-  home.shellAliases = {
-    caelestia-shell = "qs -c caelestia";
-    caelestia-edit = "cd ${config.xdg.configHome}/quickshell/caelestia && $EDITOR";
-    caelestia = "caelestia-quickshell";
-  };
-  
-  # Create a wrapper for caelestia that handles shell commands with quickshell
-  home.packages = with pkgs; [
+    
+    # Wrapper for caelestia to work with quickshell
     (writeScriptBin "caelestia-quickshell" ''
       #!${pkgs.fish}/bin/fish
       
@@ -113,4 +87,28 @@
       end
     '')
   ];
+
+  # Systemd service
+  systemd.user.services.caelestia-shell = {
+    Unit = {
+      Description = "Caelestia desktop shell";
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "exec";
+      ExecStart = "${config.programs.quickshell.finalPackage}/bin/qs -c caelestia";
+      Restart = "on-failure";
+      Slice = "app-graphical.slice";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
+  # Shell aliases
+  home.shellAliases = {
+    caelestia-shell = "qs -c caelestia";
+    caelestia-edit = "cd ${config.xdg.configHome}/quickshell/caelestia && $EDITOR";
+    caelestia = "caelestia-quickshell";
+  };
 }
