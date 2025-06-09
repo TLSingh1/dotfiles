@@ -19,14 +19,14 @@ return {
 			},
 			highlights = {
 				Normal = {
-					guibg = "#0a0505", -- Dark background matching theme
+					guibg = "#0e1415", -- Material You 3 base background
 				},
 				NormalFloat = {
-					guibg = "#1a0f0a", -- Slightly lighter for float
+					guibg = "#161f20", -- Material You 3 window_bg
 				},
 				FloatBorder = {
-					guifg = "#ff9c64", -- Orange border
-					guibg = "#1a0f0a", -- Match float background
+					guifg = "#7dd3c0", -- Material You 3 peach (primary 70)
+					guibg = "#161f20", -- Match float background
 				},
 			},
 		})

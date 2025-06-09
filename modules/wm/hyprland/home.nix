@@ -57,7 +57,7 @@ in {
       general = {
         gaps_in = 8;
         gaps_out = 18;
-        border_size = 3;
+        border_size = 4;
         # Blue holographic theme (original)
         # "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
         # "col.inactive_border" = "rgba(ff00ff44)";
@@ -66,8 +66,8 @@ in {
         # "col.active_border" = "rgba(ff4500ff) rgba(ffee00ff) rgba(ff1493ff) rgba(ff6b00ff) rgba(ffd700ff) 45deg";
         # "col.inactive_border" = "rgba(ff450033)";
 
-        # Material You 3 cyan/teal theme
-        "col.active_border" = "rgba(5eead4ff) rgba(7dd3c0ff) rgba(2dd4bfff) rgba(67e8f9ff) rgba(38bdf8ff) 45deg";
+        # Material You 3 cyan/teal theme with enhanced variance
+        "col.active_border" = "rgba(5eead4ff) rgba(d8709aff) rgba(2dd4bfff) rgba(c084fcff) rgba(38bdf8ff) rgba(34d399ff) rgba(f4b8ccff) rgba(7dd3c0ff) 270deg";
         "col.inactive_border" = "rgba(5f7c7d44)";
         layout = "dwindle";
         resize_on_border = true;
@@ -91,10 +91,10 @@ in {
         };
         shadow = {
           enabled = true;
-          range = 20; # Increased for more dramatic effect
-          render_power = 4; # Higher power for stronger shadow
-          color = "rgba(7dd3c099)"; # Teal shadow to match Material You 3 theme
-          offset = "0 0"; # Center the shadow
+          range = 25; # Increased for active window emphasis
+          render_power = 3; # Balanced shadow strength
+          color = "rgba(7dd3c055)"; # Teal shadow with lower opacity
+          offset = "0 5"; # Slight downward offset for depth
           scale = 1.0;
         };
         # drop_shadow = true;

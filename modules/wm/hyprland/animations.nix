@@ -14,7 +14,7 @@
     "holographic, 0.6, 0.04, 0.98, 0.335"
   ];
   animation = [
-    "borderangle, 1, 100, linear, loop"
+    "borderangle, 1, 50, holographic, loop"
     "windows, 1, 2, md3_standard, slide"
     "border, 1, 3, smoothIn"
     "fade, 1, 0.0000001, default"
