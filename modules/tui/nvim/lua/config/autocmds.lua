@@ -52,3 +52,86 @@ autocmd("ColorScheme", {
 	desc = "Ensure InactiveWindow stays black after colorscheme changes",
 })
 
+-- Dynamic color integration with Caelestia
+local caelestia_group = augroup("CaelestiaColors", { clear = true })
+
+-- Watch for Caelestia color scheme changes
+local function setup_caelestia_watcher()
+	local timer = vim.loop.new_timer()
+	local last_mtime = 0
+	local scheme_file = vim.fn.expand("~/.local/state/caelestia/scheme/current.txt")
+	
+	timer:start(1000, 5000, vim.schedule_wrap(function()
+		local stat = vim.loop.fs_stat(scheme_file)
+		
+		if stat and stat.mtime.sec > last_mtime then
+			last_mtime = stat.mtime.sec
+			
+			-- Reload colors
+			local ok, dynamic_colors = pcall(require, "plugins.ui.dynamic-colors")
+			if ok then
+				local colors = dynamic_colors.read_caelestia_colors()
+				if colors then
+					local config = dynamic_colors.setup()
+					-- Reload catppuccin with new colors
+					require("catppuccin").setup(vim.tbl_extend("force", 
+						require("catppuccin").options or {},
+						config
+					))
+					vim.cmd.colorscheme("catppuccin")
+				end
+			end
+		end
+	end))
+end
+
+-- Start watching after VimEnter
+autocmd("VimEnter", {
+	group = caelestia_group,
+	callback = setup_caelestia_watcher,
+	desc = "Start watching for Caelestia color changes",
+})
+
+-- Commands for dynamic color integration
+vim.api.nvim_create_user_command("CaelestiaReloadColors", function()
+	local ok, dynamic_colors = pcall(require, "plugins.ui.dynamic-colors")
+	if not ok then
+		vim.notify("Dynamic colors module not found", vim.log.levels.ERROR)
+		return
+	end
+	
+	local config = dynamic_colors.setup()
+	
+	if config.color_overrides and config.color_overrides.mocha then
+		-- Reload catppuccin with new colors
+		require("catppuccin").setup(vim.tbl_extend("force", 
+			require("catppuccin").options or {},
+			config
+		))
+		vim.cmd.colorscheme("catppuccin")
+		vim.notify("Caelestia colors reloaded", vim.log.levels.INFO)
+	else
+		vim.notify("No Caelestia colors found", vim.log.levels.WARN)
+	end
+end, { desc = "Reload colors from Caelestia color scheme" })
+
+vim.api.nvim_create_user_command("CaelestiaShowColors", function()
+	local ok, dynamic_colors = pcall(require, "plugins.ui.dynamic-colors")
+	if not ok then
+		vim.notify("Dynamic colors module not found", vim.log.levels.ERROR)
+		return
+	end
+	
+	local colors = dynamic_colors.read_caelestia_colors()
+	
+	if colors then
+		local lines = { "Caelestia Color Scheme:" }
+		for name, value in pairs(colors) do
+			table.insert(lines, string.format("  %s: %s", name, value))
+		end
+		vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
+	else
+		vim.notify("No Caelestia colors found", vim.log.levels.WARN)
+	end
+end, { desc = "Show current Caelestia colors" })
+
