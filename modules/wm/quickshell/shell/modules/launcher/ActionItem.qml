@@ -6,7 +6,7 @@ import QtQuick
 Item {
     id: root
 
-    required property Actions.Action modelData
+    required property var modelData
     required property var list
 
     implicitHeight: LauncherConfig.sizes.itemHeight
