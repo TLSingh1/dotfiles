@@ -41,6 +41,12 @@ let
         "rgba(''${primary}66)"
       
       echo "Applied color scheme to Hyprland"
+      
+      # Also update Neovim colors if the command exists
+      if command -v update-nvim-colors >/dev/null 2>&1; then
+        echo "Updating Neovim colors..."
+        update-nvim-colors
+      fi
     }
     
     # Initial application

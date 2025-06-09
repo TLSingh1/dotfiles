@@ -8,13 +8,9 @@ return {
 	priority = 1000,
 
 	after = function()
-		-- Try to load dynamic colors from Caelestia
-		local ok, dynamic_colors = pcall(require, "plugins.ui.dynamic-colors")
-		local dynamic_config = {}
-		
-		if ok then
-			dynamic_config = dynamic_colors.setup()
-		end
+		-- Try to load generated colors from file
+		local ok, generated_colors = pcall(require, "plugins.ui.catppuccin-colors")
+		local has_generated_colors = ok and generated_colors and generated_colors.mocha
 		
 		-- Base configuration
 		local config = {
@@ -121,9 +117,12 @@ return {
 			end,
 		}
 		
-		-- Merge with dynamic config if available
-		if dynamic_config.color_overrides and dynamic_config.color_overrides.mocha then
-			config = vim.tbl_deep_extend("force", config, dynamic_config)
+		-- Use generated colors if available
+		if has_generated_colors then
+			config.color_overrides.mocha = vim.tbl_deep_extend("force", 
+				config.color_overrides.mocha, 
+				generated_colors.mocha
+			)
 		end
 		
 		require("catppuccin").setup(config)

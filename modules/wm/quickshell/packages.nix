@@ -125,6 +125,127 @@ let
       --prefix PATH : ${lib.makeBinPath [ pkgs.fd pkgs.coreutils ]}
   '';
 
+  # Script to update Neovim colors from Caelestia wallpaper
+  update-nvim-colors = pkgs.writeShellScriptBin "update-nvim-colors" ''
+    #!/usr/bin/env bash
+
+    # Read colors from Caelestia scheme
+    SCHEME_FILE="$HOME/.local/state/caelestia/scheme/current.txt"
+    NVIM_CONFIG="$HOME/.dotfiles/modules/tui/nvim/lua/plugins/ui/catppuccin-colors.lua"
+
+    if [ ! -f "$SCHEME_FILE" ]; then
+        echo "Color scheme file not found: $SCHEME_FILE"
+        exit 1
+    fi
+
+    # Read colors into associative array
+    declare -A colors
+    while IFS=' ' read -r name value; do
+        colors[$name]="#$value"
+    done < "$SCHEME_FILE"
+
+    # Get primary colors for holographic generation
+    primary="''${colors[blue]:-#83a598}"
+    secondary="''${colors[mauve]:-#b16286}"
+    accent="''${colors[yellow]:-#d79921}"
+
+    # Generate holographic variations
+    generate_holographic() {
+        local base_color="$1"
+        local lightness_adjust="$2"
+        
+        # Simple brightness adjustment
+        local hex="''${base_color#\#}"
+        local r=$((0x''${hex:0:2}))
+        local g=$((0x''${hex:2:2}))
+        local b=$((0x''${hex:4:2}))
+        
+        # Adjust brightness
+        r=$(( r + lightness_adjust ))
+        g=$(( g + lightness_adjust ))
+        b=$(( b + lightness_adjust ))
+        
+        # Clamp values
+        [ $r -lt 0 ] && r=0
+        [ $r -gt 255 ] && r=255
+        [ $g -lt 0 ] && g=0
+        [ $g -gt 255 ] && g=255
+        [ $b -lt 0 ] && b=0
+        [ $b -gt 255 ] && b=255
+        
+        printf "#%02x%02x%02x" $r $g $b
+    }
+
+    # Generate dark backgrounds based on primary color
+    base_bg=$(generate_holographic "$primary" -240)
+    mantle_bg=$(generate_holographic "$primary" -235)
+    crust_bg=$(generate_holographic "$primary" -230)
+
+    # Generate surface colors with slight hue variations
+    surface0=$(generate_holographic "$primary" -200)
+    surface1=$(generate_holographic "$primary" -180)
+    surface2=$(generate_holographic "$primary" -160)
+
+    # Generate overlay colors
+    overlay0=$(generate_holographic "$primary" -120)
+    overlay1=$(generate_holographic "$primary" -80)
+    overlay2=$(generate_holographic "$primary" -40)
+
+    # Text colors - keep them light
+    text=$(generate_holographic "$primary" 200)
+    subtext1=$(generate_holographic "$primary" 180)
+    subtext0=$(generate_holographic "$primary" 160)
+
+    # Write the color configuration
+    cat > "$NVIM_CONFIG" << EOF
+    -- Auto-generated Catppuccin colors from Caelestia wallpaper
+    -- Generated at: $(date)
+    -- Wallpaper primary: $primary, secondary: $secondary, accent: $accent
+
+    return {
+        mocha = {
+            -- Base colors - dark with primary tint
+            base = "$base_bg",
+            mantle = "$mantle_bg",
+            crust = "$crust_bg",
+
+            -- Surface colors - holographic gradient
+            surface0 = "$surface0",
+            surface1 = "$surface1",
+            surface2 = "$surface2",
+
+            -- Overlay colors
+            overlay0 = "$overlay0",
+            overlay1 = "$overlay1",
+            overlay2 = "$overlay2",
+
+            -- Text colors
+            text = "$text",
+            subtext1 = "$subtext1",
+            subtext0 = "$subtext0",
+
+            -- Accent colors from wallpaper
+            rosewater = "''${colors[rosewater]:-#f5e0dc}",
+            flamingo = "''${colors[flamingo]:-#f2cdcd}",
+            pink = "''${colors[pink]:-#f5c2e7}",
+            mauve = "''${colors[mauve]:-#cba6f7}",
+            red = "''${colors[red]:-#f38ba8}",
+            maroon = "''${colors[maroon]:-#eba0ac}",
+            peach = "''${colors[peach]:-#fab387}",
+            yellow = "''${colors[yellow]:-#f9e2af}",
+            green = "''${colors[green]:-#a6e3a1}",
+            teal = "''${colors[teal]:-#94e2d5}",
+            sky = "''${colors[sky]:-#89dceb}",
+            sapphire = "''${colors[sapphire]:-#74c7ec}",
+            blue = "''${colors[blue]:-#89b4fa}",
+            lavender = "''${colors[lavender]:-#b4befe}",
+        }
+    }
+    EOF
+
+    echo "Updated Neovim colors at $NVIM_CONFIG"
+  '';
+
 in
 {
   options.programs.quickshell = {
@@ -138,6 +259,12 @@ in
       type = lib.types.package;
       default = caelestia-scripts;
       description = "The caelestia scripts package";
+    };
+    
+    update-nvim-colors = lib.mkOption {
+      type = lib.types.package;
+      default = update-nvim-colors;
+      description = "Script to update Neovim colors from Caelestia wallpaper";
     };
   };
 }
