@@ -29,6 +29,10 @@ let
       # Copy all the scripts to share directory
       cp -r * $out/share/caelestia-scripts/
       
+      # Add our astal shim
+      cp ${./astal-shim.fish} $out/share/caelestia-scripts/astal-shim.fish
+      chmod +x $out/share/caelestia-scripts/astal-shim.fish
+      
       # Fix Python shebangs for NixOS
       find $out/share/caelestia-scripts -name "*.py" -type f -exec sed -i '1s|^#!/bin/python3|#!${pkgs.python3}/bin/python3|' {} \;
       find $out/share/caelestia-scripts -name "*.py" -type f -exec sed -i '1s|^#!/bin/python|#!${pkgs.python3}/bin/python|' {} \;
@@ -38,9 +42,14 @@ let
       # Make Python scripts executable
       find $out/share/caelestia-scripts -name "*.py" -type f -exec chmod +x {} \;
       
+      # Create astal wrapper
+      makeWrapper ${pkgs.fish}/bin/fish $out/bin/astal \
+        --add-flags "$out/share/caelestia-scripts/astal-shim.fish"
+      
       # Create wrapper for main script with all required tools in PATH
       makeWrapper ${pkgs.fish}/bin/fish $out/bin/caelestia \
         --add-flags "$out/share/caelestia-scripts/main.fish" \
+        --prefix PATH : "$out/bin" \
         --prefix PATH : ${lib.makeBinPath (with pkgs; [
           imagemagick
           wl-clipboard
