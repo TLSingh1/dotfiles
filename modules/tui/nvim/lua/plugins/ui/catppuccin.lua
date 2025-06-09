@@ -8,12 +8,7 @@ return {
 	priority = 1000,
 
 	after = function()
-		-- Try to load generated colors from file
-		local ok, generated_colors = pcall(require, "plugins.ui.catppuccin-colors")
-		local has_generated_colors = ok and generated_colors and generated_colors.mocha
-		
-		-- Base configuration
-		local config = {
+		require("catppuccin").setup({
 			flavour = "mocha",
 			background = {
 				light = "latte",
@@ -41,8 +36,7 @@ return {
 			},
 			color_overrides = {
 				mocha = {
-					-- Default fallback colors (orange theme)
-					-- These will be overridden by dynamic colors if available
+					-- Holographic orange theme
 					base = "#0a0505",
 					mantle = "#100808",
 					crust = "#150a0a",
@@ -73,8 +67,7 @@ return {
 			},
 			custom_highlights = function()
 				return {
-					-- Default highlights (orange theme)
-					-- These will be overridden by dynamic colors if available
+					-- Holographic orange highlights
 					ActiveWindow = { bg = "#1a0f0a" },
 					InactiveWindow = { bg = "#000000" },
 					WinBar = { bg = "#1a0f0a" },
@@ -115,17 +108,7 @@ return {
 					GitSignsDelete = { fg = "#ff6464" },
 				}
 			end,
-		}
-		
-		-- Use generated colors if available
-		if has_generated_colors then
-			config.color_overrides.mocha = vim.tbl_deep_extend("force", 
-				config.color_overrides.mocha, 
-				generated_colors.mocha
-			)
-		end
-		
-		require("catppuccin").setup(config)
+		})
 
 		-- Set the colorscheme immediately after setup
 		vim.cmd.colorscheme("catppuccin")

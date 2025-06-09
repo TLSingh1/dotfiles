@@ -10,8 +10,6 @@
   home.packages = with pkgs; [
     config.programs.quickshell.finalPackage  # Our wrapped quickshell
     config.programs.quickshell.caelestia-scripts
-    config.programs.quickshell.update-nvim-colors
-    
     # Qt dependencies
     qt6.qt5compat
     qt6.qtdeclarative
@@ -82,18 +80,6 @@
                   # For other shell commands, try the original
                   exec $original_caelestia $argv
           end
-      else if test "$argv[1]" = "wallpaper"
-          # Run the original wallpaper command
-          $original_caelestia $argv
-          set -l exit_code $status
-          
-          # If successful, update Neovim colors
-          if test $exit_code -eq 0
-              echo "Updating Neovim colors..."
-              ${config.programs.quickshell.update-nvim-colors}/bin/update-nvim-colors
-          end
-          
-          exit $exit_code
       else
           # For non-shell commands, use the original
           exec $original_caelestia $argv
