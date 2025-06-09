@@ -38,6 +38,7 @@
 
     # Internet
     google-chrome
+    code-cursor
     # thunderbird # Email client
     # qbittorrent # Torrent client
   ];

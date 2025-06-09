@@ -30,7 +30,7 @@ in {
       ../../modules/tui/nvim
       ../../modules/tui/kitty
       ../../modules/gui/apps
-      ../../modules/gui/browsers
+      ../../modules/gui/zen-browser
       ../../modules/gui/1password
       ../../modules/gui/claude-desktop
       ../../modules/gui/vesktop
@@ -43,7 +43,7 @@ in {
       ../../modules/tui/nvim
       ../../modules/tui/kitty
       ../../modules/gui/apps
-      ../../modules/gui/browsers
+      ../../modules/gui/zen-browser
       ../../modules/gui/1password
       ../../modules/gui/claude-desktop
       ../../modules/gui/vesktop
@@ -58,7 +58,7 @@ in {
       ../../modules/tui/nvim
       ../../modules/tui/kitty
       ../../modules/gui/apps
-      ../../modules/gui/browsers
+      ../../modules/gui/zen-browser
       ../../modules/gui/claude-desktop
       ../../modules/tui/ghostty
       # Work-specific modules:
