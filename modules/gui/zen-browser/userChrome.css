@@ -1,0 +1,7 @@
+/* User Chrome CSS for Zen Browser
+ * This file affects the browser's UI chrome
+ */
+
+#tabbrowser-tabpanels > hbox {
+  margin: 0px !important;
+}
