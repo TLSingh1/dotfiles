@@ -135,3 +135,22 @@ vim.api.nvim_create_user_command("CaelestiaShowColors", function()
 	end
 end, { desc = "Show current Caelestia colors" })
 
+-- Debug command to test color generation
+vim.api.nvim_create_user_command("CaelestiaTestColors", function()
+	local ok, dynamic_colors = pcall(require, "plugins.ui.dynamic-colors")
+	if not ok then
+		vim.notify("Dynamic colors module not found", vim.log.levels.ERROR)
+		return
+	end
+	
+	local caelestia_colors = dynamic_colors.read_caelestia_colors()
+	if caelestia_colors then
+		vim.notify("Found colors: blue=" .. (caelestia_colors.blue or "nil") .. ", yellow=" .. (caelestia_colors.yellow or "nil"), vim.log.levels.INFO)
+		
+		local palette = dynamic_colors.generate_holographic_palette(caelestia_colors)
+		vim.notify("Generated palette: base=" .. (palette.base or "nil") .. ", surface0=" .. (palette.surface0 or "nil"), vim.log.levels.INFO)
+	else
+		vim.notify("No Caelestia colors found at ~/.local/state/caelestia/scheme/current.txt", vim.log.levels.ERROR)
+	end
+end, { desc = "Test Caelestia color generation" })
+

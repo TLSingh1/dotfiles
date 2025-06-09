@@ -9,8 +9,12 @@ return {
 
 	after = function()
 		-- Try to load dynamic colors from Caelestia
-		local dynamic_colors = require("plugins.ui.dynamic-colors")
-		local dynamic_config = dynamic_colors.setup()
+		local ok, dynamic_colors = pcall(require, "plugins.ui.dynamic-colors")
+		local dynamic_config = {}
+		
+		if ok then
+			dynamic_config = dynamic_colors.setup()
+		end
 		
 		-- Base configuration
 		local config = {
