@@ -138,21 +138,21 @@ function M.build_statusline()
 		local info = get_buffer_info(bufnr)
 		local bg_color, fg_color, bold, italic
 		if info.is_current then
-			-- Active buffer - warm orange glow
-			bg_color = "#2a1510" -- Dark orange from catppuccin
-			fg_color = "#ffdc00" -- Bright yellow from AGS accent
+			-- Active buffer - bright teal glow (Material You 3)
+			bg_color = "#1e2829" -- surface0 (dark teal surface)
+			fg_color = "#5eead4" -- yellow (primary 80 - bright teal)
 			italic = false
 			bold = true
 		elseif info.is_visible then
-			-- Visible but not active - subtle orange
-			bg_color = "#1a0f0a" -- ActiveWindow bg from catppuccin
-			fg_color = "#ff9c64" -- Primary orange
+			-- Visible but not active - subtle teal
+			bg_color = "#161f20" -- window_bg
+			fg_color = "#7dd3c0" -- peach (primary 70)
 			italic = true
 			bold = false
 		else
 			-- Hidden buffers - minimal highlight
-			bg_color = "#000000" -- Base bg from catppuccin
-			fg_color = "#805030" -- Muted orange (LineNr from catppuccin)
+			bg_color = "#0e1415" -- base
+			fg_color = "#5f7c7d" -- line_number (muted teal)
 			italic = true
 			bold = false
 		end
@@ -170,12 +170,12 @@ function M.build_statusline()
 			string.format("StatusLineBuffer_%s", bufnr),
 			{ bg = bg_color, fg = fg_color, bold = bold, italic = italic }
 		)
-		-- Set buffer-specific diagnostic highlights with orange theme overrides
+		-- Set buffer-specific diagnostic highlights with Material You 3 colors
 		local diagnostic_colors = {
-			StatusLineDiagError = "#ff6464", -- Coral red
-			StatusLineDiagWarn = "#ff9c64", -- Primary orange
-			StatusLineDiagHint = "#ffb08c", -- Light orange
-			StatusLineDiagInfo = "#ffdc00", -- Bright yellow
+			StatusLineDiagError = "#f2718b", -- red (error 70)
+			StatusLineDiagWarn = "#e694b3",  -- flamingo (tertiary 70)
+			StatusLineDiagHint = "#a385cf",  -- mauve (secondary 70)
+			StatusLineDiagInfo = "#67e8f9",  -- sky (secondary 80)
 		}
 
 		for hl, base_hl in pairs(diagnostic_highlights) do
@@ -186,11 +186,11 @@ function M.build_statusline()
 		table.insert(components, create_buffer_component(info))
 	end
 
-	-- Git highlights with holographic orange theme
-	api.nvim_set_hl(0, "StatusLineGitAdded", { fg = "#ffdc00", bg = "#000000" }) -- Bright yellow
-	api.nvim_set_hl(0, "StatusLineGitRemoved", { fg = "#ff6464", bg = "#000000" }) -- Coral red
-	api.nvim_set_hl(0, "StatusLineGitChanged", { fg = "#ff9c64", bg = "#000000" }) -- Primary orange
-	api.nvim_set_hl(0, "StatusLineGitBranch", { fg = "#ffb08c", bg = "#000000", bold = true }) -- Light orange
+	-- Git highlights with Material You 3 cyan/teal theme
+	api.nvim_set_hl(0, "StatusLineGitAdded", { fg = "#5eead4", bg = "#0e1415" })   -- yellow (primary 80)
+	api.nvim_set_hl(0, "StatusLineGitRemoved", { fg = "#f2718b", bg = "#0e1415" }) -- red (error 70)
+	api.nvim_set_hl(0, "StatusLineGitChanged", { fg = "#7dd3c0", bg = "#0e1415" }) -- peach (primary 70)
+	api.nvim_set_hl(0, "StatusLineGitBranch", { fg = "#38bdf8", bg = "#0e1415", bold = true }) -- sapphire (secondary 70)
 
 	table.insert(components, "%=") -- Right align
 	table.insert(components, create_git_component())

@@ -27,65 +27,88 @@
       font_family = "monospace";
       font_size = 10;
       enable_audio_bell = true;
-      # Orange holographic theme
-      background = "#000000";
+
+      # Material You 3 cyan/teal theme
+      background = "#000000"; # base
       background_opacity = "0.15";
-      foreground = "#ffd4b0";
-      selection_background = "#3a2015";
-      selection_foreground = "#ffdc00";
-      url_color = "#ff9c64";
-      cursor = "#ff64dc"; # Accent magenta - stands out against orange
-      cursor_text_color = "#0a0505";
+      foreground = "#c4e7e8"; # text
+      selection_background = "#263738"; # selection
+      selection_foreground = "#5eead4"; # yellow (primary 80)
+      url_color = "#7dd3c0"; # peach (primary 70)
+      cursor = "#d8709a"; # pink - stands out against teal
+      cursor_text_color = "#0e1415";
       cursor_trail = 3;
-      # modify_font = "underline_position 200%";
       modify_font = "cell_height 130%";
-      # modify_font = ["cell_height 150%"];
-      # modify_font = "cell_height 200%";
-      # modify_font = "underline_position 200%";
-      # modify_font = "underline_position 200% underline_thickness 200%";
-      # modify_font = [
-      #   "underline_thickness 200%"
-      #   "underline_position 200%"
-      # ];
-      # modify_font = {
-      #   "underline_thickness" = "200%";
-      #   "underline_position" = "200%";
-      # };
 
       # Tabs
-      active_tab_background = "#ff9c64";
-      active_tab_foreground = "#0a0505";
-      inactive_tab_background = "#2a1510";
-      inactive_tab_foreground = "#805030";
-      tab_bar_background = "#0a0505";
+      active_tab_background = "#7dd3c0"; # peach (primary 70)
+      active_tab_foreground = "#0e1415"; # base
+      inactive_tab_background = "#1e2829"; # surface0
+      inactive_tab_foreground = "#5f7c7d"; # line_number
+      tab_bar_background = "#0e1415"; # base
 
       # Windows
-      active_border_color = "#ff9c64";
-      inactive_border_color = "#3a2015";
+      active_border_color = "#7dd3c0"; # peach (primary 70)
+      inactive_border_color = "#263738"; # selection
 
-      # normal colors - orange holographic theme
-      color0 = "#0a0505"; # black (background)
-      color1 = "#ff6464"; # red (coral)
-      color2 = "#ffa500"; # green (orange)
-      color3 = "#ffdc00"; # yellow
-      color4 = "#ff9c64"; # blue (primary orange)
-      color5 = "#ff64dc"; # magenta
-      color6 = "#ff8c64"; # cyan (amber)
-      color7 = "#ffd4b0"; # white (foreground)
+      # normal colors - Material You 3 theme
+      color0 = "#0e1415"; # black (base)
+      color1 = "#f2718b"; # red (error 70)
+      color2 = "#34d399"; # green (primary variant 70)
+      color3 = "#5eead4"; # yellow (primary 80)
+      color4 = "#38bdf8"; # blue (sapphire - secondary 70)
+      color5 = "#d8709a"; # magenta (pink - tertiary 60)
+      color6 = "#2dd4bf"; # cyan (teal - primary 60)
+      color7 = "#c4e7e8"; # white (text)
 
       # bright colors
-      color8 = "#3a2015"; # bright black
-      color9 = "#ff7050"; # bright red (orange-red)
-      color10 = "#ffb08c"; # bright green (light orange)
-      color11 = "#ffee00"; # bright yellow (electric)
-      color12 = "#ffa050"; # bright blue (light orange)
-      color13 = "#ff64c8"; # bright magenta
-      color14 = "#ffa58c"; # bright cyan (light amber)
-      color15 = "#ffe4d0"; # bright white
+      color8 = "#263738"; # bright black (selection)
+      color9 = "#e25370"; # bright red (maroon - error 60)
+      color10 = "#7dd3c0"; # bright green (peach - primary 70)
+      color11 = "#67e8f9"; # bright yellow (sky - secondary 80)
+      color12 = "#0891b2"; # bright blue (blue - secondary 50)
+      color13 = "#c084fc"; # bright magenta (lavender - secondary variant 70)
+      color14 = "#5eead4"; # bright cyan (yellow - primary 80)
+      color15 = "#e0f2f3"; # bright white
 
       # extended colors
-      color16 = "#ff8050"; # extended orange
-      color17 = "#ff4500"; # extended deep orange
+      color16 = "#a385cf"; # extended purple (mauve - secondary 70)
+      color17 = "#e694b3"; # extended pink (flamingo - tertiary 70)
+
+      # Orange holographic theme (commented for reference)
+      # background = "#000000";
+      # background_opacity = "0.15";
+      # foreground = "#ffd4b0";
+      # selection_background = "#3a2015";
+      # selection_foreground = "#ffdc00";
+      # url_color = "#ff9c64";
+      # cursor = "#ff64dc";
+      # cursor_text_color = "#0a0505";
+      # active_tab_background = "#ff9c64";
+      # active_tab_foreground = "#0a0505";
+      # inactive_tab_background = "#2a1510";
+      # inactive_tab_foreground = "#805030";
+      # tab_bar_background = "#0a0505";
+      # active_border_color = "#ff9c64";
+      # inactive_border_color = "#3a2015";
+      # color0 = "#0a0505";
+      # color1 = "#ff6464";
+      # color2 = "#ffa500";
+      # color3 = "#ffdc00";
+      # color4 = "#ff9c64";
+      # color5 = "#ff64dc";
+      # color6 = "#ff8c64";
+      # color7 = "#ffd4b0";
+      # color8 = "#3a2015";
+      # color9 = "#ff7050";
+      # color10 = "#ffb08c";
+      # color11 = "#ffee00";
+      # color12 = "#ffa050";
+      # color13 = "#ff64c8";
+      # color14 = "#ffa58c";
+      # color15 = "#ffe4d0";
+      # color16 = "#ff8050";
+      # color17 = "#ff4500";
 
       # Mouse
       open_url_with = "default";
@@ -102,3 +125,4 @@
     };
   };
 }
+

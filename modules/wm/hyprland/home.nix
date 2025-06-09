@@ -14,8 +14,6 @@
   # Import animations configuration
   animations = import ./animations.nix;
 in {
-  # Import color sync module
-  imports = [ ./color-sync.nix ];
   # Hyprland-related packages
   home.packages = with pkgs; [
     wofi # application launcher
@@ -64,9 +62,13 @@ in {
         # "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
         # "col.inactive_border" = "rgba(ff00ff44)";
 
-        # Orange holographic theme
-        "col.active_border" = "rgba(ff4500ff) rgba(ffee00ff) rgba(ff1493ff) rgba(ff6b00ff) rgba(ffd700ff) 45deg";
-        "col.inactive_border" = "rgba(ff450033)";
+        # Orange holographic theme (commented)
+        # "col.active_border" = "rgba(ff4500ff) rgba(ffee00ff) rgba(ff1493ff) rgba(ff6b00ff) rgba(ffd700ff) 45deg";
+        # "col.inactive_border" = "rgba(ff450033)";
+
+        # Material You 3 cyan/teal theme
+        "col.active_border" = "rgba(5eead4ff) rgba(7dd3c0ff) rgba(2dd4bfff) rgba(67e8f9ff) rgba(38bdf8ff) 45deg";
+        "col.inactive_border" = "rgba(5f7c7d44)";
         layout = "dwindle";
         resize_on_border = true;
         extend_border_grab_area = 15;
@@ -91,7 +93,7 @@ in {
           enabled = true;
           range = 20; # Increased for more dramatic effect
           render_power = 4; # Higher power for stronger shadow
-          color = "rgba(ff450099)"; # Orange shadow to match theme
+          color = "rgba(7dd3c099)"; # Teal shadow to match Material You 3 theme
           offset = "0 0"; # Center the shadow
           scale = 1.0;
         };
