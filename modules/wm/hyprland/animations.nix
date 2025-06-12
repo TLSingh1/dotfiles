@@ -18,8 +18,7 @@
     "windows, 1, 2, md3_standard, slide"
     "border, 1, 3, smoothIn"
     "fade, 1, 0.0000001, default"
-    "workspaces, 1, 4, md3_decel, slidevert"
+    "workspaces, 1, 4, md3_decel, slide"
     "specialWorkspace, 1, 5, overshot, slidefadevert 50%"
   ];
 }
-

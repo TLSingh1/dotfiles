@@ -1,6 +1,9 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/wm/hyprland
@@ -34,21 +37,25 @@
   services.xserver.enable = true;
 
   # Enable NVIDIA drivers with Intel iGPU support
-  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
+  services.xserver.videoDrivers = ["modesetting" "nvidia"];
 
   # Configure NVIDIA driver with PRIME offload
   hardware.nvidia = {
     open = false; # Use proprietary kernel modules
-    
+
     prime = {
       offload.enable = true;
       offload.enableOffloadCmd = true; # Creates nvidia-offload command
-      
+
       # PCI bus IDs - found using lspci
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  # Razer Open
+  hardware.openrazer.enable = true;
+  hardware.openrazer.users = ["tai"];
 
   # Enable the GNOME Desktop Environment
   services.displayManager.gdm.enable = true;
@@ -77,7 +84,7 @@
   users.users.tai = {
     isNormalUser = true;
     description = "tai";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.fish;
   };
 
@@ -91,7 +98,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable Flake Feature
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # System packages
   environment.systemPackages = with pkgs; [
@@ -102,4 +109,4 @@
   ];
 
   system.stateVersion = "25.05";
-} 
+}

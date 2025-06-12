@@ -39,9 +39,9 @@ in {
       # Monitor configuration
       monitor = [
         # Samsung Odyssey G5 (top)
-        "DP-1, 2560x1440@60, 0x0, 1.0"
+        "eDP-1, 1920x1200@144, 0x0, 1.0"
+        "DP-1, 2560x1440@60, 1920x0, 1.0"
         # Laptop display (bottom)
-        "eDP-1, 1920x1200@144, 0x1440, 1.0"
       ];
 
       # Variables
