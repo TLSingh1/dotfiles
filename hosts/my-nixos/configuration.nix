@@ -53,9 +53,6 @@
     };
   };
 
-  # Razer Open
-  hardware.openrazer.enable = true;
-  hardware.openrazer.users = ["tai"];
 
   # Enable the GNOME Desktop Environment
   services.displayManager.gdm.enable = true;

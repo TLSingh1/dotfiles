@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   home.packages = with pkgs; [
     # System info
     neofetch
@@ -21,10 +24,11 @@
     yq-go
     eza
     fzf
-    bat  # for fish aliases and functions
+    bat # for fish aliases and functions
     zoxide
     wev
     wlr-randr
+    nix-prefetch-github
 
     # Development tools
     rustc
@@ -75,4 +79,4 @@
     pciutils
     usbutils
   ];
-} 
+}
