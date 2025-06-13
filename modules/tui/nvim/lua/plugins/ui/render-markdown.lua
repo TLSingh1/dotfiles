@@ -10,12 +10,25 @@ return {
 
 	after = function()
 		require("render-markdown").setup({
+			latex = {
+				enabled = true,
+				render_modes = false,
+				converter = "latex2text",
+				highlight = "RenderMarkdownMath",
+				position = "above",
+				top_pad = 0,
+				bottom_pad = 0,
+			},
+			indent = {
+				enabled = true,
+			},
 			heading = {
 				border = true,
-				icons = { "", "", "", "", "", "" },
-				-- width = "block",
-				-- left_pad = 0,
-				-- right_pad = 4,
+				position = "inline",
+				width = "block",
+			},
+			paragraph = {
+				enabled = true,
 			},
 			code = {
 				enabled = true,
@@ -30,16 +43,9 @@ return {
 			},
 			bullet = {
 				enabled = true,
-				-- Replaces '-'|'+'|'*' of 'list_item'
-				-- How deeply nested the list is determines the 'level'
-				-- The 'level' is used to index into the array using a cycle
-				-- If the item is a 'checkbox' a conceal is used to hide the bullet instead
 				icons = { "•", "○", "◆", "◇" },
-				-- Padding to add to the left of bullet point
 				left_pad = 0,
-				-- Padding to add to the right of bullet point
 				right_pad = 0,
-				-- Highlight for the bullet icon
 				highlight = "RenderMarkdownBullet",
 			},
 		})

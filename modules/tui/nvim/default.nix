@@ -61,6 +61,7 @@
           nvim-ufo
           nvim-notify
           noice-nvim
+          dashboard-nvim
         ];
         project = with pkgs.vimPlugins; [
           # Project management and navigation tools
@@ -134,4 +135,3 @@
     };
   };
 }
-

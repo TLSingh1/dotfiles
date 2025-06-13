@@ -5,6 +5,8 @@
   ...
 }: {
   home.packages = with pkgs; [
+    prismlauncher
+
     # Communication
     slack # Slack desktop client
     signal-desktop
