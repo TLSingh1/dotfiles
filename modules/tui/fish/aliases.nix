@@ -55,6 +55,11 @@
   nv = "nvim";
   vim = "nvim";
 
+  nn = "npm";
+  bb = "bun";
+  yy = "yarn";
+  pp = "pnpm";
+
   # Networking
   ping = "ping -c 5";
 

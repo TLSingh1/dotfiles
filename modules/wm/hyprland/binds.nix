@@ -17,6 +17,9 @@
     # Browser
     "SUPER, L" = "exec, zen"; # Launch Zen browser
 
+    # Dictation
+    "SUPER, V" = "exec, whisper-dictate"; # Voice dictation with whisper
+
     # Caelestia shell bindings
     "SUPER, D" = "exec, caelestia shell toggle dashboard";
     "SUPER, SPACE" = "exec, caelestia shell toggle launcher";

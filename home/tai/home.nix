@@ -20,6 +20,7 @@ in {
       ../../modules/tui/scripts
       ../../modules/tui/starship
       ../../modules/tui/fish
+      ../../modules/tui/whisper
     ]
     ++ lib.optionals (hostname == "my-nixos") [
       # Personal laptop modules

@@ -40,7 +40,7 @@ in {
       monitor = [
         # Samsung Odyssey G5 (top)
         "eDP-1, 1920x1200@144, 0x0, 1.0"
-        "DP-1, 2560x1440@60, 1920x0, 1.0"
+        "DP-1, 2560x1440@164, 1920x0, 1.0"
         # Laptop display (bottom)
       ];
 
