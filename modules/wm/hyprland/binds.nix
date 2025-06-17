@@ -18,7 +18,7 @@
     "SUPER, L" = "exec, zen"; # Launch Zen browser
 
     # Dictation
-    "SUPER, V" = "exec, whisper-dictate"; # Voice dictation with whisper
+    "SUPER, V" = "exec, ~/.local/bin/whisper-dictate"; # Voice dictation with whisper
 
     # Caelestia shell bindings
     "SUPER, D" = "exec, caelestia shell toggle dashboard";
