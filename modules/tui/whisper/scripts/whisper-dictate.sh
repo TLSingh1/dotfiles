@@ -5,7 +5,7 @@
 
 TEMP_DIR="/tmp/whisper-dictate"
 AUDIO_FILE="$TEMP_DIR/recording.wav"
-TEXT_FILE="$TEMP_DIR/transcription.txt"
+TEXT_FILE="$TEMP_DIR/recording.txt"
 PIDFILE="$TEMP_DIR/recording.pid"
 
 # Create temp directory
@@ -48,7 +48,7 @@ if [ -f "$PIDFILE" ] && kill -0 $(cat "$PIDFILE") 2>/dev/null; then
     fi
 else
     # Start recording
-    notify-send "Whisper" "Recording... Press SUPER+V to stop" -t 2000
+    notify-send "Whisper" "Recording... Press F5 to stop" -t 2000
     sox -d "$AUDIO_FILE" &
     echo $! > "$PIDFILE"
 fi

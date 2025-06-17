@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     openai-whisper
     sox
@@ -17,3 +12,4 @@
     source = ./scripts/whisper-dictate.sh;
   };
 }
+
