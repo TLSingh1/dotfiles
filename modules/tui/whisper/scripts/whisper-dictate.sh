@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # Whisper dictation script
-# Records audio and transcribes it using whisper.cpp
+# Records audio and transcribes it using OpenAI whisper
 
 TEMP_DIR="/tmp/whisper-dictate"
 AUDIO_FILE="$TEMP_DIR/recording.wav"
-MODEL_PATH="$HOME/.local/share/whisper/models/ggml-base.en.bin"
+TEXT_FILE="$TEMP_DIR/transcription.txt"
 PIDFILE="$TEMP_DIR/recording.pid"
 
 # Create temp directory
@@ -25,19 +25,26 @@ if [ -f "$PIDFILE" ] && kill -0 $(cat "$PIDFILE") 2>/dev/null; then
         # Send notification
         notify-send "Whisper" "Transcribing..." -t 2000
         
-        # Run whisper.cpp
-        TEXT=$(whisper-cpp -m "$MODEL_PATH" -f "$AUDIO_FILE" -nt -np 2>/dev/null | tail -n 1)
+        # Run whisper
+        whisper "$AUDIO_FILE" --model base.en --language en --output_format txt --output_dir "$TEMP_DIR" 2>/dev/null
         
-        # Type the text using wtype
-        if [ -n "$TEXT" ]; then
-            wtype "$TEXT"
-            notify-send "Whisper" "Transcription complete" -t 2000
+        # Read the transcription
+        if [ -f "$TEXT_FILE" ]; then
+            TEXT=$(cat "$TEXT_FILE" | tr -d '\n')
+            
+            # Type the text using wtype
+            if [ -n "$TEXT" ]; then
+                wtype "$TEXT"
+                notify-send "Whisper" "Transcription complete" -t 2000
+            else
+                notify-send "Whisper" "No text detected" -t 2000
+            fi
         else
-            notify-send "Whisper" "No text detected" -t 2000
+            notify-send "Whisper" "Transcription failed" -t 2000
         fi
         
         # Clean up
-        rm -f "$AUDIO_FILE"
+        rm -f "$AUDIO_FILE" "$TEXT_FILE"
     fi
 else
     # Start recording
