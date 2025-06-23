@@ -1,9 +1,10 @@
 return {
 	"conform.nvim",
 
-	enabled = function()
-		return nixCats.cats.coding
-	end,
+	enabled = false,
+	-- enabled = function()
+	-- 	return nixCats.cats.coding
+	-- end,
 
 	event = { "BufWritePre" },
 	cmd = { "ConformInfo" },
