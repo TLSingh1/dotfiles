@@ -52,13 +52,13 @@ Item {
         
         stdout: SplitParser {
             onRead: data => {
-                stdoutBuffer += data
+                themeExtractor.stdoutBuffer += data
             }
         }
         
         stderr: SplitParser {
             onRead: data => {
-                stderrBuffer += data
+                themeExtractor.stderrBuffer += data
             }
         }
         
@@ -67,9 +67,9 @@ Item {
                 console.log("Theme extraction process completed")
                 
                 // Try to parse stdout first
-                if (stdoutBuffer.trim()) {
+                if (themeExtractor.stdoutBuffer.trim()) {
                     try {
-                        const colors = JSON.parse(stdoutBuffer)
+                        const colors = JSON.parse(themeExtractor.stdoutBuffer)
                         console.log("Parsed theme from stdout:", JSON.stringify(colors))
                         applyTheme(colors)
                     } catch (e) {
@@ -77,9 +77,9 @@ Item {
                     }
                 }
                 // If stdout failed, try stderr (fallback theme)
-                else if (stderrBuffer.trim()) {
+                else if (themeExtractor.stderrBuffer.trim()) {
                     try {
-                        const colors = JSON.parse(stderrBuffer)
+                        const colors = JSON.parse(themeExtractor.stderrBuffer)
                         console.log("Using fallback theme from stderr")
                         applyTheme(colors)
                     } catch (e) {
@@ -88,8 +88,8 @@ Item {
                 }
                 
                 // Clear buffers
-                stdoutBuffer = ""
-                stderrBuffer = ""
+                themeExtractor.stdoutBuffer = ""
+                themeExtractor.stderrBuffer = ""
             }
         }
     }

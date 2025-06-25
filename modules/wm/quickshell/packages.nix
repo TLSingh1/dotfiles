@@ -144,6 +144,8 @@ let
                 raise Exception("No colors found in image")
                 
         except Exception as e:
+            # Print error to stderr for debugging
+            print(f"Error extracting colors: {e}", file=sys.stderr)
             # Fallback theme - output to stdout
             print(json.dumps({
                 "primary": "#5eead4",
