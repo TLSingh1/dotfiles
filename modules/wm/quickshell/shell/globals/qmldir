@@ -1,0 +1,4 @@
+module Cyberpunk.Globals
+
+singleton Theme 1.0 Theme.qml
+singleton Hyprland 1.0 Hyprland.qml

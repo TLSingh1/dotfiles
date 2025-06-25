@@ -26,6 +26,7 @@ in {
       # Personal laptop modules
       ../../modules/wm/hyprland/home.nix
       ../../modules/wm/ags
+      ../../modules/wm/quickshell
       ../../modules/wm/dunst
       ../../modules/tui/nvim
       ../../modules/tui/kitty
@@ -102,6 +103,9 @@ in {
       DOCKER_HOST = "tcp://localhost:2375";
       KUBECONFIG = "$HOME/.kube/config";
     };
+
+  # Enable Quickshell cyberpunk desktop shell
+  programs.quickshell.enable = true;
 
   home.stateVersion = "25.05";
 }
