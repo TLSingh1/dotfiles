@@ -18,10 +18,10 @@ QtObject {
     property color onSurface: "#ffffff"
     
     // Cyberpunk enhanced colors
-    property color neonPrimary: Qt.lighter(primary, 1.8)
-    property color neonSecondary: Qt.lighter(secondary, 1.8)
-    property color neonTertiary: Qt.lighter(tertiary, 1.8)
-    property color glowColor: Qt.rgba(primary.r, primary.g, primary.b, 0.4)
+    property color neonPrimary: "#00ffcc"
+    property color neonSecondary: "#00aaff"
+    property color neonTertiary: "#ff00ff"
+    property color glowColor: "#5eead466"
     
     // Visual properties
     property real glassOpacity: 0.15
@@ -59,16 +59,14 @@ QtObject {
     
     // Get color with opacity
     function withOpacity(color, opacity) {
-        return Qt.rgba(color.r, color.g, color.b, opacity)
+        return Qt.rgba(color.r, color.g, color.b, opacity);
     }
     
-    // Generate holographic gradient
-    function holographicGradient() {
-        return Gradient {
-            GradientStop { position: 0.0; color: withOpacity(primary, 0.1) }
-            GradientStop { position: 0.33; color: withOpacity(secondary, 0.1) }
-            GradientStop { position: 0.66; color: withOpacity(tertiary, 0.1) }
-            GradientStop { position: 1.0; color: withOpacity(primary, 0.1) }
-        }
-    }
+    // Holographic gradient colors
+    property var holographicColors: [
+        "#5eead41a",
+        "#38bdf81a",
+        "#d8709a1a",
+        "#5eead41a"
+    ]
 }

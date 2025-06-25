@@ -1,15 +1,11 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell
-import "globals" as Globals
+import "globals"
 
 // Main entry point for Cyberpunk Shell
 ShellRoot {
     id: root
-    
-    // Import global singletons
-    property var theme: Globals.Theme
-    property var hyprland: Globals.Hyprland
     
     // Shell configuration
     property bool firstLaunch: true

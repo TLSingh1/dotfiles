@@ -42,16 +42,17 @@ QtObject {
     // Switch workspace
     function switchWorkspace(id) {
         console.log("Switching to workspace", id)
-        Process.execute(`hyprctl dispatch workspace ${id}`)
+        // TODO: Implement process execution
     }
     
     // Execute Hyprland command
     function dispatch(command) {
-        Process.execute(`hyprctl dispatch ${command}`)
+        // TODO: Implement process execution
     }
     
     // Query Hyprland
     function query(command) {
-        return Process.execute(`hyprctl ${command} -j`)
+        // TODO: Implement process execution
+        return ""
     }
 }
