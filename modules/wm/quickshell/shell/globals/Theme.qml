@@ -13,10 +13,11 @@ QtObject {
     // Cyberpunk enhanced colors
     property color neonPrimary: "#00ffcc"
     property color neonSecondary: "#00aaff"
+    property color neonTertiary: "#ff00ff"
     property color glowColor: "#5eead466"
     
     // Visual properties
-    property real glassOpacity: 0.15
+    property real glassOpacity: 0.85  // Higher opacity for better visibility with blur
     property int cornerRadius: 16
     property int animationDuration: 300
 }

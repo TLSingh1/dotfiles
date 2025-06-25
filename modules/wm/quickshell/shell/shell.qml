@@ -1,10 +1,17 @@
 import QtQuick
 import Quickshell
 import "globals"
+import "services"
 
 // Main entry point for Cyberpunk Shell
 ShellRoot {
-    // Test bar for Phase 0
+    // Services
+    WallpaperMonitor {
+        id: wallpaperMonitor
+        Component.onCompleted: start()
+    }
+    
+    // Test bar for Phase 1 - Dynamic Theming
     PanelWindow {
         id: testBar
         
@@ -19,35 +26,91 @@ ShellRoot {
         
         color: "transparent"
         
-        exclusionMode: ExclusionMode.Normal
+        exclusionMode: ExclusionMode.Auto
+        exclusiveZone: 32  // Same as height to reserve space
         
         // Glass morphism background
         Rectangle {
             anchors.fill: parent
             color: Theme.background
-            opacity: Theme.glassOpacity
+            opacity: 0.8  // More opaque for better visibility
             
-            // Neon border test
+            // Animated color transitions
+            Behavior on color {
+                ColorAnimation { duration: Theme.animationDuration }
+            }
+            
+            // Neon border with animated color
             Rectangle {
                 anchors.fill: parent
                 color: "transparent"
                 border.color: Theme.neonPrimary
                 border.width: 1
+                
+                Behavior on border.color {
+                    ColorAnimation { duration: Theme.animationDuration }
+                }
             }
             
-            // Simple test content
-            Text {
+            // Dynamic theme indicator
+            Row {
                 anchors.centerIn: parent
-                text: "🚀 Cyberpunk Shell - Phase 0 Complete!"
-                color: Theme.neonPrimary
-                font.family: "JetBrains Mono"
-                font.pixelSize: 14
+                spacing: 20
                 
-                // Glow animation
-                SequentialAnimation on opacity {
-                    loops: Animation.Infinite
-                    NumberAnimation { from: 0.7; to: 1.0; duration: 1000 }
-                    NumberAnimation { from: 1.0; to: 0.7; duration: 1000 }
+                // Status text
+                Text {
+                    text: "🎨 Dynamic Theme Active"
+                    color: Theme.neonPrimary
+                    font.family: "JetBrains Mono"
+                    font.pixelSize: 14
+                    
+                    Behavior on color {
+                        ColorAnimation { duration: Theme.animationDuration }
+                    }
+                }
+                
+                // Color preview circles
+                Row {
+                    spacing: 10
+                    
+                    Rectangle {
+                        width: 20
+                        height: 20
+                        radius: 10
+                        color: Theme.primary
+                        border.color: Theme.neonPrimary
+                        border.width: 1
+                        
+                        Behavior on color {
+                            ColorAnimation { duration: Theme.animationDuration }
+                        }
+                    }
+                    
+                    Rectangle {
+                        width: 20
+                        height: 20
+                        radius: 10
+                        color: Theme.secondary
+                        border.color: Theme.neonSecondary
+                        border.width: 1
+                        
+                        Behavior on color {
+                            ColorAnimation { duration: Theme.animationDuration }
+                        }
+                    }
+                    
+                    Rectangle {
+                        width: 20
+                        height: 20
+                        radius: 10
+                        color: Theme.tertiary
+                        border.color: Theme.neonTertiary
+                        border.width: 1
+                        
+                        Behavior on color {
+                            ColorAnimation { duration: Theme.animationDuration }
+                        }
+                    }
                 }
             }
         }
