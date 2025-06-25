@@ -107,7 +107,7 @@ in
         
         # Environment
         Environment = [
-          "PATH=${lib.makeBinPath (with pkgs; [ 
+          "PATH=${cfg.finalPackage}/bin:${lib.makeBinPath (with pkgs; [ 
             coreutils 
             procps 
             gawk 
@@ -123,6 +123,7 @@ in
             slurp
             imagemagick
             python3
+            swww
           ])}"
         ];
       };

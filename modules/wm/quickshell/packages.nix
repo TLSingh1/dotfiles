@@ -54,8 +54,13 @@ let
   '';
   
   # Theme extraction script with cyberpunk enhancements
-  extractTheme = pkgs.writeScriptBin "quickshell-extract-theme" ''
-    #!${pkgs.python3}/bin/python3
+  extractTheme = let
+    pythonWithPackages = pkgs.python3.withPackages (ps: with ps; [
+      pillow
+      materialyoucolor
+    ]);
+  in pkgs.writeScriptBin "quickshell-extract-theme" ''
+    #!${pythonWithPackages}/bin/python3
     import sys
     import json
     import colorsys
@@ -139,7 +144,7 @@ let
                 raise Exception("No colors found in image")
                 
         except Exception as e:
-            # Fallback theme
+            # Fallback theme - output to stdout
             print(json.dumps({
                 "primary": "#5eead4",
                 "secondary": "#38bdf8",
@@ -150,7 +155,7 @@ let
                 "neonSecondary": "#00aaff",
                 "neonTertiary": "#ff00ff",
                 "glowColor": "#5eead466"
-            }, indent=2), file=sys.stderr)
+            }, indent=2))
     
     if __name__ == "__main__":
         if len(sys.argv) < 2:

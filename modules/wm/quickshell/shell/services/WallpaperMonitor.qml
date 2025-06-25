@@ -28,12 +28,16 @@ Item {
         
         stdout: SplitParser {
             onRead: data => {
-                const output = data.trim()
-                const match = output.match(/image: (.+)/)
-                if (match && match[1] !== currentWallpaper) {
-                    currentWallpaper = match[1]
-                    console.log("🖼️ Wallpaper changed:", currentWallpaper)
-                    updateTheme()
+                console.log("SWWW output:", data)
+                // Extract image path using simple match
+                const match = data.match(/image: (.+)/)
+                if (match) {
+                    const wallpaper = match[1].trim()
+                    if (wallpaper && wallpaper !== currentWallpaper) {
+                        currentWallpaper = wallpaper
+                        console.log("🖼️ Wallpaper changed:", currentWallpaper)
+                        updateTheme()
+                    }
                 }
             }
         }
@@ -43,15 +47,49 @@ Item {
     Process {
         id: themeExtractor
         running: false
+        property string stdoutBuffer: ""
+        property string stderrBuffer: ""
         
         stdout: SplitParser {
             onRead: data => {
-                try {
-                    const colors = JSON.parse(data)
-                    applyTheme(colors)
-                } catch (e) {
-                    console.error("Failed to parse theme:", e)
+                stdoutBuffer += data
+            }
+        }
+        
+        stderr: SplitParser {
+            onRead: data => {
+                stderrBuffer += data
+            }
+        }
+        
+        onRunningChanged: {
+            if (!running) {
+                console.log("Theme extraction process completed")
+                
+                // Try to parse stdout first
+                if (stdoutBuffer.trim()) {
+                    try {
+                        const colors = JSON.parse(stdoutBuffer)
+                        console.log("Parsed theme from stdout:", JSON.stringify(colors))
+                        applyTheme(colors)
+                    } catch (e) {
+                        console.error("Failed to parse stdout:", e)
+                    }
                 }
+                // If stdout failed, try stderr (fallback theme)
+                else if (stderrBuffer.trim()) {
+                    try {
+                        const colors = JSON.parse(stderrBuffer)
+                        console.log("Using fallback theme from stderr")
+                        applyTheme(colors)
+                    } catch (e) {
+                        console.error("Failed to parse stderr:", e)
+                    }
+                }
+                
+                // Clear buffers
+                stdoutBuffer = ""
+                stderrBuffer = ""
             }
         }
     }
