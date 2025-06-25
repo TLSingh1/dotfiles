@@ -81,7 +81,7 @@
   users.users.tai = {
     isNormalUser = true;
     description = "tai";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     shell = pkgs.fish;
   };
 
@@ -96,6 +96,9 @@
 
   # Enable Flake Feature
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  # Enable Docker
+  virtualisation.docker.enable = true;
 
   # System packages
   environment.systemPackages = with pkgs; [
