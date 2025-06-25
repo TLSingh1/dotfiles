@@ -1,38 +1,9 @@
 import QtQuick
-import QtQuick.Controls
 import Quickshell
 import "globals"
 
 // Main entry point for Cyberpunk Shell
 ShellRoot {
-    id: root
-    
-    // Shell configuration
-    property bool firstLaunch: true
-    
-    Component.onCompleted: {
-        console.log("🚀 Cyberpunk Shell initializing...")
-        
-        // Initialize theme system
-        Theme.initialize()
-        
-        // Set up Hyprland connection
-        Hyprland.connect()
-        
-        // Start services
-        startServices()
-        
-        console.log("✅ Cyberpunk Shell ready")
-    }
-    
-    function startServices() {
-        // TODO: Initialize various services
-        // - Wallpaper monitor
-        // - System monitor
-        // - Notification daemon
-        // - etc.
-    }
-    
     // Test bar for Phase 0
     PanelWindow {
         id: testBar
@@ -44,6 +15,7 @@ ShellRoot {
         }
         
         height: 32
+        margins.top: 0
         
         color: "transparent"
         
@@ -52,31 +24,30 @@ ShellRoot {
         // Glass morphism background
         Rectangle {
             anchors.fill: parent
-            color: Qt.rgba(0, 0, 0, 0.3)
-            
-            // Blur will be handled by Hyprland window rules
+            color: Theme.background
+            opacity: Theme.glassOpacity
             
             // Neon border test
             Rectangle {
                 anchors.fill: parent
                 color: "transparent"
-                border.color: "#00ff88"
+                border.color: Theme.neonPrimary
                 border.width: 1
-                radius: 0
             }
             
             // Simple test content
             Text {
                 anchors.centerIn: parent
-                text: "🚀 Cyberpunk Shell - Phase 0"
-                color: "#00ff88"
+                text: "🚀 Cyberpunk Shell - Phase 0 Complete!"
+                color: Theme.neonPrimary
                 font.family: "JetBrains Mono"
                 font.pixelSize: 14
                 
+                // Glow animation
                 SequentialAnimation on opacity {
                     loops: Animation.Infinite
-                    NumberAnimation { from: 0.5; to: 1.0; duration: 1000 }
-                    NumberAnimation { from: 1.0; to: 0.5; duration: 1000 }
+                    NumberAnimation { from: 0.7; to: 1.0; duration: 1000 }
+                    NumberAnimation { from: 1.0; to: 0.7; duration: 1000 }
                 }
             }
         }
