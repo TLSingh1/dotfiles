@@ -33,6 +33,7 @@ in {
       ../../modules/gui/zen-browser
       ../../modules/gui/1password
       ../../modules/gui/claude-desktop
+      ../../modules/gui/claudia
       ../../modules/gui/vesktop
       ../../modules/tui/ghostty
     ]
@@ -46,6 +47,7 @@ in {
       ../../modules/gui/zen-browser
       ../../modules/gui/1password
       ../../modules/gui/claude-desktop
+      ../../modules/gui/claudia
       ../../modules/gui/vesktop
       ../../modules/tui/ghostty
       # Could add desktop-specific modules here:
