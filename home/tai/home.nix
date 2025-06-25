@@ -26,7 +26,6 @@ in {
       # Personal laptop modules
       ../../modules/wm/hyprland/home.nix
       ../../modules/wm/ags
-      ../../modules/wm/quickshell
       ../../modules/wm/dunst
       ../../modules/tui/nvim
       ../../modules/tui/kitty

@@ -127,7 +127,7 @@
   hostSpecificBinds = {
     "my-nixos" = {
       # Laptop-specific bindings
-      "SUPER, 47" = "exec, caelestia-quickshell shell toggle launcher"; # 47 = semicolon
+      "SUPER, 47" = "exec, rofi -show drun"; # 47 = semicolon
     };
 
     "nixos-desktop" = {
