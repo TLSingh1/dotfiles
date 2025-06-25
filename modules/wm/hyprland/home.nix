@@ -201,11 +201,6 @@ in {
         # "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts" # Start AGS bar
         "swww-daemon" # Wallpaper daemon for dynamic theming
       ];
-      
-      # Source dynamic theme file if it exists
-      source = [
-        "~/.config/hypr/theme.conf"
-      ];
     };
   };
 }
