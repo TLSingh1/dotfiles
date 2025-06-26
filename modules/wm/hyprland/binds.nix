@@ -18,8 +18,8 @@
     "SUPER, L" = "exec, zen"; # Launch Zen browser
 
     # Dictation
-    ", F5" = "exec, ~/.local/bin/whisper-dictate"; # Voice dictation with whisper (F5 key)
-    ", mouse:274" = "exec, ~/.local/bin/whisper-dictate"; # Voice dictation with middle mouse button
+    # ", F5" = "exec, ~/.local/bin/whisper-dictate"; # Voice dictation with whisper (F5 key)
+    # ", mouse:274" = "exec, ~/.local/bin/whisper-dictate"; # Voice dictation with middle mouse button
 
     # Caelestia shell bindings
     "SUPER, D" = "exec, caelestia shell toggle dashboard";

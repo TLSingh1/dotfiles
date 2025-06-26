@@ -52,6 +52,7 @@
           nvim-web-devicons
           catppuccin-nvim
           render-markdown-nvim
+          markdown-preview-nvim
           indent-blankline-nvim
           nvim-colorizer-lua
           snacks-nvim
