@@ -33,6 +33,11 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # Enable fingerprint support
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+
   # Enable the X11 windowing system
   services.xserver.enable = true;
 
@@ -76,6 +81,11 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  # Enable fingerprint authentication for sudo, login, etc.
+  security.pam.services.login.fprintAuth = true;
+  security.pam.services.gdm-password.fprintAuth = true;
+  security.pam.services.sudo.fprintAuth = true;
 
   # Define a user account
   users.users.tai = {
