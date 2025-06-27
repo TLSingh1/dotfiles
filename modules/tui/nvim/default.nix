@@ -31,6 +31,7 @@
       optionalPlugins = {
         ai = with pkgs.vimPlugins; [
           supermaven-nvim
+          avante-nvim
         ];
         coding = with pkgs.vimPlugins; [
           nvim-lspconfig
