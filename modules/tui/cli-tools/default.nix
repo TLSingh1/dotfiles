@@ -60,7 +60,7 @@
     gawk
     zstd
     gnupg
-    _1password-cli
+    # _1password-cli
 
     # Productivity
     glow

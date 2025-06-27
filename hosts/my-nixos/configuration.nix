@@ -61,6 +61,12 @@
 
   # Enable the GNOME Desktop Environment
   services.displayManager.gdm.enable = true;
+  services.displayManager.gdm.settings = {
+    daemon = {
+      # Enable fingerprint authentication in GDM
+      FingerprintAuthentication = true;
+    };
+  };
   services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
@@ -82,8 +88,7 @@
     pulse.enable = true;
   };
 
-  # Enable fingerprint authentication for sudo, login, etc.
-  security.pam.services.login.fprintAuth = true;
+  # Enable fingerprint authentication for sudo and other services
   security.pam.services.gdm-password.fprintAuth = true;
   security.pam.services.sudo.fprintAuth = true;
 
@@ -109,6 +114,13 @@
 
   # Enable Docker
   virtualisation.docker.enable = true;
+
+  # Enable 1Password GUI and CLI
+  programs._1password-gui.enable = true;
+  programs._1password.enable = true;
+  
+  # Allow 1Password to be unlocked with system authentication
+  programs._1password-gui.polkitPolicyOwners = [ "tai" ];
 
   # System packages
   environment.systemPackages = with pkgs; [
