@@ -7,6 +7,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/wm/hyprland
+    ../../modules/wm/gdm
     # Add other system-level modules here as needed
   ];
 
