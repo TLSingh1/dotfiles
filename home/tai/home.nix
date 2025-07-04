@@ -36,6 +36,7 @@ in {
       ../../modules/gui/claude-desktop
       ../../modules/gui/vesktop
       ../../modules/tui/ghostty
+      ../../modules/tui/tmux
     ]
     ++ lib.optionals (hostname == "nixos-desktop") [
       # Desktop specific modules
@@ -49,6 +50,7 @@ in {
       ../../modules/gui/claude-desktop
       ../../modules/gui/vesktop
       ../../modules/tui/ghostty
+      ../../modules/tui/tmux
       # Could add desktop-specific modules here:
       # ../../modules/gui/steam
       # ../../modules/gui/obs
@@ -104,4 +106,3 @@ in {
 
   home.stateVersion = "25.05";
 }
-

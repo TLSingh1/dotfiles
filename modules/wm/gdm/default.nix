@@ -6,22 +6,8 @@
     # Enable Wayland support
     wayland = true;
     
-    # GDM settings
-    settings = {
-      greeter = {
-        # Show user list
-        IncludeAll = true;
-        Include = ["tai"];
-      };
-      
-      daemon = {
-        # Already set in main config
-        FingerprintAuthentication = true;
-        
-        # Auto login delay (0 = disabled)
-        TimedLoginDelay = 0;
-      };
-    };
+    # GDM settings are already configured in main configuration
+    # Additional settings can be added here if needed
   };
   
   # Custom GDM theme using gnome-shell extensions
