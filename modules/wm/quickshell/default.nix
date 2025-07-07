@@ -6,19 +6,25 @@
   ...
 }: let
   quickshellPackage = inputs.quickshell.packages.${pkgs.system}.default;
-in {
-  # Set up Qt plugin paths for quickshell
-  home.sessionVariables = {
-    QT_PLUGIN_PATH = "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtPluginPrefix}:${pkgs.kdePackages.qtbase}/${pkgs.qt6.qtbase.qtPluginPrefix}";
-    QML2_IMPORT_PATH = "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}";
-  };
   
+  # Wrapper for quickshell with proper Qt environment
+  quickshellWrapped = pkgs.runCommand "quickshell-wrapped" {
+    buildInputs = [ pkgs.makeWrapper ];
+  } ''
+    mkdir -p $out/bin
+    makeWrapper ${quickshellPackage}/bin/qs $out/bin/qs \
+      --prefix QT_PLUGIN_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtPluginPrefix}" \
+      --prefix QML2_IMPORT_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}" \
+      --prefix QML_IMPORT_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}"
+  '';
+in {
   # Quickshell package and basic configuration
   home.packages = with pkgs; [
-    quickshellPackage # Quickshell from flake input
+    quickshellWrapped # Wrapped quickshell with Qt environment
     
-    # Qt dependencies
+    # Qt dependencies  
     kdePackages.qt5compat # Qt5Compat module for Qt6
+    kdePackages.qtshadertools # Required for Qt6.4+ graphical effects
     
     # Dependencies that quickshell widgets might need
     translate-shell # For translator widget
