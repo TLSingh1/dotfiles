@@ -31,6 +31,7 @@ in {
     ydotool # For keyboard/mouse simulation
     jq # JSON processing
     socat # Socket communication
+    ddcutil # Display brightness control
     
     # Python for various scripts
     (python3.withPackages (ps: with ps; [

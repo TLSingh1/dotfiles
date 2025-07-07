@@ -203,7 +203,7 @@ Scope {
                                     anchors.centerIn: parent
                                     width: 19.5
                                     height: 19.5
-                                    source: Config.options.bar.topLeftIcon == 'distro' ? SystemInfo.distroIcon : "spark-symbolic"
+                                    source: Config.options.bar.topLeftIcon == 'distro' ? SystemInfo.distroIcon : "spark-symbolic.svg"
                                 }
 
                                 ColorOverlay {

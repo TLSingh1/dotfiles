@@ -72,6 +72,10 @@ in {
     bibata-cursors # Cursor theme
     noto-fonts-emoji # Emoji font
     
+    # Icon themes
+    hicolor-icon-theme
+    kdePackages.breeze-icons
+    
     # Utilities
     libnotify # For notify-send
   ];
