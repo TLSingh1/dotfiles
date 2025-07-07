@@ -318,8 +318,8 @@ in {
         # Start AGS if enabled
         # "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts"
         
-        # Quickshell will be started here later
-        # "qs &"
+        # Start Quickshell
+        "qs &"
       ];
     };
   };
