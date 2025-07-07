@@ -46,12 +46,12 @@ nix flake update
 
 ## Key Commands
 
-| Task | Command |
-|------|---------|
-| Rebuild | `sudo nixos-rebuild switch --flake .` |
-| Update | `nix flake update` |
-| Rollback | `sudo nixos-rebuild switch --rollback` |
-| Garbage collect | `sudo nix-collect-garbage -d` |
+| Task            | Command                                |
+| --------------- | -------------------------------------- |
+| Rebuild         | `sudo nixos-rebuild switch --flake .`  |
+| Update          | `nix flake update`                     |
+| Rollback        | `sudo nixos-rebuild switch --rollback` |
+| Garbage collect | `sudo nix-collect-garbage -d`          |
 
 ## Adding to This Configuration
 
@@ -127,4 +127,5 @@ See the [Multiple Hosts Guide](docs/multiple-hosts-guide.md) for detailed instru
 - Modular design for easy maintenance and reusability
 - Support for multiple hosts
 - Separation of system and user configurations
-- Organized by application type (GUI/TUI/WM) 
+- Organized by application type (GUI/TUI/WM)
+
