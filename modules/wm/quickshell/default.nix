@@ -9,6 +9,9 @@
   home.packages = with pkgs; [
     inputs.quickshell.packages.${pkgs.system}.default # Quickshell from flake input
     
+    # Qt dependencies
+    qt5.qtgraphicaleffects # For Qt5Compat.GraphicalEffects
+    
     # Dependencies that quickshell widgets might need
     translate-shell # For translator widget
     ydotool # For keyboard/mouse simulation

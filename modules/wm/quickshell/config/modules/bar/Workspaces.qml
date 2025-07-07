@@ -11,7 +11,7 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Widgets
-import Qt5Compat.GraphicalEffects
+// import Qt5Compat.GraphicalEffects // TODO: Fix Qt5Compat support
 
 Item {
     required property var bar
