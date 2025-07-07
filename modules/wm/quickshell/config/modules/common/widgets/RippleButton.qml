@@ -1,7 +1,7 @@
 import "root:/modules/common"
 import "root:/modules/common/widgets"
 import "root:/modules/common/functions/color_utils.js" as ColorUtils
-import Qt5Compat.GraphicalEffects
+// import Qt5Compat.GraphicalEffects // TODO: Fix Qt5Compat support
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -141,14 +141,14 @@ Button {
             animation: Appearance?.animation.elementMoveFast.colorAnimation.createObject(this)
         }
 
-        layer.enabled: true
-        layer.effect: OpacityMask {
-            maskSource: Rectangle {
-                width: buttonBackground.width
-                height: buttonBackground.height
-                radius: root.buttonEffectiveRadius
-            }
-        }
+        // layer.enabled: true
+        // layer.effect: OpacityMask {
+        //     maskSource: Rectangle {
+        //         width: buttonBackground.width
+        //         height: buttonBackground.height
+        //         radius: root.buttonEffectiveRadius
+        //     }
+        // }
 
         Item {
             id: ripple
