@@ -14,14 +14,66 @@
   # Import animations configuration
   animations = import ./animations.nix;
 in {
+  # Script files
+  home.file = {
+    ".config/hypr/hyprland/scripts/start_geoclue_agent.sh" = {
+      source = ./scripts/start_geoclue_agent.sh;
+      executable = true;
+    };
+    ".config/hypr/hyprland/scripts/fuzzel-emoji.sh" = {
+      source = ./scripts/fuzzel-emoji.sh;
+      executable = true;
+    };
+    ".config/hypr/hyprland/scripts/record.sh" = {
+      source = ./scripts/record.sh;
+      executable = true;
+    };
+  };
+  
   # Hyprland-related packages
   home.packages = with pkgs; [
-    wofi # application launcher
-    grimblast # screenshot tool
-    waybar # status bar
-    wl-clipboard # clipboard utilities
-    swww # wallpaper daemon
-    kdePackages.dolphin # file manager
+    # Launchers
+    fuzzel # Primary launcher/picker
+    wofi # Backup launcher
+    
+    # Screenshot & recording
+    hyprshot # Advanced screenshot tool
+    grimblast # Backup screenshot tool
+    grim # Basic screenshot
+    slurp # Region selector
+    tesseract # OCR
+    wf-recorder # Screen recording
+    
+    # Clipboard & color
+    cliphist # Clipboard history
+    wl-clipboard # Clipboard utilities
+    hyprpicker # Color picker
+    
+    # Wallpaper & display
+    swww # Wallpaper daemon
+    gammastep # Color temperature
+    geoclue2 # Location for gammastep
+    brightnessctl # Brightness control
+    
+    # Lock & idle
+    hypridle # Idle daemon
+    hyprlock # Lock screen
+    
+    # Session
+    wlogout # Power menu
+    
+    # File manager
+    kdePackages.dolphin
+    
+    # Authentication
+    polkit-kde-agent
+    
+    # Fonts and cursors
+    bibata-cursors # Cursor theme
+    noto-fonts-emoji # Emoji font
+    
+    # Utilities
+    libnotify # For notify-send
   ];
 
   # Hyprland home configuration
@@ -48,80 +100,124 @@ in {
       "$terminal" = "kitty";
       "$menu" = "wofi --show drun";
 
+      # CRITICAL: Global submap for dots-hyprland compatibility
+      exec = "hyprctl dispatch submap global";
+      submap = "global";
+      
       # Import bindings from binds.nix
       bind = lib.mapAttrsToList (key: value: "${key}, ${value}") binds.bind;
       bindm = lib.mapAttrsToList (key: value: "${key}, ${value}") binds.bindm;
       binde = lib.mapAttrsToList (key: value: "${key}, ${value}") binds.binde;
+      bindl = lib.mapAttrsToList (key: value: "${key}, ${value}") (binds.bindl or {});
 
-      # Basic appearance
+      # General appearance from dots-hyprland
       general = {
-        gaps_in = 8;
-        gaps_out = 18;
-        border_size = 3;
-        # Blue holographic theme (original)
-        # "col.active_border" = "rgba(ff00ffee) rgba(00ffffff) rgba(ff00aaee) rgba(7700ffee) rgba(00eeffee) 45deg";
-        # "col.inactive_border" = "rgba(ff00ff44)";
-
-        # Orange holographic theme (commented)
-        # "col.active_border" = "rgba(ff4500ff) rgba(ffee00ff) rgba(ff1493ff) rgba(ff6b00ff) rgba(ffd700ff) 45deg";
-        # "col.inactive_border" = "rgba(ff450033)";
-
-        # Material You 3 cyan/teal theme with enhanced variance
-        "col.active_border" = "rgba(5eead4ff) rgba(d8709aff) rgba(2dd4bfff) rgba(c084fcff) rgba(38bdf8ff) rgba(34d399ff) rgba(f4b8ccff) rgba(7dd3c0ff) 270deg";
-        "col.inactive_border" = "rgba(00000000)";
-        layout = "dwindle";
+        gaps_in = 4;
+        gaps_out = 5;
+        gaps_workspaces = 50;
+        border_size = 1;
+        "col.active_border" = "rgba(0DB7D4FF)";
+        "col.inactive_border" = "rgba(31313600)";
         resize_on_border = true;
-        extend_border_grab_area = 15;
-        hover_icon_on_border = false;
+        no_focus_fallback = true;
+        allow_tearing = true; # This just allows the immediate window rule to work
+        
+        snap = {
+          enabled = true;
+        };
+        
+        layout = "dwindle";
       };
 
       decoration = {
-        rounding = 20;
-        # rounding_power = 0.1;
+        rounding = 18;
+        
         blur = {
           enabled = true;
           xray = true;
-          size = 8;
+          special = false;
+          new_optimizations = true;
+          size = 14;
           passes = 3;
-          new_optimizations = "on";
+          brightness = 1;
           noise = 0.01;
-          contrast = 0.9;
-          brightness = 0.8;
+          contrast = 1;
           popups = true;
+          popups_ignorealpha = 0.6;
         };
+        
         shadow = {
-          enabled = false;
-          range = 25; # Increased for active window emphasis
-          render_power = 3; # Balanced shadow strength
-          color = "rgba(7dd3c055)"; # Teal shadow with lower opacity
-          # offset = "0 5"; # Slight downward offset for depth
-          scale = 1.0;
+          enabled = true;
+          ignore_window = true;
+          range = 30;
+          offset = [0, 2];
+          render_power = 4;
+          color = "rgba(00000010)";
         };
-        # drop_shadow = true;
-        # shadow_range = 4;
-        # shadow_render_power = 3;
-        # col.shadow = "rgba(1a1a1aee)";
+        
+        # Dim inactive windows
+        dim_inactive = true;
+        dim_strength = 0.025;
+        dim_special = 0.07;
       };
 
       animations = animations;
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
+        smart_split = false;
+        smart_resizing = false;
       };
 
       input = {
         kb_layout = "us";
+        numlock_by_default = true;
+        repeat_delay = 250;
+        repeat_rate = 35;
+        
         follow_mouse = 1;
+        
         touchpad = {
           natural_scroll = true;
+          disable_while_typing = true;
+          clickfinger_behavior = true;
+          scroll_factor = 0.5;
         };
+        
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
       };
 
       gestures = {
         workspace_swipe = true;
+        workspace_swipe_distance = 700;
         workspace_swipe_fingers = 3;
+        workspace_swipe_min_fingers = true;
+        workspace_swipe_cancel_ratio = 0.2;
+        workspace_swipe_min_speed_to_force = 5;
+        workspace_swipe_direction_lock = true;
+        workspace_swipe_direction_lock_threshold = 10;
+        workspace_swipe_create_new = true;
+      };
+
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        vfr = 1;
+        vrr = 1;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        animate_manual_resizes = false;
+        animate_mouse_windowdragging = false;
+        enable_swallow = false;
+        swallow_regex = "(foot|kitty|allacritty|Alacritty)";
+        new_window_takes_over_fullscreen = 2;
+        allow_session_lock_restore = true;
+        initial_workspace_tracking = false;
+        focus_on_activate = true;
+      };
+      
+      binds = {
+        scroll_event_delay = 0;
       };
 
       xwayland = {
@@ -130,6 +226,9 @@ in {
 
       cursor = {
         inactive_timeout = 5;
+        hide_on_key_press = true;
+        hide_on_touch = true;
+        default_monitor = "";
       };
 
       windowrulev2 = [
@@ -193,10 +292,34 @@ in {
         "10, monitor:DP-1"
       ];
 
-      # Autostart applications
+      # Autostart applications from dots-hyprland
       exec-once = [
-        # "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts" # Start AGS bar
-        # "swww-daemon" # Wallpaper daemon
+        # Wallpaper daemon and initial wallpaper
+        "swww-daemon --format xrgb --no-cache"
+        "sleep 0.5; mkdir -p ~/.config/wallpapers && [ -f ~/.config/wallpapers/default.jpg ] && swww img ~/.config/wallpapers/default.jpg --transition-step 100 --transition-fps 120 --transition-type grow --transition-angle 30 --transition-duration 1"
+        
+        # Color temperature
+        "~/.config/hypr/hyprland/scripts/start_geoclue_agent.sh & gammastep"
+        
+        # Core components
+        "gnome-keyring-daemon --start --components=secrets"
+        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+        "hypridle"
+        "dbus-update-activation-environment --all"
+        "sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        
+        # Clipboard history
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
+        
+        # Set cursor theme
+        "hyprctl setcursor Bibata-Modern-Classic 24"
+        
+        # Start AGS if enabled
+        # "cd ${config.home.homeDirectory}/.dotfiles/modules/wm/ags/config && ags run --gtk4 ./app.ts"
+        
+        # Quickshell will be started here later
+        # "qs &"
       ];
     };
   };
