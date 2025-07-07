@@ -7,7 +7,7 @@ import "root:/modules/bar/weather"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-// import Qt5Compat.GraphicalEffects // TODO: Fix Qt5Compat support
+import Qt5Compat.GraphicalEffects
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
@@ -206,11 +206,11 @@ Scope {
                                     source: Config.options.bar.topLeftIcon == 'distro' ? SystemInfo.distroIcon : "spark-symbolic"
                                 }
 
-                                // ColorOverlay {
-                                //     anchors.fill: distroIcon
-                                //     source: distroIcon
-                                //     color: Appearance.colors.colOnLayer0
-                                // }
+                                ColorOverlay {
+                                    anchors.fill: distroIcon
+                                    source: distroIcon
+                                    color: Appearance.colors.colOnLayer0
+                                }
                             }
 
                             ActiveWindow {

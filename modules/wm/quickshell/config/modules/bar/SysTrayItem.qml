@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
-// import Qt5Compat.GraphicalEffects // TODO: Fix Qt5Compat support
+import Qt5Compat.GraphicalEffects
 
 MouseArea {
     id: root

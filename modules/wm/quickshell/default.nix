@@ -4,13 +4,21 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  quickshellPackage = inputs.quickshell.packages.${pkgs.system}.default;
+in {
+  # Set up Qt plugin paths for quickshell
+  home.sessionVariables = {
+    QT_PLUGIN_PATH = "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtPluginPrefix}:${pkgs.kdePackages.qtbase}/${pkgs.qt6.qtbase.qtPluginPrefix}";
+    QML2_IMPORT_PATH = "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}";
+  };
+  
   # Quickshell package and basic configuration
   home.packages = with pkgs; [
-    inputs.quickshell.packages.${pkgs.system}.default # Quickshell from flake input
+    quickshellPackage # Quickshell from flake input
     
     # Qt dependencies
-    qt5.qtgraphicaleffects # For Qt5Compat.GraphicalEffects
+    kdePackages.qt5compat # Qt5Compat module for Qt6
     
     # Dependencies that quickshell widgets might need
     translate-shell # For translator widget
