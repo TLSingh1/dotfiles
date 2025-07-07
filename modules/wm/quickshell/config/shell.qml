@@ -6,19 +6,20 @@
 //@ pragma Env QT_SCALE_FACTOR=1
 
 import "./modules/common/"
-import "./modules/backgroundWidgets/"
-import "./modules/bar/"
-import "./modules/cheatsheet/"
-import "./modules/dock/"
-import "./modules/mediaControls/"
-import "./modules/notificationPopup/"
-import "./modules/onScreenDisplay/"
-import "./modules/onScreenKeyboard/"
-import "./modules/overview/"
-import "./modules/screenCorners/"
-import "./modules/session/"
-import "./modules/sidebarLeft/"
-import "./modules/sidebarRight/"
+// Commented out until we copy these modules
+// import "./modules/backgroundWidgets/"
+// import "./modules/bar/"
+// import "./modules/cheatsheet/"
+// import "./modules/dock/"
+// import "./modules/mediaControls/"
+// import "./modules/notificationPopup/"
+// import "./modules/onScreenDisplay/"
+// import "./modules/onScreenKeyboard/"
+// import "./modules/overview/"
+// import "./modules/screenCorners/"
+// import "./modules/session/"
+// import "./modules/sidebarLeft/"
+// import "./modules/sidebarRight/"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -48,24 +49,25 @@ ShellRoot {
     // Force initialization of some singletons
     Component.onCompleted: {
         MaterialThemeLoader.reapplyTheme()
-        Cliphist.refresh()
+        // Cliphist.refresh() // Disabled until we verify cliphist is working
         FirstRunExperience.load()
     }
 
-    LazyLoader { active: enableBar; component: Bar {} }
-    LazyLoader { active: enableBackgroundWidgets; component: BackgroundWidgets {} }
-    LazyLoader { active: enableCheatsheet; component: Cheatsheet {} }
-    LazyLoader { active: enableDock && Config.options.dock.enable; component: Dock {} }
-    LazyLoader { active: enableMediaControls; component: MediaControls {} }
-    LazyLoader { active: enableNotificationPopup; component: NotificationPopup {} }
-    LazyLoader { active: enableOnScreenDisplayBrightness; component: OnScreenDisplayBrightness {} }
-    LazyLoader { active: enableOnScreenDisplayVolume; component: OnScreenDisplayVolume {} }
-    LazyLoader { active: enableOnScreenKeyboard; component: OnScreenKeyboard {} }
-    LazyLoader { active: enableOverview; component: Overview {} }
-    LazyLoader { active: enableReloadPopup; component: ReloadPopup {} }
-    LazyLoader { active: enableScreenCorners; component: ScreenCorners {} }
-    LazyLoader { active: enableSession; component: Session {} }
-    LazyLoader { active: enableSidebarLeft; component: SidebarLeft {} }
-    LazyLoader { active: enableSidebarRight; component: SidebarRight {} }
+    // Components will be enabled as we add them
+    // LazyLoader { active: enableBar; component: Bar {} }
+    // LazyLoader { active: enableBackgroundWidgets; component: BackgroundWidgets {} }
+    // LazyLoader { active: enableCheatsheet; component: Cheatsheet {} }
+    // LazyLoader { active: enableDock && Config.options.dock.enable; component: Dock {} }
+    // LazyLoader { active: enableMediaControls; component: MediaControls {} }
+    // LazyLoader { active: enableNotificationPopup; component: NotificationPopup {} }
+    // LazyLoader { active: enableOnScreenDisplayBrightness; component: OnScreenDisplayBrightness {} }
+    // LazyLoader { active: enableOnScreenDisplayVolume; component: OnScreenDisplayVolume {} }
+    // LazyLoader { active: enableOnScreenKeyboard; component: OnScreenKeyboard {} }
+    // LazyLoader { active: enableOverview; component: Overview {} }
+    // LazyLoader { active: enableReloadPopup; component: ReloadPopup {} }
+    // LazyLoader { active: enableScreenCorners; component: ScreenCorners {} }
+    // LazyLoader { active: enableSession; component: Session {} }
+    // LazyLoader { active: enableSidebarLeft; component: SidebarLeft {} }
+    // LazyLoader { active: enableSidebarRight; component: SidebarRight {} }
 }
 
