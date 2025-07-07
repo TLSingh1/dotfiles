@@ -27,6 +27,7 @@ in {
       ../../modules/wm/hyprland/home.nix
       ../../modules/wm/ags
       # ../../modules/wm/quickshell  # Disabled
+      ../../modules/wm/marble
       ../../modules/wm/dunst
       ../../modules/tui/nvim
       ../../modules/tui/kitty
