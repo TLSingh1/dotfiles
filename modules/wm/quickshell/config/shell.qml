@@ -8,7 +8,7 @@
 import "./modules/common/"
 // Commented out until we copy these modules
 // import "./modules/backgroundWidgets/"
-// import "./modules/bar/"
+import "./modules/bar/"
 // import "./modules/cheatsheet/"
 // import "./modules/dock/"
 // import "./modules/mediaControls/"
@@ -30,7 +30,7 @@ import "./services/"
 ShellRoot {
     // Enable/disable modules here. False = not loaded at all, so rest assured
     // no unnecessary stuff will take up memory if you decide to only use, say, the overview.
-    property bool enableBar: false // Will enable after we set it up
+    property bool enableBar: true // Enable the bar
     property bool enableBackgroundWidgets: false
     property bool enableCheatsheet: false
     property bool enableDock: false
@@ -54,7 +54,7 @@ ShellRoot {
     }
 
     // Components will be enabled as we add them
-    // LazyLoader { active: enableBar; component: Bar {} }
+    LazyLoader { active: enableBar; component: Bar {} }
     // LazyLoader { active: enableBackgroundWidgets; component: BackgroundWidgets {} }
     // LazyLoader { active: enableCheatsheet; component: Cheatsheet {} }
     // LazyLoader { active: enableDock && Config.options.dock.enable; component: Dock {} }
