@@ -66,7 +66,7 @@ in {
     kdePackages.dolphin
     
     # Authentication
-    polkit-kde-agent
+    kdePackages.polkit-kde-agent-1
     
     # Fonts and cursors
     bibata-cursors # Cursor theme
@@ -150,7 +150,7 @@ in {
           enabled = true;
           ignore_window = true;
           range = 30;
-          offset = [0, 2];
+          offset = "0 2";
           render_power = 4;
           color = "rgba(00000010)";
         };
@@ -303,7 +303,7 @@ in {
         
         # Core components
         "gnome-keyring-daemon --start --components=secrets"
-        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+        "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
         "hypridle"
         "dbus-update-activation-environment --all"
         "sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
