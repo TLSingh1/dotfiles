@@ -71,6 +71,7 @@ in {
     # Fonts and cursors
     bibata-cursors # Cursor theme
     noto-fonts-emoji # Emoji font
+    material-symbols # Material Design icon font
     
     # Icon themes
     hicolor-icon-theme

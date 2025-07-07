@@ -9,6 +9,7 @@ import "./modules/common/"
 // Commented out until we copy these modules
 // import "./modules/backgroundWidgets/"
 import "./modules/bar/"
+import "./modules/overview/"
 // import "./modules/cheatsheet/"
 // import "./modules/dock/"
 // import "./modules/mediaControls/"
@@ -39,7 +40,7 @@ ShellRoot {
     property bool enableOnScreenDisplayBrightness: false
     property bool enableOnScreenDisplayVolume: false
     property bool enableOnScreenKeyboard: false
-    property bool enableOverview: false
+    property bool enableOverview: true
     property bool enableReloadPopup: false
     property bool enableScreenCorners: false
     property bool enableSession: false
@@ -63,7 +64,7 @@ ShellRoot {
     // LazyLoader { active: enableOnScreenDisplayBrightness; component: OnScreenDisplayBrightness {} }
     // LazyLoader { active: enableOnScreenDisplayVolume; component: OnScreenDisplayVolume {} }
     // LazyLoader { active: enableOnScreenKeyboard; component: OnScreenKeyboard {} }
-    // LazyLoader { active: enableOverview; component: Overview {} }
+    LazyLoader { active: enableOverview; component: Overview {} }
     // LazyLoader { active: enableReloadPopup; component: ReloadPopup {} }
     // LazyLoader { active: enableScreenCorners; component: ScreenCorners {} }
     // LazyLoader { active: enableSession; component: Session {} }

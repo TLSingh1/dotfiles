@@ -181,7 +181,13 @@ Item {
                             return winArea > maxArea ? win : maxWin
                         }, null)
                     }
-                    property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(biggestWindow?.class), "image-missing")
+                    property var mainAppIconSource: {
+                        const guessedIcon = AppSearch.guessIcon(biggestWindow?.class)
+                        if (guessedIcon === "image-missing") {
+                            return "" // Return empty string to avoid recursive fallback
+                        }
+                        return Quickshell.iconPath(guessedIcon, "image-missing")
+                    }
 
                     StyledText { // Workspace number text
                         opacity: GlobalStates.workspaceShowNumbers
