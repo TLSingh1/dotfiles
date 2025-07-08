@@ -15,7 +15,7 @@
 
     # Sidebar toggles
     "Super, A" = "exec, qs ipc call sidebarLeftToggle 2>/dev/null";
-    "Super, N" = "exec, qs ipc call sidebarRightToggle 2>/dev/null";
+    "Super, N" = "exec, qs ipc call sidebarRight toggle 2>/dev/null";
 
     # Widget toggles
     "Super, Slash" = "exec, qs ipc call cheatsheetToggle 2>/dev/null";

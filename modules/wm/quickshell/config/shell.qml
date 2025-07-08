@@ -10,6 +10,7 @@ import "./modules/common/"
 // import "./modules/backgroundWidgets/"
 import "./modules/bar/"
 import "./modules/overview/"
+import "./modules/sidebarRight/"
 // import "./modules/cheatsheet/"
 // import "./modules/dock/"
 // import "./modules/mediaControls/"
@@ -45,7 +46,7 @@ ShellRoot {
     property bool enableScreenCorners: false
     property bool enableSession: false
     property bool enableSidebarLeft: false
-    property bool enableSidebarRight: false
+    property bool enableSidebarRight: true
 
     // Force initialization of some singletons
     Component.onCompleted: {
@@ -69,6 +70,6 @@ ShellRoot {
     // LazyLoader { active: enableScreenCorners; component: ScreenCorners {} }
     // LazyLoader { active: enableSession; component: Session {} }
     // LazyLoader { active: enableSidebarLeft; component: SidebarLeft {} }
-    // LazyLoader { active: enableSidebarRight; component: SidebarRight {} }
+    LazyLoader { active: enableSidebarRight; component: SidebarRight {} }
 }
 
