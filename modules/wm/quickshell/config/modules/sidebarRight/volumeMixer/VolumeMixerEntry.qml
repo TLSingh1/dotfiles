@@ -48,8 +48,16 @@ Item {
                     sourceSize.height: size
                     source: {
                         let icon;
-                        icon = AppSearch.guessIcon(root.node.properties["application.icon-name"]);
+                        // First try the icon name
+                        let iconName = root.node.properties["application.icon-name"];
+                        // Handle Spotify's custom icon path
+                        if (iconName && iconName.includes("spotify")) {
+                            icon = "spotify";
+                        } else {
+                            icon = AppSearch.guessIcon(iconName);
+                        }
                         if (AppSearch.iconExists(icon)) return Quickshell.iconPath(icon, "image-missing");
+                        // Fallback to guessing from node name
                         icon = AppSearch.guessIcon(root.node.properties["node.name"]);
                         return Quickshell.iconPath(icon, "image-missing");
                     }

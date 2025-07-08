@@ -76,6 +76,7 @@ in {
     # Icon themes
     hicolor-icon-theme
     kdePackages.breeze-icons
+    papirus-icon-theme # Includes Spotify and many app icons
     
     # Utilities
     libnotify # For notify-send
