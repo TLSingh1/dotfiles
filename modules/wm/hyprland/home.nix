@@ -76,7 +76,9 @@ in {
     # Icon themes
     hicolor-icon-theme
     kdePackages.breeze-icons
-    papirus-icon-theme # Includes Spotify and many app icons
+    (papirus-icon-theme.overrideAttrs (oldAttrs: {
+      meta = oldAttrs.meta // { priority = 9; }; # Higher priority than breeze
+    }))
     
     # Utilities
     libnotify # For notify-send
