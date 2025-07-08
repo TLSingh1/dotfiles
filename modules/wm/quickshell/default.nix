@@ -13,9 +13,9 @@
   } ''
     mkdir -p $out/bin
     makeWrapper ${quickshellPackage}/bin/qs $out/bin/qs \
-      --prefix QT_PLUGIN_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtPluginPrefix}" \
-      --prefix QML2_IMPORT_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}" \
-      --prefix QML_IMPORT_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}"
+      --prefix QT_PLUGIN_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtPluginPrefix}:${pkgs.kdePackages.qtpositioning}/${pkgs.qt6.qtbase.qtPluginPrefix}" \
+      --prefix QML2_IMPORT_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}:${pkgs.kdePackages.qtpositioning}/${pkgs.qt6.qtbase.qtQmlPrefix}" \
+      --prefix QML_IMPORT_PATH : "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}:${pkgs.kdePackages.qtpositioning}/${pkgs.qt6.qtbase.qtQmlPrefix}"
   '';
 in {
   # Quickshell package and basic configuration
@@ -25,6 +25,7 @@ in {
     # Qt dependencies  
     kdePackages.qt5compat # Qt5Compat module for Qt6
     kdePackages.qtshadertools # Required for Qt6.4+ graphical effects
+    kdePackages.qtpositioning # Required for GPS/location services
     
     # Dependencies that quickshell widgets might need
     translate-shell # For translator widget

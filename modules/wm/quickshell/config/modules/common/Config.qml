@@ -126,8 +126,8 @@ Singleton {
                 }
                 property JsonObject weather: JsonObject {
                     property bool enable: true
-                    property bool enableGPS: true // gps based location
-                    property string city: "San Francisco" // When 'enableGPS' is false
+                    property bool enableGPS: false // gps based location
+                    property string city: "Vancouver Canada" // When 'enableGPS' is false
                     property bool useUSCS: false // Instead of metric (SI) units
                     property int fetchInterval: 10 // minutes
                 }
